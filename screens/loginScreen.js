@@ -17,7 +17,7 @@ class LoginScreen extends React.Component{
         <TextInput style={styles.textInput} placeholder="Password" placeholderTextColor="#333" secureTextEntry={true}/>
         </View>
 
-        <TouchableOpacity style={styles.signinBtn}>
+        <TouchableOpacity style={styles.signinBtn} onPress={()=>this.props.navigation.navigate('App')}>
         <Text style={styles.signinText}>SING IN</Text>
         </TouchableOpacity>
         </View>

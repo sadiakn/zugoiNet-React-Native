@@ -1,14 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import LoginScreen from './screens/loginScreen';
-import DashboardScreen from './screens/dashboardScreen';
-import AuthLoadingScreen from './screens/authLoadingScreen';
+import AppContainer from './routes';
+
 const App = () => {
-  return(
-    //<LoginScreen/>
-    //<DashboardScreen/>
-    <AuthLoadingScreen/>
+  return( 
+    <AppContainer/>
   );
 };
 export default App;
