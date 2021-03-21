@@ -7,9 +7,7 @@ import AuthLoadingScreen from './screens/authLoadingScreen';
 const App = () => {
   return(
     //<LoginScreen/>
-
     //<DashboardScreen/>
-    
     <AuthLoadingScreen/>
   );
 };
