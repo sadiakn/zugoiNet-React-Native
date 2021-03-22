@@ -1,13 +1,24 @@
 import React from 'react';
 import { StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import asyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 class  DashboardScreen extends React.Component{
+ doLogout(){
+     AsyncStorage.removeItem("token")
+     .then(
+         res =>{
+            this.props.navigation.navigate('Auth')
+         }
+     )
+ }
     render(){
         return(
         <View style={styles.container}>
         <View style={styles.dashboardWrapper}>
         <Text style={styles.userText}> hey user</Text>
-        <TouchableOpacity style={styles.logouBtn} onPress={()=>this.props.navigation.navigate('Auth')}>
+        <TouchableOpacity style={styles.logouBtn} onPress={()=>this.doLogout()}>
          <Text style={styles.logouBtnText}>Logout</Text>   
         </TouchableOpacity>
         </View>

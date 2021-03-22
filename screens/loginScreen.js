@@ -15,31 +15,35 @@ class LoginScreen extends React.Component{
         })
     }
     doLogin(){
-        const {username,password} = this.state;
-        if(username & password){
-            const req={
+    const {username,password} = this.state;
+    if(username && password){
+            const req = {
                 "email": username,
                 "password": password        
             }
         this.setState({
             loading:true
         })
-        axios.post("https://regres.in/api/login", req)
+        axios.post("https://reqres.in/api/login", req)
         .then(
             res => {
                 this.setState({
                     loading:false
                 })
-                this.props.navigation.navigate('App');
-                alert("Login,Successfull");
-            },
+                AsyncStorage.setItem("token",res)
+                .then(
+                    res =>{
+                        this.props.navigation.navigate('App');
+                        alert("Login,Successfull");
+                    });s
+               },
             err => {
                 this.setState({
                     loading:false
                 })
                 alert("username or password is wrong");  
             }
-            )
+        )
     }
     else{
         alert("Enter username & password");

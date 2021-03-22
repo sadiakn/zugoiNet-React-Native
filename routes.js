@@ -31,7 +31,7 @@ import AuthLoadingScreen from './screens/authLoadingScreen';
         },
             {
                 HeaderMode:"none",
-                initialRouteName:"Auth"
+                initialRouteName:"AuthLoadingScreen"
             })
 
 export default createAppContainer (AppNavigator);
