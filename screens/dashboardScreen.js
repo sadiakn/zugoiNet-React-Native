@@ -7,7 +7,7 @@ class  DashboardScreen extends React.Component{
         <View style={styles.container}>
         <View style={styles.dashboardWrapper}>
         <Text style={styles.userText}> hey user</Text>
-        <TouchableOpacity style={styles.logouBtn}>
+        <TouchableOpacity style={styles.logouBtn} onPress={()=>this.props.navigation.navigate('Auth')}>
          <Text style={styles.logouBtnText}>Logout</Text>   
         </TouchableOpacity>
         </View>
