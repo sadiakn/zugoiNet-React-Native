@@ -7,7 +7,7 @@ class  AuthLoadingScreen extends React.Component{
         super();
         this.checkToken();
     }
-    checkToken = async( )=>{
+    checkToken = async() => {
         const token = await AsyncStorage.getItem("token");
         if(token) {
             this.props.navigation.navigate("App");

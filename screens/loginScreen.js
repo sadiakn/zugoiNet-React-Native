@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View,TouchableOpacity} from 'react-native';
 import axios from 'axios';
-import asyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class LoginScreen extends React.Component{
     state = {
@@ -30,12 +30,12 @@ class LoginScreen extends React.Component{
                 this.setState({
                     loading:false
                 })
-                AsyncStorage.setItem("token",res)
+                AsyncStorage.setItem("token", res.data.token)
                 .then(
-                    res =>{
+                    res => {
                         this.props.navigation.navigate('App');
                         alert("Login,Successfull");
-                    });s
+                    });
                },
             err => {
                 this.setState({
