@@ -1,8 +1,52 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View,TouchableOpacity} from 'react-native';
+import axios from 'axios';
+import asyncStorage from '@react-native-community/async-storage';
 
 class LoginScreen extends React.Component{
+    state = {
+        username:"",
+        password:"",
+        loading:false
+    }
+    onChangeHandle(state, value){
+        this.setState({
+            [state]:value 
+        })
+    }
+    doLogin(){
+        const {username,password} = this.state;
+        if(username & password){
+            const req={
+                "email": username,
+                "password": password        
+            }
+        this.setState({
+            loading:true
+        })
+        axios.post("https://regres.in/api/login", req)
+        .then(
+            res => {
+                this.setState({
+                    loading:false
+                })
+                this.props.navigation.navigate('App');
+                alert("Login,Successfull");
+            },
+            err => {
+                this.setState({
+                    loading:false
+                })
+                alert("username or password is wrong");  
+            }
+            )
+    }
+    else{
+        alert("Enter username & password");
+    }
+    }
     render(){
+        const {username,password,loading} = this.state;
         return(
         <View style={styles.container}>
         <View style={styles.formWrapper}>
@@ -10,15 +54,35 @@ class LoginScreen extends React.Component{
 
 
         <View style={styles.formRow}>
-        <TextInput style={styles.textInput} placeholder="User" placeholderTextColor="#333"/>
+        <TextInput style={styles.textInput}
+        placeholder=" Enter User"
+        placeholderTextColor="#333"
+        value={username} 
+        onChangeText={(value) => this.onChangeHandle('username', value)}    
+        />
+        
         </View>
 
         <View style={styles.formRow}>
-        <TextInput style={styles.textInput} placeholder="Password" placeholderTextColor="#333" secureTextEntry={true}/>
+        <TextInput style={styles.textInput}
+        placeholder="Enter Password"
+        placeholderTextColor="#333"
+        secureTextEntry={true}
+        value={password}
+        onChangeText={(value) => this.onChangeHandle('password', value)}
+        />
         </View>
 
-        <TouchableOpacity style={styles.signinBtn} onPress={()=>this.props.navigation.navigate('App')}>
-        <Text style={styles.signinText}>SING IN</Text>
+        <TouchableOpacity
+        activeOpacity={0.8}
+        style={{...styles.signinBtn,
+        backgroundColor: loading ? "#ddd": "blue"
+        }}
+        onPress={()=>this.doLogin()}
+        disables={loading}>
+        <Text style={styles.signinText}>
+        {loading ? "Loading...": "SING IN"}
+        </Text>
         </TouchableOpacity>
         </View>
         </View>
@@ -53,7 +117,6 @@ const styles = StyleSheet.create({
         fontWeight:"bold"
     },
     signinBtn:{
-        backgroundColor:"blue",
         paddingVertical: 10 
     },
     signinText:{
