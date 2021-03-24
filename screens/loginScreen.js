@@ -54,40 +54,45 @@ class LoginScreen extends React.Component{
         return(
         <View style={styles.container}>
         <View style={styles.formWrapper}>
-        <Text style={styles.welcomeText}>WELCOME</Text>
-
+        <Text style={styles.welcomeText}>Ingresar a tu cuenta</Text>
+        <View style={{justifyContent:"center",alignItems: 'center'}}><View style={styles.borderLine}></View></View>
 
         <View style={styles.formRow}>
         <TextInput style={styles.textInput}
-        placeholder=" Enter User"
+        placeholder="Correo Electrónico"
         placeholderTextColor="#333"
         value={username} 
         onChangeText={(value) => this.onChangeHandle('username', value)}    
         />
-        
         </View>
-
+        <View></View>
         <View style={styles.formRow}>
         <TextInput style={styles.textInput}
-        placeholder="Enter Password"
+        placeholder="Contraseña"
         placeholderTextColor="#333"
         secureTextEntry={true}
         value={password}
         onChangeText={(value) => this.onChangeHandle('password', value)}
         />
         </View>
-
+        <View></View>
+        <View style={{justifyContent:"center",alignItems: 'center'}}>
         <TouchableOpacity
         activeOpacity={0.8}
         style={{...styles.signinBtn,
-        backgroundColor: loading ? "#ddd": "blue"
+        backgroundColor: loading ? "#FFF8F5": "#EE712E"
         }}
         onPress={()=>this.doLogin()}
         disables={loading}>
         <Text style={styles.signinText}>
-        {loading ? "Loading...": "SING IN"}
+        {loading ? "Loading...": "Iniciar sesión"}
         </Text>
         </TouchableOpacity>
+        <Text /*onPress={() => Linking.openURL('')}*/>
+        Crear una cuenta
+        </Text>
+        </View>
+   
         </View>
         </View>
         )
@@ -109,24 +114,43 @@ const styles = StyleSheet.create({
         marginBottom:10
     },
     textInput:{
-        backgroundColor:"#ddd",
+        marginBottom:15,
+        paddingVertical: 10,
+        backgroundColor:"#FFFFFF",
         height:40,
         paddingHorizontal:10,
-        color:"#333"
+        color:"#333",
+        borderRadius:0,
+        borderWidth:1,
+        borderColor:"black"
+        
     },
     welcomeText:{
         textAlign:'center',
-        marginBottom:20,
         fontSize:24,
-        fontWeight:"bold"
+       
+        
     },
     signinBtn:{
-        paddingVertical: 10 
+        marginTop:30,
+        paddingVertical: 10 ,
+        borderRadius:20,
+        width:"60%"
+        
     },
     signinText:{
         textAlign:"center",
         color:'#fff',
         fontSize:18,
         fontWeight:"bold"
+    },
+    borderLine:{
+        borderWidth: 0.5,
+        borderColor:"#EE712E",
+        marginBottom:50,
+        marginTop:20,
+        paddingHorizontal:10,
+        width:"50%",
+        
     }
 })
