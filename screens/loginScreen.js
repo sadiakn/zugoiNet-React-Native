@@ -34,7 +34,7 @@ class LoginScreen extends React.Component{
                 .then(
                     res => {
                         this.props.navigation.navigate('App');
-                        alert("Login,Successfull");
+                        //alert("Login,Successfull");
                     });
                },
             err => {
