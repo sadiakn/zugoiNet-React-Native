@@ -30,7 +30,7 @@ class DashboardScreen extends React.Component {
                 </View>
 
                 <View style={{ flexDirection: "row" }}>
-                    <View>
+                    <View style={styles.imgbtncontainer}>
                         <TouchableOpacity style={styles.dashboardBTn} title="barcode">
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={barcodeimg} style={styles.buttonimage} /></View>
                             <Text style={styles.dashboardBTnText}>Barcode</Text>
@@ -38,9 +38,9 @@ class DashboardScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    <View>
+                    <View style={styles.imgbtncontainer}>
                         <TouchableOpacity style={styles.dashboardBTn} title="barcode">
-                            <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={editimg} style={styles.buttonimage2} /></View>
+                            <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={editimg} style={styles.buttonimage} /></View>
                             <Text style={styles.dashboardBTnText}>Registrar</Text>
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
                         </TouchableOpacity>
@@ -102,14 +102,17 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold"
     },
+
     buttonimage: {
-        width: 130,
-        height: 120
-    },
-    buttonimage2: {
         width: 120,
         height: 120
     },
+
+    imgbtncontainer: {
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+    },
+
     dashboardBTn: {
         backgroundColor: "#fff8f5",
         paddingVertical: 10,
