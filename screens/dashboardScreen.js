@@ -31,7 +31,7 @@ class DashboardScreen extends React.Component {
 
                 <View style={{ flexDirection: "row" }}>
                     <View style={styles.imgbtncontainer}>
-                        <TouchableOpacity style={styles.dashboardBTn} title="barcode">
+                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => this.props.navigation.navigate('Scan')}>
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={barcodeimg} style={styles.buttonimage} /></View>
                             <Text style={styles.dashboardBTnText}>Barcode</Text>
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
@@ -39,7 +39,7 @@ class DashboardScreen extends React.Component {
                     </View>
 
                     <View style={styles.imgbtncontainer}>
-                        <TouchableOpacity style={styles.dashboardBTn} title="barcode">
+                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => this.props.navigation.navigate('RegP')}>
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={editimg} style={styles.buttonimage} /></View>
                             <Text style={styles.dashboardBTnText}>Registrar</Text>
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>

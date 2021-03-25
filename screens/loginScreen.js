@@ -88,7 +88,7 @@ class LoginScreen extends React.Component{
         {loading ? "Loading...": "Iniciar sesión"}
         </Text>
         </TouchableOpacity>
-        <Text /*onPress={() => Linking.openURL('')}*/>
+        <Text onPress={() => this.props.navigation.navigate('RegU')}>
         Crear una cuenta
         </Text>
         </View>

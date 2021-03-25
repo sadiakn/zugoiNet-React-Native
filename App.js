@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import AppContainer from './routes';
+import ApContainer from './routes';
 
 const App = () => {
   return( 
-    <AppContainer/>
+    <ApContainer/>
   );
 };
 export default App;
