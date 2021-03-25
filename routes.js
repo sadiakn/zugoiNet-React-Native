@@ -4,34 +4,31 @@ import LoginScreen from './screens/loginScreen';
 import DashboardScreen from './screens/dashboardScreen';
 import AuthLoadingScreen from './screens/authLoadingScreen';
 
-    const BeforeSignin =  createStackNavigator({
-        Login:{
-        screen:LoginScreen
-        }
-    },
-        {
-            HeaderMode:"none",
-            initialRouteName:"Login"
-        })
+const BeforeSignin =  createStackNavigator({
+    Login:{
+    screen: LoginScreen
+    }
+}, {
+    headerMode: "none",
+    initialRouteName: "Login"
+})
 
-    const AfterSignin =  createStackNavigator({
-        Dashboard:{
-            screen:DashboardScreen
-        }
-    },
-        {
-            HeaderMode:"none",
-            initialRouteName:"Dashboard"
-        })
+const AfterSignin =  createStackNavigator({
+    Dashboard:{
+        screen: DashboardScreen
+    }
+}, {
+    headerMode:"none",
+    initialRouteName:"Dashboard"
+})
 
-        const AppNavigator =  createStackNavigator({
-            Auth: BeforeSignin,
-            App:AfterSignin,
-            AuthLoadingScreen:AuthLoadingScreen
-        },
-            {
-                HeaderMode:"none",
-                initialRouteName:"AuthLoadingScreen"
-            })
+const AppNavigator =  createStackNavigator({
+    Auth: BeforeSignin,
+    App: AfterSignin,
+    AuthLoadingScreen: AuthLoadingScreen
+},  {
+        headerMode: "none",
+        initialRouteName: "AuthLoadingScreen"
+})
 
 export default createAppContainer (AppNavigator);
