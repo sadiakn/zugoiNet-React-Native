@@ -4,14 +4,15 @@ import LoginScreen from './screens/loginScreen';
 import DashboardScreen from './screens/dashboardScreen';
 import AuthLoadingScreen from './screens/authLoadingScreen';
 import RegisterUser from './screens/registerUser';
+import RegisterUser2 from './screens/registerUser2';
 import RegisterProduct from './screens/registerProduct';
 import Scanner from './screens/scanner';
 
-// // TEMP MAIN
+// TEMP MAIN
 // const BeforeSignin =  createStackNavigator({
 //     Login:{
 //                 /*vvvvvvvvvvvvvvvvvvvvvvvvv*/
-//     /*>>>>>>>>>>>*/ screen: RegisterUser  /*<<<<<<<<<<< Cambiar por ventana que se desea ver primero*/
+//     /*>>>>>>>>>>>*/ screen: RegisterProduct  /*<<<<<<<<<<< Cambiar por ventana que se desea ver primero*/
 //                 /*^^^^^^^^^^^^^^^^^^^^^^^^^*/
 //     }
 // }, {
@@ -46,6 +47,7 @@ const AppNavigator =  createStackNavigator({
     App: AfterSignin,
     AuthLoadingScreen: AuthLoadingScreen,
     RegU: { screen: RegisterUser},
+    RegU2: { screen: RegisterUser2},
     RegP: { screen: RegisterProduct},
     Scan: { screen: Scanner}
 },  {

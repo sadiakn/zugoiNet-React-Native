@@ -1,24 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
-
-class registerUser extends React.Component {
+class registerUser2 extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text> Register User Part1</Text>
+                <Text> Register User Part2</Text>
                 <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={()=>this.props.navigation.navigate('RegU2')}>
-                <Text style={styles.BTnText}>Siguiente</Text>
+                onPress={()=>this.props.navigation.navigate('Auth')}>
+                <Text style={styles.BTnText}>Fin</Text>
                 </TouchableOpacity>
             </View>
         )
     }
 }
 
-export default registerUser;
+export default registerUser2;
 
 const styles = StyleSheet.create({
     container: {
