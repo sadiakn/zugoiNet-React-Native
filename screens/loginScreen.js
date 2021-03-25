@@ -79,7 +79,7 @@ class LoginScreen extends React.Component{
         <View style={{justifyContent:"center",alignItems: 'center'}}>
         <TouchableOpacity
         activeOpacity={0.8}
-        style={{...styles.signinBtn,
+        style={{...styles.SignInBtn,
         backgroundColor: loading ? "#FFF8F5": "#EE712E"
         }}
         onPress={()=>this.doLogin()}
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
        
         
     },
-    signinBtn:{
+    SignInBtn:{
         marginTop:30,
         paddingVertical: 10 ,
         borderRadius:20,

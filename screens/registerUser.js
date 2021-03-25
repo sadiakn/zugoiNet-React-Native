@@ -26,51 +26,83 @@ class registerUser extends React.Component {
     render() {
         const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
         return (
-            <View style={styles.container}>
-                <View style={styles.formWrapper}>
-                    <Text style={styles.welcomeText}>Crear una Cuenta</Text>
+            // <View style={styles.container}>
+            //     {/* <View style={styles.formWrapper}> */}
+            //         {/* <Text style={styles.welcomeText}>Crear una Cuenta</Text>
 
-                    <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                    // <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View> */}
+                <View>  
+                    <View style={ { flexDirection: "column",flex:1,padding:20, }}>
 
+                        <View style={{ flexDirection: "row",flex:1,padding:20,}}>
+                            <View style={{ flex: 1, backgroundColor: "darkorange" }}>
 
-                    <View style={styles.imputWrapper}>
-                        <View style={styles.row}>
-                            <TextInput style={styles.textInputSmall}
-                                placeholder="Nombre"
-                                placeholderTextColor="#333"
-                                value={nombre}
-                                onChangeText={(value) => this.onChangeHandle('nombre', value)}
-                            />
-                            <TextInput style={styles.textInputSmall}
-                                placeholder="Apellido"
-                                placeholderTextColor="#333"
-                                value={apellido}
-                                onChangeText={(value) => this.onChangeHandle('apellido', value)}
-                            />
+                            </View>
+                            <View style={{ flex: 1, backgroundColor: "green" }}>
+
+                            </View>
+
                         </View>
-                        <View style={{flex:1}}>
-                            <TextInput style={styles.textInput}
-                                placeholder="Número de Teléfono (Opcional)"
-                                placeholderTextColor="#333"
-                                value={numero}
-                                onChangeText={(value) => this.onChangeHandle('numero', value)}
-                            />
-                        </View>
+                        <View style={{ flex: 1, backgroundColor: "darkorange" }} />
+                        <View style={{ flex: 1, backgroundColor: "green" }} />
+                        <View style={{ flex: 1, backgroundColor: "blue" }} />
                     </View>
+                </View>
+            //         {/* <View style={styles.imputWrapper}>
+            //             <View style={styles.row}>
+            //                 <View style={styles.formRow}>
+            //                     <TextInput style={styles.textInputSmall}
+            //                         placeholder="Nombre"
+            //                         placeholderTextColor="#333"
+            //                         value={nombre}
+            //                         onChangeText={(value) => this.onChangeHandle('nombre', value)}
+            //                     />
+            //                 </View>
 
 
-                </View >
+            //                 <View style={styles.formRow}>
+            //                     <TextInput style={styles.textInputSmall}
+            //                         placeholder="Apellido"
+            //                         placeholderTextColor="#333"
+            //                         value={apellido}
+            //                         onChangeText={(value) => this.onChangeHandle('apellido', value)}
+            //                     />
+            //                 </View>
 
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={styles.btn}
-                    onPress={() => this.props.navigation.navigate('RegU2')}>
-                    <Text style={styles.BTnText}>Siguiente</Text>
-                </TouchableOpacity>
+            //             </View>
+            //             <View style={styles.formRow}>
+            //                 <TextInput style={styles.textInput}
+            //                     placeholder="Número de Teléfono (Opcional)"
+            //                     placeholderTextColor="#333"
+            //                     value={numero}
+            //                     onChangeText={(value) => this.onChangeHandle('numero', value)}
+            //                 />
+            //             </View>
+
+            //             <View style={styles.formRow}>
+
+            //             </View>
+
+
+            //             <View style={styles.formRow}>
+            //                 <TouchableOpacity
+            //                     activeOpacity={0.8}
+            //                     style={styles.btn}
+            //                     onPress={() => this.props.navigation.navigate('RegU2')}>
+            //                     <Text style={styles.BTnText}>Siguiente</Text>
+            //                 </TouchableOpacity>
+            //             </View>
+
+            //     //     </View> */}
+
+
+            //     // </View >
 
 
 
-            </View >
+
+
+            // // </View >
         )
     }
 }
@@ -81,14 +113,11 @@ const styles = StyleSheet.create({
     row: {
         flex: 1,
         flexDirection: "row",
-        
+
     },
-    col: {
-        
-        flexDirection: "column",
-        
-    },
+
     formRow: {
+        flex: 1,
         marginBottom: 10
     },
     container: {
@@ -114,7 +143,7 @@ const styles = StyleSheet.create({
     },
     imputWrapper: {
         flexDirection: "column",
-        
+        flex: 1,
         marginBottom: 20,
     },
     textInput: {
@@ -130,7 +159,7 @@ const styles = StyleSheet.create({
 
     },
     textInputSmall: {
-        flex: 1,
+
         width: "30%",
         marginBottom: 15,
         marginHorizontal: 10,
