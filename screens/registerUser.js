@@ -26,83 +26,61 @@ class registerUser extends React.Component {
     render() {
         const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
         return (
-            // <View style={styles.container}>
-            //     {/* <View style={styles.formWrapper}> */}
-            //         {/* <Text style={styles.welcomeText}>Crear una Cuenta</Text>
+            <View style={[styles.mycontent, { backgroundColor: "blue" }]}>
+                <Text style={styles.welcomeText}>Crear una Cuenta</Text>
 
-                    // <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View> */}
-                <View>  
-                    <View style={ { flexDirection: "column",flex:1,padding:20, }}>
+                {/* Linea horizontal */}
+                <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-                        <View style={{ flexDirection: "row",flex:1,padding:20,}}>
-                            <View style={{ flex: 1, backgroundColor: "darkorange" }}>
-
-                            </View>
-                            <View style={{ flex: 1, backgroundColor: "green" }}>
-
-                            </View>
-
+                <View style={styles.myform}>
+                    <View style={styles.myrow}>
+                        <View style={[styles.mytextbox, { backgroundColor: "darkorange", }]}>
+                            <TextInput style={styles.textInputSmall}
+                                placeholder="Nombre"
+                                placeholderTextColor="#333"
+                                value={nombre}
+                                onChangeText={(value) => this.onChangeHandle('nombre', value)}
+                            />
                         </View>
-                        <View style={{ flex: 1, backgroundColor: "darkorange" }} />
-                        <View style={{ flex: 1, backgroundColor: "green" }} />
-                        <View style={{ flex: 1, backgroundColor: "blue" }} />
+                        <View style={[styles.mytextbox, { backgroundColor: "yellow", }]}>
+                            <TextInput style={styles.textInputSmall}
+                                placeholder="Apellido"
+                                placeholderTextColor="#333"
+                                value={apellido}
+                                onChangeText={(value) => this.onChangeHandle('apellido', value)}
+                            />
+                        </View>
                     </View>
+
+                    <View style={[styles.mytextbox, { backgroundColor: "green", }]} >
+                        <TextInput style={styles.textInput}
+                            placeholder="Número de Teléfono (Opcional)"
+                            placeholderTextColor="#333"
+                            value={numero}
+                            onChangeText={(value) => this.onChangeHandle('numero', value)}
+                        />
+                    </View>
+                    <View style={{ flex: 1, backgroundColor: "red" }} >
+                        <Text >Sexo</Text>
+                        <View style={[styles.myrow, { padding: 10 }]}>
+                            <View style={{ flex: 1, backgroundColor: "black" }}>
+
+                            </View>
+                            <View style={{ flex: 1, backgroundColor: "pink" }}>
+
+                            </View>
+                        </View>
+                    </View>
+
+
                 </View>
-            //         {/* <View style={styles.imputWrapper}>
-            //             <View style={styles.row}>
-            //                 <View style={styles.formRow}>
-            //                     <TextInput style={styles.textInputSmall}
-            //                         placeholder="Nombre"
-            //                         placeholderTextColor="#333"
-            //                         value={nombre}
-            //                         onChangeText={(value) => this.onChangeHandle('nombre', value)}
-            //                     />
-            //                 </View>
-
-
-            //                 <View style={styles.formRow}>
-            //                     <TextInput style={styles.textInputSmall}
-            //                         placeholder="Apellido"
-            //                         placeholderTextColor="#333"
-            //                         value={apellido}
-            //                         onChangeText={(value) => this.onChangeHandle('apellido', value)}
-            //                     />
-            //                 </View>
-
-            //             </View>
-            //             <View style={styles.formRow}>
-            //                 <TextInput style={styles.textInput}
-            //                     placeholder="Número de Teléfono (Opcional)"
-            //                     placeholderTextColor="#333"
-            //                     value={numero}
-            //                     onChangeText={(value) => this.onChangeHandle('numero', value)}
-            //                 />
-            //             </View>
-
-            //             <View style={styles.formRow}>
-
-            //             </View>
-
-
-            //             <View style={styles.formRow}>
-            //                 <TouchableOpacity
-            //                     activeOpacity={0.8}
-            //                     style={styles.btn}
-            //                     onPress={() => this.props.navigation.navigate('RegU2')}>
-            //                     <Text style={styles.BTnText}>Siguiente</Text>
-            //                 </TouchableOpacity>
-            //             </View>
-
-            //     //     </View> */}
-
-
-            //     // </View >
-
-
-
-
-
-            // // </View >
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.btn}
+                    onPress={() => this.props.navigation.navigate('RegU2')}>
+                    <Text style={styles.BTnText}>Siguiente</Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 }
@@ -110,6 +88,32 @@ class registerUser extends React.Component {
 export default registerUser;
 
 const styles = StyleSheet.create({
+    mycontent: {
+        flex: 1,
+        padding: 30
+    },
+    myform: {
+        flex: 1,
+
+    },
+    mytextbox: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    myrow: {
+        flex: 1,
+        flexDirection: "row",
+    },
+
+
+
+
+
+
+
+
+
     row: {
         flex: 1,
         flexDirection: "row",
