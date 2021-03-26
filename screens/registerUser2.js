@@ -9,7 +9,7 @@ class registerUser2 extends React.Component {
                 <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={()=>this.props.navigation.navigate('Auth')}>
+                onPress={()=>this.props.navigation.navigate('Login')}>
                 <Text style={styles.BTnText}>Fin</Text>
                 </TouchableOpacity>
             </View>
