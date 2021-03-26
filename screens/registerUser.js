@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
 
     },
     welcomeText: {
+        marginTop:100,
         textAlign: 'center',
         fontSize: 24,
 
