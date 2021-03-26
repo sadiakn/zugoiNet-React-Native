@@ -1,7 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
+var gender = [
+    { label: 'Hombre    ', value: "M" },
+    { label: 'Mujer', value: "F" }
+];
 
 class registerUser extends React.Component {
 
@@ -15,6 +20,7 @@ class registerUser extends React.Component {
         password2: "",
 
     }
+
     doForm() {
         const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
     }
@@ -54,17 +60,31 @@ class registerUser extends React.Component {
 
                     <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
                         <TextInput style={styles.textInput}
-                            placeholder="Número de Teléfono (Opcional)"
+                            placeholder="Número de Teléfono                              (Opcional)"
                             placeholderTextColor="#333"
                             value={numero}
                             onChangeText={(value) => this.onChangeHandle('numero', value)}
                         />
                     </View>
-                    <View style={{ justifyContent:'center',alignItems:'center'}} >
-                        <Text >Sexo</Text>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }} >
+                        <Text >Sexo:</Text>
                     </View>
                     <View >
-                        
+
+                        <RadioForm style={styles.radiob}
+                            animation={true}
+                            radio_props={gender}
+                            initial={-1}
+                            formHorizontal={true}
+                            labelHorizontal={true}
+                            buttonColor={'#ee712e'}
+                            selectedButtonColor={'#ee712e'}
+                            animation={true}
+                            onPress={(value) => { this.onChangeHandle('sexo', value) }}
+                            labelStyle={{ fontSize: 14, color: "black" }}
+                        />
+
+
                     </View>
 
 
@@ -84,6 +104,10 @@ class registerUser extends React.Component {
 export default registerUser;
 
 const styles = StyleSheet.create({
+    radiob: {
+        justifyContent: 'center', alignItems: 'center'
+
+    },
     mycontent: {
         flex: 1,
 
