@@ -26,15 +26,15 @@ class registerUser extends React.Component {
     render() {
         const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
         return (
-            <View style={[styles.mycontent, { backgroundColor: "blue" }]}>
+            <View style={[styles.mycontent, { backgroundColor: "white", }]}>
                 <Text style={styles.welcomeText}>Crear una Cuenta</Text>
 
                 {/* Linea horizontal */}
                 <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-                <View style={styles.myform}>
+                <View >
                     <View style={styles.myrow}>
-                        <View style={[styles.mytextbox, { backgroundColor: "darkorange", }]}>
+                        <View style={[styles.mytextboxS, { backgroundColor: "darkorange", }]}>
                             <TextInput style={styles.textInputSmall}
                                 placeholder="Nombre"
                                 placeholderTextColor="#333"
@@ -42,7 +42,7 @@ class registerUser extends React.Component {
                                 onChangeText={(value) => this.onChangeHandle('nombre', value)}
                             />
                         </View>
-                        <View style={[styles.mytextbox, { backgroundColor: "yellow", }]}>
+                        <View style={[styles.mytextboxS, { backgroundColor: "yellow", }]}>
                             <TextInput style={styles.textInputSmall}
                                 placeholder="Apellido"
                                 placeholderTextColor="#333"
@@ -52,7 +52,7 @@ class registerUser extends React.Component {
                         </View>
                     </View>
 
-                    <View style={[styles.mytextbox, { backgroundColor: "green", }]} >
+                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
                         <TextInput style={styles.textInput}
                             placeholder="Número de Teléfono (Opcional)"
                             placeholderTextColor="#333"
@@ -60,17 +60,13 @@ class registerUser extends React.Component {
                             onChangeText={(value) => this.onChangeHandle('numero', value)}
                         />
                     </View>
-                    <View style={{ flex: 1, backgroundColor: "red" }} >
+                    <View style={{ justifyContent:'center',alignItems:'center'}} >
                         <Text >Sexo</Text>
-                        <View style={[styles.myrow, { padding: 10 }]}>
-                            <View style={{ flex: 1, backgroundColor: "black" }}>
-
-                            </View>
-                            <View style={{ flex: 1, backgroundColor: "pink" }}>
-
-                            </View>
-                        </View>
                     </View>
+                    <View >
+                        
+                    </View>
+
 
 
                 </View>
@@ -90,39 +86,35 @@ export default registerUser;
 const styles = StyleSheet.create({
     mycontent: {
         flex: 1,
+
         padding: 30
+
     },
     myform: {
-        flex: 1,
+
 
     },
-    mytextbox: {
-        flex: 1,
+    mytextboxS: {
+        width: "49.5%",
+        marginHorizontal: 2,
         alignItems: "center",
         justifyContent: "center",
+
+    },
+    mytextboxL: {
+        marginVertical: 10,
+
+
+        alignItems: "center",
+        justifyContent: "center",
+
     },
     myrow: {
-        flex: 1,
+
         flexDirection: "row",
-    },
+        alignItems: "center",
+        justifyContent: "center",
 
-
-
-
-
-
-
-
-
-    row: {
-        flex: 1,
-        flexDirection: "row",
-
-    },
-
-    formRow: {
-        flex: 1,
-        marginBottom: 10
     },
     container: {
         height: "100%",
@@ -142,35 +134,29 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold"
     },
-    formWrapper: {
-        width: "80%"
-    },
-    imputWrapper: {
-        flexDirection: "column",
-        flex: 1,
-        marginBottom: 20,
-    },
+
+
     textInput: {
-        marginBottom: 15,
+        width: "100%",
+
+
         paddingVertical: 10,
-        backgroundColor: "#FFFFFF",
-        height: 40,
         paddingHorizontal: 10,
+        backgroundColor: "#FFFFFF",
         color: "#333",
         borderRadius: 0,
         borderWidth: 1,
-        borderColor: "black"
+        borderColor: "black",
 
     },
     textInputSmall: {
 
-        width: "30%",
-        marginBottom: 15,
-        marginHorizontal: 10,
+        width: "100%",
+
+
         paddingVertical: 10,
-        backgroundColor: "#FFFFFF",
-        height: 40,
         paddingHorizontal: 5,
+        backgroundColor: "#FFFFFF",
         color: "#333",
         borderRadius: 0,
         borderWidth: 1,
