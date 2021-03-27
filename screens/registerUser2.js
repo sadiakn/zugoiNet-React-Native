@@ -22,7 +22,10 @@ class registerUser2 extends React.Component {
         })
     }
     render() {
+        const { navigation } = this.props;
         const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
+        
+
         return (
             <View style={[styles.mycontent, { backgroundColor: "white", }]}>
                 <Text style={styles.welcomeText}>Crear una Cuenta</Text>
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
 
     },
     welcomeText: {
-        marginTop:100,
+        marginTop:40,
         textAlign: 'center',
         fontSize: 24,
 

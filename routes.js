@@ -56,8 +56,9 @@ const RegisterUsers =  createStackNavigator({
     RUser2: { screen: RegisterUser2},
 }, {
     
-    headerMode:"float",
-    initialRouteName:"RUser",
+    headerMode:"screen",
+    headerTitle: "TEST",
+    initialRouteName:"RUser"
     
 })
 

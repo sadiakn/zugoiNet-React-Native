@@ -15,22 +15,15 @@ class registerUser extends React.Component {
         apellido: "",
         numero: "",
         sexo: "",
-        correo: "",
-        password1: "",
-        password2: "",
-
     }
 
-    doForm() {
-        const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
-    }
     onChangeHandle(state, value) {
         this.setState({
             [state]: value
         })
     }
     render() {
-        const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
+        const { nombre, apellido, numero, sexo} = this.state;
         return (
             <View style={[styles.mycontent, { backgroundColor: "white", }]}>
                 <Text style={styles.welcomeText}>Crear una Cuenta</Text>
@@ -93,7 +86,7 @@ class registerUser extends React.Component {
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={styles.btn}
-                    onPress={() => this.props.navigation.navigate('RUser2')}>
+                    onPress={() => this.props.navigation.navigate('RUser2', {n:nombre, a:apellido, num:numero, s:sexo})}>
                     <Text style={styles.BTnText}>Siguiente</Text>
                 </TouchableOpacity>
             </View>
@@ -188,7 +181,7 @@ const styles = StyleSheet.create({
 
     },
     welcomeText: {
-        marginTop:100,
+        marginTop:40,
         textAlign: 'center',
         fontSize: 24,
 
