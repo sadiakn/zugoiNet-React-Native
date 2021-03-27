@@ -24,9 +24,6 @@ import Scanner from './screens/scanner';
 const BeforeSignin =  createStackNavigator({
     Login:{
     screen: LoginScreen
-    },
-    RegUser:{
-        screen: RegisterUser
     }
 }, {
     headerMode: "none",
@@ -42,13 +39,33 @@ const AfterSignin =  createStackNavigator({
     initialRouteName:"Dashboard"
 })
 
+// const Regis =  createStackNavigator({
+//     RegUser:{
+//         screen: RegisterUser
+//     },
+//     RegUser2:{
+//         screen: RegisterUser2
+//     }
+// }, {
+//     HeaderMode: "none",
+//     initialRouteName: "Login"
+// })
+
+const RegisterUsers =  createStackNavigator({
+    RUser:{ screen: RegisterUser},
+    RUser2: { screen: RegisterUser2},
+}, {
+    
+    headerMode:"float",
+    initialRouteName:"RUser",
+    
+})
+
 const AppNavigator =  createStackNavigator({
     Auth: BeforeSignin,
     App: AfterSignin,
     AuthLoadingScreen: AuthLoadingScreen,
-    RegU: { screen: RegisterUser},
-    RegU2: { screen: RegisterUser2},
-    RegP: { screen: RegisterProduct},
+    RegU: RegisterUsers,
     Scan: { screen: Scanner}
 },  {
         headerMode: "none",

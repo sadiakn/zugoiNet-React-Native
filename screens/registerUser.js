@@ -93,7 +93,7 @@ class registerUser extends React.Component {
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={styles.btn}
-                    onPress={() => this.props.navigation.navigate('RegU2')}>
+                    onPress={() => this.props.navigation.navigate('RUser2')}>
                     <Text style={styles.BTnText}>Siguiente</Text>
                 </TouchableOpacity>
             </View>
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
 
     },
     welcomeText: {
+        marginTop:100,
         textAlign: 'center',
         fontSize: 24,
 
