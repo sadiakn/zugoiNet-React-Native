@@ -1,5 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Image } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+
+const camaraimg = require('../assets/Camara.png')
+const scanimg = require('../assets/scan.png')
 
 class registerProduct extends React.Component {
 
@@ -9,7 +13,7 @@ class registerProduct extends React.Component {
         categoria: "",
     }
     doForm() {
-        const { codigo_barra, nombre, categoria} = this.state;
+        const { codigo_barra, nombre, categoria } = this.state;
     }
     onChangeHandle(state, value) {
         this.setState({
@@ -18,7 +22,7 @@ class registerProduct extends React.Component {
     }
 
     render() {
-        const { codigo_barra, nombre, categoria} = this.state;
+        const { codigo_barra, nombre, categoria } = this.state;
         return (
             <View style={[styles.mycontent, { backgroundColor: "white", }]}>
                 <Text style={styles.welcomeText}>Registrar Producto</Text>
@@ -26,10 +30,10 @@ class registerProduct extends React.Component {
                 {/* Linea horizontal */}
                 <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-                <View >
+                <View style={[ { backgroundColor: "white", }]} >
                     <View style={styles.myrow}>
-                        
-                        <View style={[styles.mytextboxS, { backgroundColor: "darkorange", }]}>
+
+                        <View style={[styles.mytextboxS, { marginRight: 20}]}>
                             <TextInput style={styles.textInputSmall}
                                 placeholder="Codigo de Barra"
                                 placeholderTextColor="#333"
@@ -37,7 +41,18 @@ class registerProduct extends React.Component {
                                 onChangeText={(value) => this.onChangeHandle('codigo_barra', value)}
                             />
                         </View>
+ 
+                            <TouchableOpacity style={styles.scanBTn} title="scan" onPress={() => this.props.navigation.navigate('scan')}>
+                                <View ><Image source={scanimg} style={styles.buttonimage} /></View>
+                            </TouchableOpacity>
 
+                    </View>
+
+                    <View>
+                        <TouchableOpacity style={styles.camaraBTn} title="camara" onPress={() => this.props.navigation.navigate('photo')}>
+                            <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={camaraimg} /></View>
+                        </TouchableOpacity>
+                        <Text style={styles.camaraBTnText}>Tomar Imagen del Producto</Text>
                     </View>
 
                     <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
@@ -48,7 +63,6 @@ class registerProduct extends React.Component {
                             onChangeText={(value) => this.onChangeHandle('nombre', value)}
                         />
                     </View>
-
 
                 </View>
                 <TouchableOpacity
@@ -76,27 +90,28 @@ const styles = StyleSheet.create({
 
     },
     mytextboxS: {
-        width: "49.5%",
+        width: "80%",
         marginHorizontal: 2,
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: "flex-start",
 
     },
+    
     mytextboxL: {
         marginVertical: 10,
-
-
         alignItems: "center",
         justifyContent: "center",
 
     },
+
+
+
     myrow: {
 
         flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
+  
 
     },
+
     container: {
         height: "100%",
         alignItems: "center",
@@ -106,6 +121,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         paddingVertical: 10,
         borderRadius: 20,
+        height: "6%",
         width: "60%",
         backgroundColor: "#EE712E",
         alignSelf: "center"
@@ -116,6 +132,17 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
 
+    camaraBTn: {
+        backgroundColor: "white",
+        paddingVertical: 20,
+        alignSelf: "center"
+    },
+
+    scanBTn: {
+        backgroundColor: "white",
+        paddingVertical: 10,
+        alignSelf: "center"
+    },
 
     textInput: {
         width: "100%",
@@ -163,6 +190,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold"
     },
+
+    camaraBTnText: {
+        color: 'black',
+        textAlign: "center",
+        fontWeight: "bold"
+    },
+
     borderLine: {
         borderWidth: 0.5,
         borderColor: "#EE712E",
