@@ -7,6 +7,7 @@ import RegisterUser from './screens/registerUser';
 import RegisterUser2 from './screens/registerUser2';
 import RegisterProduct from './screens/registerProduct';
 import Scanner from './screens/scanner';
+import registerProduct from './screens/registerProduct';
 
 // TEMP MAIN
 // const BeforeSignin =  createStackNavigator({
@@ -66,7 +67,8 @@ const AppNavigator =  createStackNavigator({
     App: AfterSignin,
     AuthLoadingScreen: AuthLoadingScreen,
     RegU: RegisterUsers,
-    Scan: { screen: Scanner}
+    Scan: { screen: Scanner},
+    RegP: registerProduct
 },  {
         headerMode: "none",
         initialRouteName: "AuthLoadingScreen"
