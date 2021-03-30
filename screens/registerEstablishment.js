@@ -2,17 +2,15 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 
-class scanner extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text> establishment </Text>
-            </View>
-        )
-    }
+const RegisterEstablishment = () => {
+    return (
+        <View style={styles.container}>
+            <Text> Registrar Establishment</Text>
+        </View>
+    )
 }
 
-export default scanner;
+export default RegisterEstablishment;
 
 const styles = StyleSheet.create({
     container: {

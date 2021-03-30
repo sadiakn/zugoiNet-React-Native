@@ -5,7 +5,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 const camaraimg = require('../assets/Camara.png')
 const scanimg = require('../assets/scan.png')
 
-class registerProduct extends React.Component {
+class RegisterProduct extends React.Component {
 
     state = {
         codigo_barra: "",
@@ -76,7 +76,7 @@ class registerProduct extends React.Component {
     }
 }
 
-export default registerProduct;
+export default RegisterProduct;
 
 const styles = StyleSheet.create({
     mycontent: {

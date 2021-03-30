@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
-class registerUser2 extends React.Component {
+class RegisterUser2 extends React.Component {
     state = {
         nombre: "",
         apellido: "",
@@ -74,7 +74,7 @@ class registerUser2 extends React.Component {
     }
 }
 
-export default registerUser2;
+export default RegisterUser2;
 
 const styles = StyleSheet.create({
     radiob: {

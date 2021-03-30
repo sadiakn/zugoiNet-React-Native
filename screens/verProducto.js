@@ -2,17 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 
-class verProducto extends React.Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text> verProducto</Text>
-            </View>
-        )
-    }
+const VerProducto = () => {
+    return (
+        <View style={styles.container}>
+            <Text> verProducto</Text>
+        </View>
+    )
 }
 
-export default verProducto;
+
+export default VerProducto;
 
 const styles = StyleSheet.create({
     container: {

@@ -8,7 +8,7 @@ var gender = [
     { label: 'Mujer', value: "F" }
 ];
 
-class registerUser extends React.Component {
+class RegisterUser extends React.Component {
 
     state = {
         nombre: "",
@@ -94,7 +94,7 @@ class registerUser extends React.Component {
     }
 }
 
-export default registerUser;
+export default RegisterUser;
 
 const styles = StyleSheet.create({
     radiob: {
