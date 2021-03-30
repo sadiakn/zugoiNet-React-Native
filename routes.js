@@ -10,32 +10,24 @@ import RegisterEstablishment from './screens/registerEstablishment';
 import RegisterSucursal from './screens/registerSucursal';
 import Scanner from './screens/scanner';
 
-const RegisterUsers =  createStackNavigator({
+
+
+const BeforeSignin =  createStackNavigator({
+    Login: {screen: LoginScreen, navigationOptions: { headerShown: false}},
     RegisterUser1: RegisterUser,
     RegisterUser2: RegisterUser2
 }, {
     
-    headerMode:"none",
-    initialRouteName:"RegisterUser1"
-    
-})
-
-const BeforeSignin =  createStackNavigator({
-    Login: LoginScreen,
-    Register: RegisterUsers
-}, {
-    headerMode: "none",
     initialRouteName: "Login"
 })
 
 const AfterSignin =  createStackNavigator({
-    Dashboard: {screen: DashboardScreen},
-    Scan: {screen: Scanner},
+    Dashboard: {screen: DashboardScreen, navigationOptions: { headerShown: false}},
+    Scan: {screen: Scanner, navigationOptions: { headerShown: false}},
     RegisterProduct: {screen: RegisterProduct},
     RegisterSucursal: {screen: RegisterSucursal},
     RegisterEstablishment: {screen: RegisterEstablishment}    
 }, {
-    headerMode:"none",
     initialRouteName:"Dashboard"
 })
 

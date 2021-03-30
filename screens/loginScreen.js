@@ -88,7 +88,7 @@ class LoginScreen extends React.Component{
         {loading ? "Loading...": "Iniciar sesión"}
         </Text>
         </TouchableOpacity>
-        <Text onPress={() => this.props.navigation.navigate('Register')}>
+        <Text onPress={() => this.props.navigation.navigate('RegisterUser1')}>
         Crear una cuenta
         </Text>
         </View>
