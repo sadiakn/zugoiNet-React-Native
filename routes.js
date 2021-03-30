@@ -9,7 +9,7 @@ import RegisterProduct from './screens/registerProduct';
 import RegisterEstablishment from './screens/registerEstablishment';
 import RegisterSucursal from './screens/registerSucursal';
 import Scanner from './screens/scanner';
-
+import VerProducto from './screens/verProducto';
 
 
 const BeforeSignin =  createStackNavigator({
@@ -26,7 +26,8 @@ const AfterSignin =  createStackNavigator({
     Scan: {screen: Scanner, navigationOptions: { headerShown: false}},
     RegisterProduct: {screen: RegisterProduct},
     RegisterSucursal: {screen: RegisterSucursal},
-    RegisterEstablishment: {screen: RegisterEstablishment}    
+    RegisterEstablishment: {screen: RegisterEstablishment},   
+    VerProducto: {screen: VerProducto} ,
 }, {
     initialRouteName:"Dashboard"
 })
