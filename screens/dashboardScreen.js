@@ -39,9 +39,26 @@ class DashboardScreen extends React.Component {
                     </View>
 
                     <View style={styles.imgbtncontainer}>
-                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => this.props.navigation.navigate('RegP')}>
+                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => this.props.navigation.navigate('RegisterProduct')}>
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={editimg} style={styles.buttonimage} /></View>
                             <Text style={styles.dashboardBTnText}>Registrar</Text>
+                            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                    <View style={styles.imgbtncontainer}>
+                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => this.props.navigation.navigate('RegisterSucursal')}>
+                            <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={editimg} style={styles.buttonimage} /></View>
+                            <Text style={styles.dashboardBTnText}>Sucursal</Text>
+                            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.imgbtncontainer}>
+                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => this.props.navigation.navigate('RegisterEstablishment')}>
+                            <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={editimg} style={styles.buttonimage} /></View>
+                            <Text style={styles.dashboardBTnText}>Establecimiento</Text>
                             <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
                         </TouchableOpacity>
                     </View>
@@ -71,7 +88,7 @@ const styles = StyleSheet.create({
     },
 
     topuser: {
-        height: "50%",
+        height: "30%",
         alignItems: "center",
         justifyContent: "center"
     },

@@ -86,7 +86,7 @@ class registerUser extends React.Component {
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={styles.btn}
-                    onPress={() => this.props.navigation.navigate('RUser2', {n:nombre, a:apellido, num:numero, s:sexo})}>
+                    onPress={() => this.props.navigation.navigate('RegisterUser2', {n:nombre, a:apellido, num:numero, s:sexo})}>
                     <Text style={styles.BTnText}>Siguiente</Text>
                 </TouchableOpacity>
             </View>

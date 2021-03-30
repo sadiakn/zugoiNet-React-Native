@@ -6,70 +6,43 @@ import AuthLoadingScreen from './screens/authLoadingScreen';
 import RegisterUser from './screens/registerUser';
 import RegisterUser2 from './screens/registerUser2';
 import RegisterProduct from './screens/registerProduct';
+import RegisterEstablishment from './screens/registerEstablishment';
+import RegisterSucursal from './screens/registerSucursal';
 import Scanner from './screens/scanner';
-import registerProduct from './screens/registerProduct';
 
-// TEMP MAIN
-// const BeforeSignin =  createStackNavigator({
-//     Login:{
-//                 /*vvvvvvvvvvvvvvvvvvvvvvvvv*/
-//     /*>>>>>>>>>>>*/ screen: RegisterProduct  /*<<<<<<<<<<< Cambiar por ventana que se desea ver primero*/
-//                 /*^^^^^^^^^^^^^^^^^^^^^^^^^*/
-//     }
-// }, {
-//     headerMode: "none",
-//     initialRouteName: "Login"
-// })
+const RegisterUsers =  createStackNavigator({
+    RegisterUser1: RegisterUser,
+    RegisterUser2: RegisterUser2
+}, {
+    
+    headerMode:"none",
+    initialRouteName:"RegisterUser1"
+    
+})
 
-//ORIGINAL LOGIN
 const BeforeSignin =  createStackNavigator({
-    Login:{
-    screen: LoginScreen
-    }
+    Login: LoginScreen,
+    Register: RegisterUsers
 }, {
     headerMode: "none",
     initialRouteName: "Login"
 })
 
 const AfterSignin =  createStackNavigator({
-    Dashboard:{
-        screen: DashboardScreen
-    }
+    Dashboard: {screen: DashboardScreen},
+    Scan: {screen: Scanner},
+    RegisterProduct: {screen: RegisterProduct},
+    RegisterSucursal: {screen: RegisterSucursal},
+    RegisterEstablishment: {screen: RegisterEstablishment}    
 }, {
     headerMode:"none",
     initialRouteName:"Dashboard"
 })
 
-// const Regis =  createStackNavigator({
-//     RegUser:{
-//         screen: RegisterUser
-//     },
-//     RegUser2:{
-//         screen: RegisterUser2
-//     }
-// }, {
-//     HeaderMode: "none",
-//     initialRouteName: "Login"
-// })
-
-const RegisterUsers =  createStackNavigator({
-    RUser:{ screen: RegisterUser},
-    RUser2: { screen: RegisterUser2},
-}, {
-    
-    headerMode:"screen",
-    headerTitle: "TEST",
-    initialRouteName:"RUser"
-    
-})
-
 const AppNavigator =  createStackNavigator({
-    Auth: BeforeSignin,
-    App: AfterSignin,
+    Auth: {screen: BeforeSignin},
+    App: {screen: AfterSignin},
     AuthLoadingScreen: AuthLoadingScreen,
-    RegU: RegisterUsers,
-    Scan: { screen: Scanner},
-    RegP: registerProduct
 },  {
         headerMode: "none",
         initialRouteName: "AuthLoadingScreen"
