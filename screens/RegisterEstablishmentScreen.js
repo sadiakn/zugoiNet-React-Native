@@ -10,6 +10,12 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
     )
 }
 
+RegisterEstablishmentScreen.navigationOptions = () => {
+    return {
+        headerTitle: 'Registrar Establecimiento',
+    };
+};
+
 export default RegisterEstablishmentScreen;
 
 const styles = StyleSheet.create({

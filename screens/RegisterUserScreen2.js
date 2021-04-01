@@ -70,6 +70,12 @@ const RegisterUserScreen2 = ({ navigation }) => {
     );
 };
 
+RegisterUserScreen2.navigationOptions = () => {
+    return {
+        headerTitle: 'Registrar Usuario',
+    };
+};
+
 export default RegisterUserScreen2;
 
 const styles = StyleSheet.create({

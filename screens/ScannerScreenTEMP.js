@@ -10,6 +10,11 @@ const ScannerScreenTEMP = ({ navigation }) => {
     );
 };
 
+ScannerScreenTEMP.navigationOptions = () => {
+    return {
+        headerTitle: 'Scanner',
+    };
+};
 
 export default ScannerScreenTEMP;
 

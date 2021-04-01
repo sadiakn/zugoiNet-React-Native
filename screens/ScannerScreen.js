@@ -47,4 +47,10 @@ const styles = StyleSheet.create({
   },
 });
 
+ScannerScreen.navigationOptions = () => {
+  return {
+      headerTitle: 'Scanner',
+  };
+};
+
 export default ScannerScreen;

@@ -10,6 +10,11 @@ const VerProductoScreen = ({ navigation }) => {
     );
 };
 
+VerProductoScreen.navigationOptions = () => {
+    return {
+        headerTitle: 'Producto',
+    };
+};
 
 export default VerProductoScreen;
 

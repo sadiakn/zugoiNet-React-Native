@@ -59,6 +59,12 @@ const DashboardScreen = ({ navigation }) => {
     );
 };
 
+DashboardScreen.navigationOptions = () => {
+    return {
+        headerShown: false,
+    };
+};
+
 export default DashboardScreen;
 
 const styles = StyleSheet.create({

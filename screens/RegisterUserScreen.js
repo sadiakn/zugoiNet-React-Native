@@ -98,6 +98,12 @@ const RegisterUserScreen = ({ navigation }) => {
     );
 };
 
+RegisterUserScreen.navigationOptions = () => {
+    return {
+        headerTitle: 'Registrar Usuario',
+    };
+};
+
 export default RegisterUserScreen;
 
 const styles = StyleSheet.create({

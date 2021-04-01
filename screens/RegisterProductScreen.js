@@ -74,6 +74,12 @@ const RegisterProductScreen = ({ navigation }) => {
     );
 };
 
+RegisterProductScreen.navigationOptions = () => {
+    return {
+        headerTitle: 'Registrar Producto',
+    };
+};
+
 export default RegisterProductScreen;
 
 const styles = StyleSheet.create({

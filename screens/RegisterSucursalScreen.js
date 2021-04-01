@@ -10,6 +10,12 @@ const RegisterSucursalScreen = ({ navigation }) => {
     )
 }
 
+RegisterSucursalScreen.navigationOptions = () => {
+    return {
+        headerTitle: 'Registrar Sucursal',
+    };
+};
+
 export default RegisterSucursalScreen;
 
 const styles = StyleSheet.create({

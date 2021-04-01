@@ -30,22 +30,22 @@ const scannerFlow = createStackNavigator({
 
 const switchNavigator =  createSwitchNavigator({
     loginFlow: createStackNavigator({
-        Login: {screen: LoginScreen, navigationOptions: { headerShown: false}},
-        RegUser: {screen: RegisterUserScreen, navigationOptions: { headerTitle: 'Registrar Usuario'}},
-        RegUser2: {screen: RegisterUserScreen2, navigationOptions: { headerTitle: 'Registrar Usuario'}}
+        Login: LoginScreen,
+        RegUser: RegisterUserScreen,
+        RegUser2: RegisterUserScreen2
     }),
     mainFlow: createBottomTabNavigator({
         dashBoardFlow: createStackNavigator({
-            Dashboard: {screen: DashboardScreen, navigationOptions: { headerShown: false}},
+            Dashboard: DashboardScreen,
             scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
-            RegProduct: {screen: RegisterProductScreen, navigationOptions: { headerTitle: 'Registrar Producto'}},
-            RegSucursal: {screen: RegisterSucursalScreen, navigationOptions: { headerTitle: 'Registrar Sucursal'}},
-            RegEstablishment: {screen: RegisterEstablishmentScreen, navigationOptions: { headerTitle: 'Registrar Establecimiento'}}
+            RegProduct: RegisterProductScreen,
+            RegSucursal: RegisterSucursalScreen,
+            RegEstablishment: RegisterEstablishmentScreen
         }),
         scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
         searchFlow: createStackNavigator({
-            SearchProducto: {screen: SearchProductoScreen, navigationOptions: { headerTitle: 'Buscar Producto'}},
-            VerProducto: {screen: VerProductoScreen, navigationOptions: { headerTitle: 'Producto'}}
+            SearchProducto: SearchProductoScreen,
+            VerProducto: VerProductoScreen
         })
     },{resetOnBlur: true})
 });

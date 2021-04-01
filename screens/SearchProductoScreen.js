@@ -10,6 +10,11 @@ const SearchProductoScreen = ({ navigation }) => {
     );
 };
 
+SearchProductoScreen.navigationOptions = () => {
+    return {
+        headerTitle: 'Buscar Producto',
+    };
+};
 
 export default SearchProductoScreen;
 

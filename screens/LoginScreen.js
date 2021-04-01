@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
+
+import { Text, Input, Button} from 'react-native-elements';
+
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -50,6 +53,11 @@ const LoginScreen = ({ navigation }) => {
     );
 };
 
+LoginScreen.navigationOptions = () => {
+    return {
+        headerShown: false,
+    };
+};
 
 export default LoginScreen;
 
