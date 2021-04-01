@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const barcodeimg = require('../assets/barcode.png')
 const editimg = require('../assets/edit.png')
 
-const DashboardScreen1 = ({ navigation }) => {
+const DashboardScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.topuser}>
@@ -13,7 +13,7 @@ const DashboardScreen1 = ({ navigation }) => {
                 <View>
                     <Text style={styles.userText}> Welcome user</Text>
 
-                    <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('Login')}>
+                    <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('loginFlow')}>
                         <Text style={styles.logouBtnText}>Logout</Text>
                     </TouchableOpacity>
 
@@ -59,7 +59,7 @@ const DashboardScreen1 = ({ navigation }) => {
     );
 };
 
-export default DashboardScreen1;
+export default DashboardScreen;
 
 const styles = StyleSheet.create({
 

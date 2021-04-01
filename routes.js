@@ -6,11 +6,11 @@ import  {
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import LoginScreen1 from './screens/LoginScreen1';
+import LoginScreen from './screens/LoginScreen';
 import RegisterUserScreen from './screens/RegisterUserScreen';
 import RegisterUserScreen2 from './screens/RegisterUserScreen2';
 
-import DashboardScreen1 from './screens/DashboardScreen1';
+import DashboardScreen from './screens/DashboardScreen';
 import ScannerScreen from './screens/ScannerScreen';
 import RegisterProductScreen from './screens/RegisterProductScreen';
 import RegisterSucursalScreen from './screens/RegisterSucursalScreen';
@@ -30,13 +30,13 @@ const scannerFlow = createStackNavigator({
 
 const switchNavigator =  createSwitchNavigator({
     loginFlow: createStackNavigator({
-        Login: {screen: LoginScreen1, navigationOptions: { headerShown: false}},
+        Login: {screen: LoginScreen, navigationOptions: { headerShown: false}},
         RegUser: {screen: RegisterUserScreen, navigationOptions: { headerTitle: 'Registrar Usuario'}},
         RegUser2: {screen: RegisterUserScreen2, navigationOptions: { headerTitle: 'Registrar Usuario'}}
     }),
     mainFlow: createBottomTabNavigator({
         dashBoardFlow: createStackNavigator({
-            Dashboard: {screen: DashboardScreen1, navigationOptions: { headerShown: false}},
+            Dashboard: {screen: DashboardScreen, navigationOptions: { headerShown: false}},
             scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
             RegProduct: {screen: RegisterProductScreen, navigationOptions: { headerTitle: 'Registrar Producto'}},
             RegSucursal: {screen: RegisterSucursalScreen, navigationOptions: { headerTitle: 'Registrar Sucursal'}},

@@ -4,7 +4,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
 
-const LoginScreen1 = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
     const { username, password} = "";
     return (
         <View style={styles.container}>
@@ -35,7 +35,7 @@ const LoginScreen1 = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={styles.SignInBtn}
-                        onPress={() => navigation.navigate('Dashboard')}
+                        onPress={() => navigation.navigate('mainFlow')}
                         >
                         <Text style={styles.signinText}>
                             Iniciar sesión
@@ -51,7 +51,7 @@ const LoginScreen1 = ({ navigation }) => {
 };
 
 
-export default LoginScreen1;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
     container: {
