@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 
-const VerProducto = () => {
+const VerProductoScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text> verProducto</Text>
         </View>
-    )
-}
+    );
+};
 
 
-export default VerProducto;
+export default VerProductoScreen;
 
 const styles = StyleSheet.create({
     container: {

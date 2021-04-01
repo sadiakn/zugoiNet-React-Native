@@ -2,15 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 
-const RegisterSucursal = () => {
+const SearchProductoScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Text> Registrar Sucursal</Text>
+            <Text> Search Producto</Text>
         </View>
-    )
-}
+    );
+};
 
-export default RegisterSucursal;
+
+export default SearchProductoScreen;
 
 const styles = StyleSheet.create({
     container: {

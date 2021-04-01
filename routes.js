@@ -1,49 +1,53 @@
-import  {createAppContainer} from  'react-navigation';
-import  {createStackNavigator} from 'react-navigation-stack';
+import  {
+    createAppContainer,
+    createSwitchNavigator 
+} from  'react-navigation';
 
-import AuthLoadingScreen from './screens/authLoadingScreen';
-import LoginScreen from './screens/loginScreen';
-import RegisterUser from './screens/registerUser';
-import RegisterUser2 from './screens/registerUser2';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import DashboardScreen from './screens/dashboardScreen';
-import Scanner from './screens/scanner';
-import RegisterProduct from './screens/registerProduct';
-import RegisterSucursal from './screens/registerSucursal';
-import RegisterEstablishment from './screens/registerEstablishment';
+import LoginScreen1 from './screens/LoginScreen1';
+import RegisterUserScreen from './screens/RegisterUserScreen';
+import RegisterUserScreen2 from './screens/RegisterUserScreen2';
 
-import VerProducto from './screens/verProducto';
+import DashboardScreen1 from './screens/DashboardScreen1';
+import ScannerScreen from './screens/ScannerScreen';
+import RegisterProductScreen from './screens/RegisterProductScreen';
+import RegisterSucursalScreen from './screens/RegisterSucursalScreen';
+import RegisterEstablishmentScreen from './screens/RegisterEstablishmentScreen';
+
+import VerProductoScreen from './screens/VerProductoScreen';
+import SearchProductoScreen from './screens/SearchProductoScreen';
 
 import Ztestaxios from './screens/ztestaxios';
+import ScannerScreenTEMP from './screens/ScannerScreenTEMP';
 
-const BeforeSignin =  createStackNavigator({
-    Login: {screen: LoginScreen, navigationOptions: { headerShown: false}},
-    RegisterUser1: {screen: RegisterUser, navigationOptions: { headerTitle: 'Registrar Usuario'}},
-    RegisterUser2: {screen: RegisterUser2, navigationOptions: { headerTitle: 'Registrar Usuario'}}
-}, {
-    
-    initialRouteName: "Login"
-})
 
-const AfterSignin =  createStackNavigator({
-    Dashboard: {screen: DashboardScreen, navigationOptions: { headerShown: false}},
-    Scan: {screen: Scanner, navigationOptions: { headerTitle: 'Scan Barcode'}},
-    RegisterProduct: {screen: RegisterProduct, navigationOptions: { headerTitle: 'Registrar Producto'}},
-    RegisterSucursal: {screen: RegisterSucursal, navigationOptions: { headerTitle: 'Registrar Sucursal'}},
-    RegisterEstablishment: {screen: RegisterEstablishment, navigationOptions: { headerTitle: 'Registrar Establecimiento'}},   
-    VerProducto: {screen: VerProducto, navigationOptions: { headerTitle: 'Producto'}}
-}, {
-    initialRouteName:"Dashboard"
-})
+const scannerFlow = createStackNavigator({
+    Scanner: ScannerScreenTEMP,
+    VerProducto: VerProductoScreen
+});
 
-const AppNavigator =  createStackNavigator({
-    Auth: {screen: BeforeSignin},
-    App: {screen: AfterSignin},
-    AuthLoadingScreen: AuthLoadingScreen,
-    Ztestaxios: {screen: Ztestaxios, navigationOptions: { headerTitle: 'AXIOS TEST'}}
-},  {
-        headerMode: "none",
-        initialRouteName: "AuthLoadingScreen"
-})
+const switchNavigator =  createSwitchNavigator({
+    loginFlow: createStackNavigator({
+        Login: {screen: LoginScreen1, navigationOptions: { headerShown: false}},
+        RegUser: {screen: RegisterUserScreen, navigationOptions: { headerTitle: 'Registrar Usuario'}},
+        RegUser2: {screen: RegisterUserScreen2, navigationOptions: { headerTitle: 'Registrar Usuario'}}
+    }),
+    mainFlow: createBottomTabNavigator({
+        dashBoardFlow: createStackNavigator({
+            Dashboard: {screen: DashboardScreen1, navigationOptions: { headerShown: false}},
+            scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
+            RegProduct: {screen: RegisterProductScreen, navigationOptions: { headerTitle: 'Registrar Producto'}},
+            RegSucursal: {screen: RegisterSucursalScreen, navigationOptions: { headerTitle: 'Registrar Sucursal'}},
+            RegEstablishment: {screen: RegisterEstablishmentScreen, navigationOptions: { headerTitle: 'Registrar Establecimiento'}}
+        }),
+        scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
+        searchFlow: createStackNavigator({
+            SearchProducto: {screen: SearchProductoScreen, navigationOptions: { headerTitle: 'Buscar Producto'}},
+            VerProducto: {screen: VerProductoScreen, navigationOptions: { headerTitle: 'Producto'}}
+        })
+    },{resetOnBlur: true})
+});
 
-export default createAppContainer (AppNavigator);
+export default createAppContainer (switchNavigator);

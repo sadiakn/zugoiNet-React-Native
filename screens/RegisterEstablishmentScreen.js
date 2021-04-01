@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 
-const RegisterEstablishment = () => {
+const RegisterEstablishmentScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text> Registrar Establishment</Text>
@@ -10,7 +10,7 @@ const RegisterEstablishment = () => {
     )
 }
 
-export default RegisterEstablishment;
+export default RegisterEstablishmentScreen;
 
 const styles = StyleSheet.create({
     container: {
