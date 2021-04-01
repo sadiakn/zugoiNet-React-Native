@@ -76,7 +76,7 @@ const RegisterProductScreen = ({ navigation }) => {
 
 RegisterProductScreen.navigationOptions = () => {
     return {
-        headerTitle: 'Registrar Producto',
+        headerTitle: '',
     };
 };
 
