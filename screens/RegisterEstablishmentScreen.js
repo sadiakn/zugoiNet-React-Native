@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import RNPickerSelect from 'react-native-picker-select';
 
 
 const RegisterEstablishmentScreen = props => {
-    const { establishmentName, typeOfEstablishmentId } = "";
-    // constructor(props){
-    //     this.state = {
-    //         typeOfEstablishmentId:"1"
-    //     }
+    const [establishmentName, setEstablishmentName] = useState('');
+    const [typeOfEstablishmentId, setTypeOfEstablishmentId] = useState('');
     
-    //     this.controller;
-    // };
-    
+    const items =[{ label: 'Supermercado', value: '1' }, { label: 'Ferreteria', value: '2' }];
+
+    console.log("------------------------------------");
+    console.log("typeOfEstablishmentId: "+typeOfEstablishmentId);
+
     return (
         <View style={styles.container}>
             <Text style={styles.welcomeText}>Registro de Establecimiento</Text>
@@ -26,33 +26,35 @@ const RegisterEstablishmentScreen = props => {
                         placeholder="Nombre del Establecimiento"
                         placeholderTextColor="#333"
                         value={establishmentName}
-                        onChangeText={(value) => this.onChangeHandle('establishmentName', value)}
+                        onChangeText={setEstablishmentName}
                     />
                 </View>
                 <View style={[styles.mytextboxL, { }]} >
+                    {/* Dos opciones de dropdown */}
+
+                    {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker*/}
                     <DropDownPicker
-                        items={[
-                            { label: 'Alimentos', value: '1'},
-                            { label: 'Ferreteria', value: '2'},
-                            { label: 'Electronicos', value: '3'},
-                        ]}
-                        defaultValue={this.state.typeOfEstablishmentId}
-                        placeholder="Tipo de Establecimiento"
-                        containerStyle={{ height:55,width:"100%"}}
-                        style={styles.myDropdownList,{ backgroundColor: '#fafafa' }}
+                        items={items}
+                        defaultValue={typeOfEstablishmentId}
+                        containerStyle={{height: 40}}
+                        style={{backgroundColor: '#fafafa'}}
                         itemStyle={{
                             justifyContent: 'flex-start'
                         }}
-                        dropDownStyle={{ backgroundColor: '#fafafa' }}
-                        onChangeItem={item => this.setState({
-                            typeOfEstablishmentId: item.value
-                        })}
+                        dropDownStyle={{backgroundColor: '#fafafa'}}a
+                        onChangeItem={({value}) => {
+                            setTypeOfEstablishmentId(value)
+                        }}
+                    />
+
+                    {/* https://www.npmjs.com/package/react-native-picker-select */}
+                    <RNPickerSelect
+                        onValueChange={setTypeOfEstablishmentId}
+                        items={items}
                     />
                 </View>
 
             </View>
-
-
 
         </View>
     )
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
         height: "100%",
 
     },
-  
+
     mycontent: {
         flex: 1,
 

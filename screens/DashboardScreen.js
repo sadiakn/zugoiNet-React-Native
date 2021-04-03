@@ -12,11 +12,16 @@ const DashboardScreen = ({ navigation }) => {
 
                 <View>
                     <Text style={styles.userText}> Welcome user</Text>
-
+                    <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('loginFlow')}>
                         <Text style={styles.logouBtnText}>Logout</Text>
                     </TouchableOpacity>
 
+                    {/* Temp button for TESTING stuff*/}
+                    <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('Test')}>
+                        <Text style={styles.logouBtnText}>TEST</Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
             </View>
 

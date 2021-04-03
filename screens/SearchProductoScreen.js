@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
 
 
 const SearchProductoScreen = ({ navigation }) => {
-    const { producto } = "";
+    const [producto, setProducto] = useState('');
+
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
             <Text style={styles.welcomeText}>Buscar Producto</Text>
@@ -18,7 +19,7 @@ const SearchProductoScreen = ({ navigation }) => {
                         placeholder="Buscar Producto"
                         placeholderTextColor="#333"
                         value={producto}
-                        onChangeText={(value) => this.onChangeHandle('producto', value)}
+                        onChangeText={setProducto}
                     />
                 </View>
 
@@ -27,7 +28,11 @@ const SearchProductoScreen = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={() => navigation.navigate('Dashboard')}>
+                onPress={() => {
+                    console.log("------------------------------------");
+                    console.log("producto: "+producto);
+                    navigation.navigate('Dashboard')
+                }}>
                 <Text style={styles.BTnText}>Buscar Producto</Text>
             </TouchableOpacity>
 

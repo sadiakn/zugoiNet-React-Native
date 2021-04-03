@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
@@ -8,26 +8,12 @@ var gender = [
     { label: 'Mujer', value: "F" }
 ];
 
-// state = {
-//     nombre: "",
-//     apellido: "",
-//     numero: "",
-//     sexo: "",
-//     correo: "",
-//     password1: "",
-//     password2: "",
-// }
-// doForm() {
-//     const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
-// }
-// onChangeHandle(state, value) {
-//     this.setState({
-//         [state]: value
-//     })
-// }
-
 const RegisterUserScreen = ({ navigation }) => {
-    const { nombre, apellido, numero, sexo } = "";
+
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+    const [numero, setNumero] = useState('');
+    const [sexo, setSexo] = useState('');
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -43,7 +29,7 @@ const RegisterUserScreen = ({ navigation }) => {
                             placeholder="Nombre"
                             placeholderTextColor="#333"
                             value={nombre}
-                            onChangeText={(value) => this.onChangeHandle('nombre', value)}
+                            onChangeText={setNombre}
                         />
                     </View>
                     <View style={[styles.mytextboxS, { backgroundColor: "yellow", }]}>
@@ -51,7 +37,7 @@ const RegisterUserScreen = ({ navigation }) => {
                             placeholder="Apellido"
                             placeholderTextColor="#333"
                             value={apellido}
-                            onChangeText={(value) => this.onChangeHandle('apellido', value)}
+                            onChangeText={setApellido}
                         />
                     </View>
                 </View>
@@ -61,7 +47,7 @@ const RegisterUserScreen = ({ navigation }) => {
                         placeholder="Número de Teléfono                              (Opcional)"
                         placeholderTextColor="#333"
                         value={numero}
-                        onChangeText={(value) => this.onChangeHandle('numero', value)}
+                        onChangeText={setNumero}
                     />
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }} >
@@ -78,7 +64,7 @@ const RegisterUserScreen = ({ navigation }) => {
                         buttonColor={'#ee712e'}
                         selectedButtonColor={'#ee712e'}
                         animation={true}
-                        onPress={(value) => { this.onChangeHandle('sexo', value) }}
+                        onPress={(value) => { setSexo(value)}}
                         labelStyle={{ fontSize: 14, color: "black" }}
                     />
 
@@ -91,7 +77,14 @@ const RegisterUserScreen = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={() => navigation.navigate('RegUser2', { n: nombre, a: apellido, num: numero, s: sexo })}>
+                onPress={() => {
+                    console.log("------------------------------------");
+                    console.log("nombre: "+nombre);
+                    console.log("apellido: "+apellido);
+                    console.log("numero: "+numero);
+                    console.log("sexo: "+sexo);
+                    navigation.navigate('RegUser2', { nombre, apellido, numero, sexo });
+                    }}>
                 <Text style={styles.BTnText}>Siguiente</Text>
             </TouchableOpacity>
         </View>

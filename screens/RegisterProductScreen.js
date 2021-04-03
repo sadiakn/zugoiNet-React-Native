@@ -1,26 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Image } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const camaraimg = require('../assets/Camara.png')
 const scanimg = require('../assets/scan.png')
 
-// state = {
-//     codigo_barra: "",
-//     nombre: "",
-//     categoria: "",
-// }
-// doForm() {
-//     const { codigo_barra, nombre, categoria } = this.state;
-// }
-// onChangeHandle(state, value) {
-//     this.setState({
-//         [state]: value
-//     })
-// }
-
 const RegisterProductScreen = ({ navigation }) => {
-    const { codigo_barra, nombre, categoria } = "";
+    const [codigo_barra, setCodigo_barra] = useState(navigation.getParam('codigo_barra'));
+    const [nombre, setNombre] = useState('');
+    const [categoriaid, setCategoriaid] = useState('');
+    
+    const items =[{ label: 'Comida', value: '1' }, { label: 'Limpieza', value: '2' }];
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -37,7 +27,7 @@ const RegisterProductScreen = ({ navigation }) => {
                             placeholder="Codigo de Barra"
                             placeholderTextColor="#333"
                             value={codigo_barra}
-                            onChangeText={(value) => this.onChangeHandle('codigo_barra', value)}
+                            onChangeText={setCodigo_barra}
                         />
                     </View>
 
@@ -59,7 +49,7 @@ const RegisterProductScreen = ({ navigation }) => {
                         placeholder="Nombre del Producto"
                         placeholderTextColor="#333"
                         value={nombre}
-                        onChangeText={(value) => this.onChangeHandle('nombre', value)}
+                        onChangeText={setNombre}
                     />
                 </View>
 
@@ -67,7 +57,14 @@ const RegisterProductScreen = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={() => navigation.navigate('Dashboard')}>
+                onPress={() => {
+                    console.log("------------------------------------");
+                    console.log("codigo_barra: "+codigo_barra);
+                    console.log("nombre: "+nombre);
+                    console.log("categoriaid: "+categoriaid);
+
+                    navigation.navigate('Dashboard');
+                    }}>
                 <Text style={styles.BTnText}>Registrar Producto</Text>
             </TouchableOpacity>
         </View>

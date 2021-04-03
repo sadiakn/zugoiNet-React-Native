@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
 
 import { Text, Input, Button} from 'react-native-elements';
@@ -8,7 +8,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 const LoginScreen = ({ navigation }) => {
-    const { username, password} = "";
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <View style={styles.container}>
             <View style={styles.formWrapper}>
@@ -20,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
                         placeholder="Correo Electrónico"
                         placeholderTextColor="#333"
                         value={username}
-                        onChangeText={(value) => { }}
+                        onChangeText={setUsername}
                     />
                 </View>
                 <View></View>
@@ -30,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
                         placeholderTextColor="#333"
                         secureTextEntry={true}
                         value={password}
-                        onChangeText={(value) => { }}
+                        onChangeText={setPassword}
                     />
                 </View>
                 <View></View>
@@ -38,7 +41,12 @@ const LoginScreen = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={styles.SignInBtn}
-                        onPress={() => navigation.navigate('mainFlow')}
+                        onPress={() => {
+                            console.log("------------------------------------");
+                            console.log("username: "+username);
+                            console.log("password: "+password);
+                            navigation.navigate('mainFlow');
+                        }}
                         >
                         <Text style={styles.signinText}>
                             Iniciar sesión

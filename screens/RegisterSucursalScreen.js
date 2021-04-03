@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
 
 const RegisterSucursalScreen = ({ navigation }) => {
-const { establecimiento, provincia, zipcode, ciudad} = "";
+    const [establecimiento, setEstablecimiento] = useState('');
+    const [provincia, setProvincia] = useState('');
+    const [zipcode, setZipcode] = useState('');
+    const [ciudad, setCiudad] = useState('');
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -19,7 +22,7 @@ const { establecimiento, provincia, zipcode, ciudad} = "";
                         placeholder="Zip Code"
                         placeholderTextColor="#333"
                         value={zipcode}
-                        onChangeText={(value) => this.onChangeHandle('zipcode', value)}
+                        onChangeText={setZipcode}
                     />
                 </View>
 
@@ -28,7 +31,7 @@ const { establecimiento, provincia, zipcode, ciudad} = "";
                         placeholder="Ciudad"
                         placeholderTextColor="#333"
                         value={ciudad}
-                        onChangeText={(value) => this.onChangeHandle('ciudad', value)}
+                        onChangeText={setCiudad}
                     />
                 </View>
 
@@ -37,7 +40,14 @@ const { establecimiento, provincia, zipcode, ciudad} = "";
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={() => navigation.navigate('Dashboard')}>
+                onPress={() => {
+                    navigation.navigate('Dashboard');
+                    console.log("------------------------------------");
+                    console.log("establecimiento: "+establecimiento);
+                    console.log("provincia: "+provincia);
+                    console.log("zipcode: "+zipcode);
+                    console.log("ciudad: "+ciudad);
+                }}>
                 <Text style={styles.BTnText}>Registrar Sucursal</Text>
             </TouchableOpacity>
 

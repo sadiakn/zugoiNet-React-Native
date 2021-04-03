@@ -24,7 +24,7 @@ import ScannerScreenTEMP from './screens/ScannerScreenTEMP';
 
 
 const scannerFlow = createStackNavigator({
-    Scanner: ScannerScreenTEMP,
+    Scanner: ScannerScreen,
     VerProducto: VerProductoScreen
 });
 
@@ -40,7 +40,8 @@ const switchNavigator =  createSwitchNavigator({
             scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
             RegProduct: RegisterProductScreen,
             RegSucursal: RegisterSucursalScreen,
-            RegEstablishment: RegisterEstablishmentScreen
+            RegEstablishment: RegisterEstablishmentScreen,
+            Test: ScannerScreenTEMP
         }),
         scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
         searchFlow: createStackNavigator({

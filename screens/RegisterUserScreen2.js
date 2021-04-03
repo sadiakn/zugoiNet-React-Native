@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
 // state = {
@@ -21,7 +21,13 @@ import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'rea
 
 
 const RegisterUserScreen2 = ({ navigation }) => {
-    const { nombre, apellido, numero, sexo, correo, password1, password2 } = "";
+    const [nombre, setNombre] = useState(navigation.getParam('nombre'));
+    const [apellido, setApellido] = useState(navigation.getParam('apellido'));
+    const [numero, setNumero] = useState(navigation.getParam('numero'));
+    const [sexo, setSexo] = useState(navigation.getParam('sexo'));
+    const [correo, setCorreo] = useState('');
+    const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -37,15 +43,15 @@ const RegisterUserScreen2 = ({ navigation }) => {
                         placeholder="Correo electrónico"
                         placeholderTextColor="#333"
                         value={correo}
-                        onChangeText={(value) => this.onChangeHandle('correo', value)}
+                        onChangeText={setCorreo}
                     />
                 </View>
                 <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
                     <TextInput style={styles.textInput}
                         placeholder="Contraseña"
                         placeholderTextColor="#333"
-                        value={password1}
-                        onChangeText={(value) => this.onChangeHandle('password1', value)}
+                        value={password}
+                        onChangeText={setPassword}
                     />
                 </View>
                 <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
@@ -53,7 +59,7 @@ const RegisterUserScreen2 = ({ navigation }) => {
                         placeholder="Vuelve a introducir la contraseña"
                         placeholderTextColor="#333"
                         value={password2}
-                        onChangeText={(value) => this.onChangeHandle('password2', value)}
+                        onChangeText={setPassword2}
                     />
                 </View>
 
@@ -62,7 +68,17 @@ const RegisterUserScreen2 = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={() => navigation.navigate('Login')}>
+                onPress={() => {
+                    console.log("------------------------------------");
+                    console.log("nombre: "+nombre);
+                    console.log("apellido: "+apellido);
+                    console.log("numero: "+numero);
+                    console.log("sexo: "+sexo);
+                    console.log("correo: "+correo);
+                    console.log("password: "+password);
+                    console.log("password2: "+password2);
+                    navigation.navigate('Login');}                
+                    }>
                 <Text style={styles.BTnText}>Registrarse</Text>
             </TouchableOpacity>
             <Text style={styles.DisclaimerText}>Al hacer clic en “Registrarse”, aceptas los Términos y Condiciones de Uso de zugoiNet. </Text>
