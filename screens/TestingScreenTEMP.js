@@ -5,6 +5,8 @@ import RegSuccess from '../components/regSuccess';
 import RegNoProduct from '../components/regNoProduct';
 import RegError from '../components/regError';
 
+import Ztestaxios from '../screens/ztestaxios';
+
 const ScannerScreenTEMP = ({ navigation }) => {
     return (
         <ScrollView>
@@ -29,6 +31,8 @@ const ScannerScreenTEMP = ({ navigation }) => {
             < RegNoProduct
             name="Producto NO Registrado"
             />
+
+            <Ztestaxios />
         </View>
         </ScrollView>
     );
