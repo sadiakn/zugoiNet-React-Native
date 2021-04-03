@@ -9,7 +9,7 @@ const ScannerScreenTEMP = ({ navigation }) => {
     return (
         <ScrollView>
         <View style={styles.container}>
-            <Text>MODAL TESTING</Text>
+            <Text>TESTING SCREEN</Text>
             <RegSuccess
             name="Sucursal"
             />
@@ -36,7 +36,7 @@ const ScannerScreenTEMP = ({ navigation }) => {
 
 ScannerScreenTEMP.navigationOptions = () => {
     return {
-        headerTitle: 'Scanner',
+        headerTitle: 'TEST STUFF',
     };
 };
 
