@@ -6,35 +6,38 @@ import RegNoProduct from '../components/regNoProduct';
 import RegError from '../components/regError';
 
 import Ztestaxios from '../screens/ztestaxios';
+import { FlatList } from 'react-native-gesture-handler';
 
 const ScannerScreenTEMP = ({ navigation }) => {
     return (
-        <ScrollView>
-        <View style={styles.container}>
-            <Text>TESTING SCREEN</Text>
-            <RegSuccess
-            name="Sucursal"
-            />
+        <FlatList
+        ListHeaderComponent={
+            <View style={styles.container}>
+                <Text>TESTING SCREEN</Text>
+                <RegSuccess
+                name="Sucursal"
+                />
 
-            <RegSuccess
-            name="Establecimiento"
-            />
+                <RegSuccess
+                name="Establecimiento"
+                />
 
-            <RegSuccess
-            name="Producto"
-            />
-            
-            <RegError
-            name="Error"
-            />
+                <RegSuccess
+                name="Producto"
+                />
+                
+                <RegError
+                name="Error"
+                />
 
-            < RegNoProduct
-            name="Producto NO Registrado"
-            />
+                < RegNoProduct
+                name="Producto NO Registrado"
+                />
 
-            <Ztestaxios />
-        </View>
-        </ScrollView>
+                <Ztestaxios />
+            </View>
+        }
+        />
     );
 };
 
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
-        flex: 1
+        flex: 1,
+        paddingTop: 40
     },
 })
