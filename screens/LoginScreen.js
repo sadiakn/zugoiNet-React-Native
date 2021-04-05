@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const LoginScreen = ({ navigation }) => {
 
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     return (
@@ -22,8 +22,8 @@ const LoginScreen = ({ navigation }) => {
                     <TextInput style={styles.textInput}
                         placeholder="Correo Electrónico"
                         placeholderTextColor="#333"
-                        value={username}
-                        onChangeText={setUsername}
+                        value={email}
+                        onChangeText={setEmail}
                     />
                 </View>
                 <View></View>
@@ -43,7 +43,7 @@ const LoginScreen = ({ navigation }) => {
                         style={styles.SignInBtn}
                         onPress={() => {
                             console.log("------------------------------------");
-                            console.log("username: "+username);
+                            console.log("email: "+email);
                             console.log("password: "+password);
                             navigation.navigate('mainFlow');
                         }}

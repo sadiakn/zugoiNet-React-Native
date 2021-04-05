@@ -10,10 +10,10 @@ var gender = [
 
 const RegisterUserScreen = ({ navigation }) => {
 
-    const [nombre, setNombre] = useState('');
-    const [apellido, setApellido] = useState('');
-    const [numero, setNumero] = useState('');
-    const [sexo, setSexo] = useState('');
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [sex, setSex] = useState('');
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -28,16 +28,16 @@ const RegisterUserScreen = ({ navigation }) => {
                         <TextInput style={styles.textInputSmall}
                             placeholder="Nombre"
                             placeholderTextColor="#333"
-                            value={nombre}
-                            onChangeText={setNombre}
+                            value={name}
+                            onChangeText={setName}
                         />
                     </View>
                     <View style={[styles.mytextboxS, { backgroundColor: "yellow", }]}>
                         <TextInput style={styles.textInputSmall}
                             placeholder="Apellido"
                             placeholderTextColor="#333"
-                            value={apellido}
-                            onChangeText={setApellido}
+                            value={lastName}
+                            onChangeText={setLastName}
                         />
                     </View>
                 </View>
@@ -46,8 +46,8 @@ const RegisterUserScreen = ({ navigation }) => {
                     <TextInput style={styles.textInput}
                         placeholder="Número de Teléfono                              (Opcional)"
                         placeholderTextColor="#333"
-                        value={numero}
-                        onChangeText={setNumero}
+                        value={phone}
+                        onChangeText={setPhone}
                     />
                 </View>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }} >
@@ -64,7 +64,7 @@ const RegisterUserScreen = ({ navigation }) => {
                         buttonColor={'#ee712e'}
                         selectedButtonColor={'#ee712e'}
                         animation={true}
-                        onPress={(value) => { setSexo(value)}}
+                        onPress={(value) => { setSex(value)}}
                         labelStyle={{ fontSize: 14, color: "black" }}
                     />
 
@@ -79,11 +79,11 @@ const RegisterUserScreen = ({ navigation }) => {
                 style={styles.btn}
                 onPress={() => {
                     console.log("------------------------------------");
-                    console.log("nombre: "+nombre);
-                    console.log("apellido: "+apellido);
-                    console.log("numero: "+numero);
-                    console.log("sexo: "+sexo);
-                    navigation.navigate('RegUser2', { nombre, apellido, numero, sexo });
+                    console.log("nombre: "+name);
+                    console.log("apellido: "+lastName);
+                    console.log("numero: "+phone);
+                    console.log("sexo: "+sex);
+                    navigation.navigate('RegUser2', { nombre: name, apellido: lastName, numero: phone, sexo: sex });
                     }}>
                 <Text style={styles.BTnText}>Siguiente</Text>
             </TouchableOpacity>

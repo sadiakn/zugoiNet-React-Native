@@ -1,33 +1,22 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
-// state = {
-//     nombre: "",
-//     apellido: "",
-//     numero: "",
-//     sexo: "",
-//     correo: "",
-//     password1: "",
-//     password2: "",
-// }
-// doForm() {
-//     const { nombre, apellido, numero, sexo, correo, password1, password2 } = this.state;
-// }
-// onChangeHandle(state, value) {
-//     this.setState({
-//         [state]: value
-//     })
-// }
-
-
 const RegisterUserScreen2 = ({ navigation }) => {
-    const [nombre, setNombre] = useState(navigation.getParam('nombre'));
-    const [apellido, setApellido] = useState(navigation.getParam('apellido'));
-    const [numero, setNumero] = useState(navigation.getParam('numero'));
-    const [sexo, setSexo] = useState(navigation.getParam('sexo'));
-    const [correo, setCorreo] = useState('');
+    // Values from registerUserScreen1
+    const name = navigation.getParam('name');
+    const lastName = navigation.getParam('lastName');
+    const phone = navigation.getParam('phone');
+    const sex = navigation.getParam('sex');
+
+    // Values in this screen
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+
+    // Autofilled values for user
+    const countryId = '1';
+    const provinceId = '1';
+    const city = 'david';
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -42,8 +31,8 @@ const RegisterUserScreen2 = ({ navigation }) => {
                     <TextInput style={styles.textInput}
                         placeholder="Correo electrónico"
                         placeholderTextColor="#333"
-                        value={correo}
-                        onChangeText={setCorreo}
+                        value={email}
+                        onChangeText={setEmail}
                     />
                 </View>
                 <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
@@ -63,21 +52,23 @@ const RegisterUserScreen2 = ({ navigation }) => {
                     />
                 </View>
 
-
             </View>
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
                 onPress={() => {
                     console.log("------------------------------------");
-                    console.log("nombre: "+nombre);
-                    console.log("apellido: "+apellido);
-                    console.log("numero: "+numero);
-                    console.log("sexo: "+sexo);
-                    console.log("correo: "+correo);
+                    console.log("name: "+name);
+                    console.log("lastName: "+lastName);
+                    console.log("email: "+email);
+                    console.log("phone: "+phone);
+                    console.log("sex: "+sex);
                     console.log("password: "+password);
                     console.log("password2: "+password2);
-                    navigation.navigate('Login');}                
+                    console.log("countryId: "+countryId);
+                    console.log("provinceId: "+provinceId);
+                    console.log("city: "+city);
+                    navigation.navigate('Login');}
                     }>
                 <Text style={styles.BTnText}>Registrarse</Text>
             </TouchableOpacity>
