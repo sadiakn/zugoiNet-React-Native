@@ -6,10 +6,11 @@ const camaraimg = require('../assets/Camara.png')
 const scanimg = require('../assets/scan.png')
 
 const RegisterProductScreen = ({ navigation }) => {
-    const [codigo_barra, setCodigo_barra] = useState(navigation.getParam('codigo_barra'));
-    const [nombre, setNombre] = useState('');
-    const [categoriaid, setCategoriaid] = useState('');
+    const barCode = navigation.getParam('barCode');
+    const [productName, setProductName] = useState('');
+    const [categoryId, setCategoryId] = useState('');
     
+    console.log('navBarCode: '+barCode);
     const items =[{ label: 'Comida', value: '1' }, { label: 'Limpieza', value: '2' }];
 
     return (
@@ -26,12 +27,12 @@ const RegisterProductScreen = ({ navigation }) => {
                         <TextInput style={styles.textInputSmall}
                             placeholder="Codigo de Barra"
                             placeholderTextColor="#333"
-                            value={codigo_barra}
-                            onChangeText={setCodigo_barra}
+                            value={barCode}
+                            editable={false}
                         />
                     </View>
 
-                    <TouchableOpacity style={styles.scanBTn} title="scan" onPress={() => navigation.navigate('Scanner')}>
+                    <TouchableOpacity style={styles.scanBTn} title="scan" onPress={() => navigation.navigate('Scanner', { mode: 'Reg' })}>
                         <View ><Image source={scanimg} style={styles.buttonimage} /></View>
                     </TouchableOpacity>
 
@@ -48,8 +49,8 @@ const RegisterProductScreen = ({ navigation }) => {
                     <TextInput style={styles.textInput}
                         placeholder="Nombre del Producto"
                         placeholderTextColor="#333"
-                        value={nombre}
-                        onChangeText={setNombre}
+                        value={productName}
+                        onChangeText={setProductName}
                     />
                 </View>
 
@@ -59,9 +60,9 @@ const RegisterProductScreen = ({ navigation }) => {
                 style={styles.btn}
                 onPress={() => {
                     console.log("------------------------------------");
-                    console.log("codigo_barra: "+codigo_barra);
-                    console.log("nombre: "+nombre);
-                    console.log("categoriaid: "+categoriaid);
+                    console.log("codigo_barra: "+barCode);
+                    console.log("nombre: "+productName);
+                    console.log("categoriaid: "+categoryId);
 
                     navigation.navigate('Dashboard');
                     }}>

@@ -6,6 +6,8 @@ const ScannerScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
+  const mode = navigation.getParam('mode');
+  
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -16,9 +18,16 @@ const ScannerScreen = ({ navigation }) => {
   const handleBarCodeScanned = ({ type, data }) => {
     // old alert
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-
+    console.log('mode: ' + mode);
+    console.log('barCode: ' + data);
     setScanned(true);
-    alert(`Bar code: ${data} has been scanned!`);
+    if (mode == 'Reg') {
+
+      navigation.navigate('RegProduct', { barCode: data });
+    } else {
+      // alert(`Bar code: ${barCode} has been scanned!`);
+      navigation.navigate('VerProducto', { barCode: data });
+    }
   };
 
   if (hasPermission === null) {
@@ -34,7 +43,7 @@ const ScannerScreen = ({ navigation }) => {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Scan again'} onPress={() => setScanned(false)} />}
+      {scanned && <Button title={'Scan again'} onPress={() => setScanned(false)}/>}
     </View>
   );
 }
