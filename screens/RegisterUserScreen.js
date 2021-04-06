@@ -79,11 +79,11 @@ const RegisterUserScreen = ({ navigation }) => {
                 style={styles.btn}
                 onPress={() => {
                     console.log("------------------------------------");
-                    console.log("nombre: "+name);
-                    console.log("apellido: "+lastName);
-                    console.log("numero: "+phone);
-                    console.log("sexo: "+sex);
-                    navigation.navigate('RegUser2', { nombre: name, apellido: lastName, numero: phone, sexo: sex });
+                    console.log("name: "+name);
+                    console.log("lastName: "+lastName);
+                    console.log("phone: "+phone);
+                    console.log("sex: "+sex);
+                    navigation.navigate('RegUser2', { name, lastName, phone, sex });
                     }}>
                 <Text style={styles.BTnText}>Siguiente</Text>
             </TouchableOpacity>
