@@ -232,7 +232,7 @@ const Ztestaxios = () => {
 export default Ztestaxios;
 
 const styles = StyleSheet.create({
-    container: {
+    container2: {
         paddingVertical: 30,
         alignItems: "center",
         justifyContent: "center"

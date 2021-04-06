@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Image } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import RNPickerSelect from 'react-native-picker-select';
+
+import LoadingEffect from '../components/loadingEffect';
+
+import zugoi from '../api/zugoi';
 
 const camaraimg = require('../assets/Camara.png')
 const scanimg = require('../assets/scan.png')
@@ -9,65 +14,104 @@ const RegisterProductScreen = ({ navigation }) => {
     const barCode = navigation.getParam('barCode');
     const [productName, setProductName] = useState('');
     const [categoryId, setCategoryId] = useState('');
-    
-    console.log('navBarCode: '+barCode);
-    const items =[{ label: 'Comida', value: '1' }, { label: 'Limpieza', value: '2' }];
+
+    const [loading, setLoading] = useState(false);
+
+    const [items, setItems] = useState([]);
+
+    //API GET
+    const categoryTypesApi = async () => {
+        try {
+            const response = await zugoi
+                .get('/categories')
+                .then((res) => {
+                    setItems(res.data.map(({ categoryName: label, id: value }) => ({ label, value })));
+                    setLoading(true);
+                    console.log('loaded');
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        categoryTypesApi();
+    }, []);
+
+    console.log("------------------------------------");
+    console.log('navBarCode: ' + barCode);
+    console.log("productName: " + productName);
+    console.log("categoryId: " + categoryId);
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
-            <Text style={styles.welcomeText}>Registrar Producto</Text>
+            {loading ?
+                <>
+                    <Text style={styles.welcomeText}>Registrar Producto</Text>
 
-            {/* Linea horizontal */}
-            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                    {/* Linea horizontal */}
+                    <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-            <View style={[{ backgroundColor: "white", }]} >
-                <View style={styles.myrow}>
+                    <View style={[{ backgroundColor: "white", }]} >
+                        <View style={styles.myrow}>
 
-                    <View style={[styles.mytextboxS, { marginRight: 20 }]}>
-                        <TextInput style={styles.textInputSmall}
-                            placeholder="Codigo de Barra"
-                            placeholderTextColor="#333"
-                            value={barCode}
-                            editable={false}
-                        />
+                            <View style={[styles.mytextboxS, { marginRight: 20 }]}>
+                                <TextInput style={styles.textInputSmall}
+                                    placeholder="Codigo de Barra"
+                                    placeholderTextColor="#333"
+                                    value={barCode}
+                                    editable={false}
+                                />
+                            </View>
+
+                            <TouchableOpacity style={styles.scanBTn} title="scan" onPress={() => navigation.navigate('Scanner', { mode: 'Reg' })}>
+                                <View ><Image source={scanimg} style={styles.buttonimage} /></View>
+                            </TouchableOpacity>
+
+                        </View>
+
+                        <View>
+                            <TouchableOpacity style={styles.camaraBTn} title="camara" onPress={() => navigation.navigate('photo')}>
+                                <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={camaraimg} /></View>
+                            </TouchableOpacity>
+                            <Text style={styles.camaraBTnText}>Tomar Imagen del Producto</Text>
+                        </View>
+
+                        <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                            <TextInput style={styles.textInput}
+                                placeholder="Nombre del Producto"
+                                placeholderTextColor="#333"
+                                value={productName}
+                                onChangeText={setProductName}
+                            />
+                        </View>
+
+                        <RNPickerSelect
+                                placeholder={{
+                                    label: 'Select a Category...',
+                                    value: null,
+                                    color: '#EE712E',
+                                }}
+                                items={items}
+                                onValueChange={setCategoryId}
+                                style={styles.dropSelect}
+                            />
+
                     </View>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={styles.btn}
+                        onPress={() => {
+                            console.log("------------------------------------");
+                            console.log("codigo_barra: " + barCode);
+                            console.log("nombre: " + productName);
+                            console.log("categoriaid: " + categoryId);
 
-                    <TouchableOpacity style={styles.scanBTn} title="scan" onPress={() => navigation.navigate('Scanner', { mode: 'Reg' })}>
-                        <View ><Image source={scanimg} style={styles.buttonimage} /></View>
+                            navigation.navigate('Dashboard');
+                        }}>
+                        <Text style={styles.BTnText}>Registrar Producto</Text>
                     </TouchableOpacity>
-
-                </View>
-
-                <View>
-                    <TouchableOpacity style={styles.camaraBTn} title="camara" onPress={() => navigation.navigate('photo')}>
-                        <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={camaraimg} /></View>
-                    </TouchableOpacity>
-                    <Text style={styles.camaraBTnText}>Tomar Imagen del Producto</Text>
-                </View>
-
-                <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                    <TextInput style={styles.textInput}
-                        placeholder="Nombre del Producto"
-                        placeholderTextColor="#333"
-                        value={productName}
-                        onChangeText={setProductName}
-                    />
-                </View>
-
-            </View>
-            <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.btn}
-                onPress={() => {
-                    console.log("------------------------------------");
-                    console.log("codigo_barra: "+barCode);
-                    console.log("nombre: "+productName);
-                    console.log("categoriaid: "+categoryId);
-
-                    navigation.navigate('Dashboard');
-                    }}>
-                <Text style={styles.BTnText}>Registrar Producto</Text>
-            </TouchableOpacity>
+                </> : <LoadingEffect />}
         </View>
     );
 };
@@ -106,6 +150,16 @@ const styles = StyleSheet.create({
     },
 
 
+    dropSelect: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 30
+    },
 
     myrow: {
 

@@ -1,62 +1,96 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button, TextInput, ActivityIndicator } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNPickerSelect from 'react-native-picker-select';
 
+import LoadingEffect from '../components/loadingEffect';
+
+import zugoi from '../api/zugoi';
 
 const RegisterEstablishmentScreen = props => {
     const [establishmentName, setEstablishmentName] = useState('');
     const [typeOfEstablishmentId, setTypeOfEstablishmentId] = useState('');
-    
-    const items =[{ label: 'Supermercado', value: '1' }, { label: 'Ferreteria', value: '2' }];
+
+    const [loading, setLoading] = useState(false);
+
+    const [items, setItems] = useState([]);
+
+    //API GET
+    const establishmentsTypesApi = async () => {
+        try {
+            const response = await zugoi
+                .get('/type-of-establishments')
+                .then((res) => {
+                    setItems(res.data.map(({ typeOfEstablishmentName: label, id: value }) => ({ label, value })));
+                    setLoading(true);
+                    console.log('loaded');
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        establishmentsTypesApi();
+    }, []);
 
     console.log("------------------------------------");
-    console.log("typeOfEstablishmentId: "+typeOfEstablishmentId);
-
+    console.log("typeOfEstablishmentId: " + typeOfEstablishmentId);
     return (
         <View style={styles.container}>
-            <Text style={styles.welcomeText}>Registro de Establecimiento</Text>
-            {/* Linea horizontal */}
-            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+            {loading ?
+                <>
+                    <Text style={styles.welcomeText}>Registro de Establecimiento</Text>
+                    {/* Linea horizontal */}
+                    <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-            <View >
+                    <View >
 
-                <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                    <TextInput style={styles.textInput}
-                        placeholder="Nombre del Establecimiento"
-                        placeholderTextColor="#333"
-                        value={establishmentName}
-                        onChangeText={setEstablishmentName}
-                    />
-                </View>
-                <View style={[styles.mytextboxL, { }]} >
-                    {/* Dos opciones de dropdown */}
+                        <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                            <TextInput style={styles.textInput}
+                                placeholder="Nombre del Establecimiento"
+                                placeholderTextColor="#333"
+                                value={establishmentName}
+                                onChangeText={setEstablishmentName}
+                            />
+                        </View>
+                        <View style={[styles.mytextboxL, {}]} >
 
-                    {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker*/}
-                    <DropDownPicker
-                        items={items}
-                        defaultValue={typeOfEstablishmentId}
-                        containerStyle={{height: 40}}
-                        style={{backgroundColor: '#fafafa'}}
-                        itemStyle={{
-                            justifyContent: 'flex-start'
-                        }}
-                        dropDownStyle={{backgroundColor: '#fafafa'}}a
-                        onChangeItem={({value}) => {
-                            setTypeOfEstablishmentId(value)
-                        }}
-                    />
+                            {/* Dos opciones de dropdown */}
+                            {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker*/}
+                            {/* <DropDownPicker
+                                items={items}
+                                defaultValue={typeOfEstablishmentId}
+                                containerStyle={{ height: 40 }}
+                                style={{ backgroundColor: '#fafafa' }}
+                                itemStyle={{
+                                    justifyContent: 'flex-start'
+                                }}
+                                dropDownStyle={{ backgroundColor: '#fafafa' }} a
+                                onChangeItem={({ value }) => {
+                                    setTypeOfEstablishmentId(value)
+                                }}
+                            /> */}
 
-                    {/* https://www.npmjs.com/package/react-native-picker-select */}
-                    <RNPickerSelect
-                        onValueChange={setTypeOfEstablishmentId}
-                        items={items}
-                    />
-                </View>
+                            {/* https://www.npmjs.com/package/react-native-picker-select */}
 
-            </View>
+                            <RNPickerSelect
+                                placeholder={{
+                                    label: 'Select a type of Establishment...',
+                                    value: null,
+                                    color: '#EE712E',
+                                }}
+                                items={items}
+                                onValueChange={setTypeOfEstablishmentId}
+                                style={styles.dropSelect}
+                            />
 
+
+                        </View>
+                    </View>
+                </> : <LoadingEffect />}
         </View>
+
     )
 }
 
@@ -74,6 +108,21 @@ const styles = StyleSheet.create({
         padding: 30,
         height: "100%",
 
+    },
+    container2: {
+        paddingVertical: 30,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    dropSelect: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 30
     },
 
     mycontent: {

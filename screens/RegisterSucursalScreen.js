@@ -1,57 +1,145 @@
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 
+import Loading from '../components/loadingEffect';
+
+import zugoi from '../api/zugoi';
+import LoadingEffect from '../components/loadingEffect';
 
 const RegisterSucursalScreen = ({ navigation }) => {
-    const [establecimiento, setEstablecimiento] = useState('');
-    const [provincia, setProvincia] = useState('');
-    const [zipcode, setZipcode] = useState('');
-    const [ciudad, setCiudad] = useState('');
+    const [establishmentId, setEstablishmentId] = useState('');
+    const [provinceId, setProvinceId] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [city, setCity] = useState('');
+    const countryId = '1';
 
+    const [loading, setLoading] = useState(false);
+
+    const [items, setItems] = useState([]);
+    const [items2, setItems2] = useState([]);
+
+    //API GET
+    const establishmentsApi = async () => {
+        try {
+            const response = await zugoi
+                .get('/establishments')
+                .then((res) => {
+                    setItems(res.data.map(({ establishmentName: label, id: value }) => ({ label, value })));
+                    // setLoading(true);
+                    // console.log('loaded 1');
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const provinceApi = async () => {
+        try {
+            const response = await zugoi
+                .get('/countries/1/provinces')
+                .then((res) => {
+                    setItems2(res.data.map(({ provinceName: label, id: value }) => ({ label, value })));
+                    // setLoading(true);
+                    // console.log('loaded 2');
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const multiApi = async () => {
+        try {
+            const response = await Promise.all([establishmentsApi(), provinceApi()])
+            .then(() => {setLoading(true);console.log('loaded');})
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        multiApi();
+    }, []);
+
+    console.log("------------------------------------");
+    console.log("countryId: " + countryId);
+    console.log("provinceId: " + provinceId);
+    console.log("city: " + city);
+    console.log("establishmentId: " + establishmentId);
+    console.log("zipCode: " + zipCode);
     return (
+
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
-            <Text style={styles.welcomeText}>Registrar Sucursal</Text>
+            {loading ?
+                <>
+                    <Text style={styles.welcomeText}>Registrar Sucursal</Text>
 
-            {/* Linea horizontal */}
-            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
-            <Text>Direccion</Text>
-            <View style={[{ backgroundColor: "white", }]} >
-               
-                <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                    <TextInput style={styles.textInput}
-                        placeholder="Zip Code"
-                        placeholderTextColor="#333"
-                        value={zipcode}
-                        onChangeText={setZipcode}
+                    {/* Linea horizontal */}
+                    <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+
+                    <RNPickerSelect
+                        placeholder={{
+                            label: 'Select Establishment...',
+                            value: null,
+                            color: '#EE712E',
+                        }}
+                        items={items}
+                        onValueChange={setEstablishmentId}
+                        style={styles.dropSelect}
                     />
-                </View>
 
-                <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                    <TextInput style={styles.textInput}
-                        placeholder="Ciudad"
-                        placeholderTextColor="#333"
-                        value={ciudad}
-                        onChangeText={setCiudad}
-                    />
-                </View>
+                    <Text>Direccion</Text>
+                    <View style={[{ backgroundColor: "white", }]} >
 
-            </View>
+                        <RNPickerSelect
+                            placeholder={{
+                                label: 'Select Province...',
+                                value: null,
+                                color: '#EE712E',
+                            }}
+                            items={items2}
+                            onValueChange={setProvinceId}
+                            style={styles.dropSelect}
+                        />
 
-            <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.btn}
-                onPress={() => {
-                    navigation.navigate('Dashboard');
-                    console.log("------------------------------------");
-                    console.log("establecimiento: "+establecimiento);
-                    console.log("provincia: "+provincia);
-                    console.log("zipcode: "+zipcode);
-                    console.log("ciudad: "+ciudad);
-                }}>
-                <Text style={styles.BTnText}>Registrar Sucursal</Text>
-            </TouchableOpacity>
+                        <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                            <TextInput style={styles.textInput}
+                                placeholder="Zip Code"
+                                placeholderTextColor="#333"
+                                value={zipCode}
+                                onChangeText={setZipCode}
+                            />
+                        </View>
 
+                        <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                            <TextInput style={styles.textInput}
+                                placeholder="Ciudad"
+                                placeholderTextColor="#333"
+                                value={city}
+                                onChangeText={setCity}
+                            />
+                        </View>
+
+                    </View>
+
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={styles.btn}
+                        onPress={() => {
+                            navigation.navigate('Dashboard');
+                            console.log("------------------------------------");
+                            console.log("countryId: " + countryId);
+                            console.log("provinceId: " + provinceId);
+                            console.log("city: " + city);
+                            console.log("establishmentId: " + establishmentId);
+                            console.log("zipCode: " + zipCode);
+                        }}>
+                        <Text style={styles.BTnText}>Registrar Sucursal</Text>
+                    </TouchableOpacity>
+                </>
+                : <LoadingEffect />}
         </View>
+
     )
 }
 
@@ -83,6 +171,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         width: "50%",
 
+    },
+    dropSelect: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: 'purple',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 30
     },
     mytextboxL: {
         marginVertical: 10,
