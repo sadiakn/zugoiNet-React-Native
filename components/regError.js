@@ -1,55 +1,39 @@
 import React, { Component, useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable,Image,View } from "react-native";
+import { Alert, Modal, StyleSheet, Text, Pressable, Image, View } from "react-native";
 
+const checked = require('../assets/checked1.png');
+const cancel = require('../assets/cancel.png');
 
-const checked1 = require('../assets/cancel.png');
+const regSuccess = ({Visible, onPress}) => {
+  return (
+    <>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={Visible}
+        onRequestClose={() => (onPress(!Visible))}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <View><Image source={cancel} /></View>
+            <Text style={styles.modalText1}>¡Error!</Text>
+            <Text style={styles.modalText2}>¡Algo salio mal!</Text>
+            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-const regError = ({ name}) => {
-
-  const [modalVisible , setModalVisible] = useState(false);
-
-    return (
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-            <View><Image source={checked1}/></View>
-              <Text style={styles.modalText1}>¡Algo salio mal!</Text>
-              <Text style={styles.modalText2}>¡Oops!</Text>         
-              <View style={{justifyContent:"center",alignItems: 'center'}}><View style={styles.borderLine}></View></View>
-              <View>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>Cerrar</Text>
-              </Pressable>
-              </View>
-            </View>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {onPress(!Visible);}}
+            >
+              <Text style={styles.textStyle}>Ok</Text>
+            </Pressable>
           </View>
-        </Modal>
-        <View>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.textStyle}>Show Modal {name}</Text>
-        </Pressable>
         </View>
-      </View>
-    );
-  }
+      </Modal>
+    </>
+  );
+};
 
-
-export default regError;
+export default regSuccess;
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -57,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
+    paddingBottom: 150
   },
   modalView: {
     margin: 20,
@@ -67,11 +52,12 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 12,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
+    elevation: 24,
   },
   button: {
     borderRadius: 20,
@@ -100,12 +86,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center"
   },
-  borderLine:{
+  borderLine: {
     borderWidth: 1,
-    borderColor:"#EE712E",
-    marginBottom:50,
-    marginTop:20,
-    paddingHorizontal:100,
-    width:"50%",
-}
+    borderColor: "#EE712E",
+    marginBottom: 20,
+    marginTop: 20,
+    paddingHorizontal: 100,
+    width: "50%",
+  },
+  container: {
+    flexDirection: 'row',
+  },
+  button1: {
+    backgroundColor: "white",
+    borderColor: "#878787",
+    marginBottom: 3,
+    borderWidth: 1,
+    paddingHorizontal: 53,
+  },
 });

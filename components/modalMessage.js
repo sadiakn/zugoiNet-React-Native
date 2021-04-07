@@ -4,7 +4,7 @@ import { Alert, Modal, StyleSheet, Text, Pressable, Image, View } from "react-na
 const checked = require('../assets/checked1.png');
 const cancel = require('../assets/cancel.png');
 
-const regSuccess = ({ Type, Title, Message, Button, Visible, onPress, Nav }) => {
+const regSuccess = ({ navigation, Type, Title, Message, Button, Visible, onPress, Nav }) => {
     return (
         <>
             <Modal
@@ -20,12 +20,15 @@ const regSuccess = ({ Type, Title, Message, Button, Visible, onPress, Nav }) => 
                         <Text style={styles.modalText2}>{Message}</Text>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
                         <>
-                            {Button === 'Cerrar' ?
+                            {Button === 'Ok' ?
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
-                                    onPress={() => (onPress(!Visible))}
+                                    onPress={() => {
+                                        onPress(!Visible);
+                                        navigation.navigate(`${Nav}`);
+                                        }}
                                 >
-                                    <Text style={styles.textStyle}>Cerrar</Text>
+                                    <Text style={styles.textStyle}>Ok</Text>
                                 </Pressable>
                                 : <>
                                     <View style={styles.container}>
@@ -41,7 +44,7 @@ const regSuccess = ({ Type, Title, Message, Button, Visible, onPress, Nav }) => 
                                         <View style={{ paddingHorizontal: 10, }}>
                                             <Pressable
                                                 style={[styles.button, styles.buttonClose]}
-                                                onPress={() => (Nav)}
+                                                onPress={() => (navigation.navigate(Nav))}
                                             >
                                                 <Text style={styles.textStyle}>Registrar</Text>
                                             </Pressable>

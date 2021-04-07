@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, Image, Modal } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import RNPickerSelect from 'react-native-picker-select';
 
 import LoadingEffect from '../components/loadingEffect';
+import ModalMessage from '../components/modalMessage';
 
 import zugoi from '../api/zugoi';
 
@@ -16,32 +17,33 @@ const RegisterProductScreen = ({ navigation }) => {
     const [categoryId, setCategoryId] = useState('');
 
     const [loading, setLoading] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const [items, setItems] = useState([]);
 
     //API GET
     const categoryTypesApi = async () => {
-        try {
-            const response = await zugoi
-                .get('/categories')
-                .then((res) => {
-                    setItems(res.data.map(({ categoryName: label, id: value }) => ({ label, value })));
-                    setLoading(true);
-                    console.log('loaded');
-                });
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await zugoi
+            .get('/categories')
+            .then((res) => {
+                setItems(res.data.map(({ categoryName: label, id: value }) => ({ label, value })));
+                setLoading(true);
+                console.log('loaded');
+            })
+            .catch((err) => {
+                if (err.response) {
+                    // client received an error response (5xx, 4xx)
+                } else if (err.request) {
+                    // client never received a response, or request never left 
+                } else {
+                    console.log(err);
+                }
+            });
     };
 
     useEffect(() => {
         categoryTypesApi();
     }, []);
-
-    console.log("------------------------------------");
-    console.log('barCode: ' + barCode);
-    console.log("productName: " + productName);
-    console.log("categoryId: " + categoryId);
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -87,30 +89,41 @@ const RegisterProductScreen = ({ navigation }) => {
                         </View>
 
                         <RNPickerSelect
-                                placeholder={{
-                                    label: 'Select a Category...',
-                                    value: null,
-                                    color: '#EE712E',
-                                }}
-                                items={items}
-                                onValueChange={setCategoryId}
-                                style={styles.dropSelect}
-                            />
+                            placeholder={{
+                                label: 'Select a Category...',
+                                value: null,
+                                color: '#EE712E',
+                            }}
+                            items={items}
+                            onValueChange={setCategoryId}
+                            style={styles.dropSelect}
+                        />
 
                     </View>
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={styles.btn}
                         onPress={() => {
+                            setModalVisible(true);
                             console.log("------------------------------------");
                             console.log("codigo_barra: " + barCode);
                             console.log("nombre: " + productName);
                             console.log("categoriaid: " + categoryId);
-
-                            navigation.navigate('Dashboard');
                         }}>
                         <Text style={styles.BTnText}>Registrar Producto</Text>
                     </TouchableOpacity>
+                    {modalVisible === true ? (
+                        <ModalMessage
+                            Type='Checked'
+                            Title='¡Producto Registrado!'
+                            Message='¡El producto a sido registrado!'
+                            Button='Ok'
+                            Visible={modalVisible}
+                            onPress={setModalVisible}
+                            navigation={navigation}
+                            Nav='Dashboard'
+                        />
+                    ) : (null)}
                 </> : <LoadingEffect />}
         </View>
     );

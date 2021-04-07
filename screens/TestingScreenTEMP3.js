@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 
 import ModalMessage from '../components/modalMessage';
+import RegError from '../components/regError';
 
 const ScannerScreenTEMP3 = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -10,15 +11,21 @@ const ScannerScreenTEMP3 = ({ navigation }) => {
             <Text>TESTING MODAL</Text>
             <ModalMessage
                 Type='Checked'
-                Title='TEST'
-                Message='Esto es un test!'
-                Button='Cerrar'
+                Title='¡Producto Registrado!'
+                Message='¡El producto a sido registrado!'
+                Button=''
                 Visible={modalVisible}
                 onPress={setModalVisible}
+                navigation={navigation}
+                Nav='Dashboard'
             />
+            {/* <RegError
+                Visible={modalVisible}
+                onPress={setModalVisible}
+            /> */}
             <Pressable
                 style={[styles.button, styles.buttonOpen]}
-                onPress={()=>{setModalVisible(!modalVisible)}}
+                onPress={() => { setModalVisible(!modalVisible) }}
             >
                 <Text style={styles.textStyle}>Show Modal</Text>
             </Pressable>
