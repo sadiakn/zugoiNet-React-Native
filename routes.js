@@ -15,7 +15,6 @@ import ScannerScreen from './screens/ScannerScreen';
 import RegisterProductScreen from './screens/RegisterProductScreen';
 import RegisterSucursalScreen from './screens/RegisterSucursalScreen';
 import RegisterEstablishmentScreen from './screens/RegisterEstablishmentScreen';
-import RegisterPriceScreen from './screens/RegisterPriceScreen';
 
 import VerProductoScreen from './screens/VerProductoScreen';
 import SearchProductoScreen from './screens/SearchProductoScreen';
@@ -43,8 +42,7 @@ const switchNavigator =  createSwitchNavigator({
             RegProduct: RegisterProductScreen,
             RegSucursal: RegisterSucursalScreen,
             RegEstablishment: RegisterEstablishmentScreen,
-            Test: TestingScreenTEMP2,
-            RegPrice:RegisterPriceScreen
+            Test: TestingScreenTEMP2
         }),
         scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
         searchFlow: createStackNavigator({

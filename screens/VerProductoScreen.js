@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ActivityIndicator, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
 import zugoi from '../api/zugoi';
@@ -8,6 +8,7 @@ const VerProductoScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState(null);
     const barCode = '7509552816334';
+
     // API POST
     const productApi = async () => {
         const response = await zugoi('/products/prices/branch-offices', {
@@ -54,10 +55,22 @@ const VerProductoScreen = ({ navigation }) => {
                                     );
                                 })
                             }
-                            <Button
-                                title="Agregar Precio"
-                                onPress={() => {navigation.navigate('RegPrice'), { data: barCode }}}
-                            />
+                            <Text> ---------------------------------- </Text>
+                            <Text> Agregar Precio vvvvv </Text>
+                            <Text> ---------------------------------- </Text>
+                            {
+                                results.branchOffices.map((results, index) => {
+                                    const { id, Establishment, PricesProductsBranchOffices, Address } = results;
+
+                                    return (
+                                        <TouchableOpacity key={id} style={{ borderColor: "black", borderWidth: 1, margin: 5 }}>
+                                            <Text>id: {id}</Text>
+                                            <Text>EstablishmentName: {Establishment.establishmentName}</Text>
+                                            <Text>city: {Address.city}</Text>
+                                        </TouchableOpacity>
+                                    );
+                                })
+                            }
 
                         </View>
                     )
