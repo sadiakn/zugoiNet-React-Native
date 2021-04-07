@@ -18,6 +18,7 @@ const ScannerScreen = ({ navigation }) => {
   const handleBarCodeScanned = ({ type, data }) => {
     // old alert
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    console.log("------------------------------------");
     console.log('mode: ' + mode);
     console.log('barCode: ' + data);
     setScanned(true);

@@ -39,7 +39,7 @@ const RegisterProductScreen = ({ navigation }) => {
     }, []);
 
     console.log("------------------------------------");
-    console.log('navBarCode: ' + barCode);
+    console.log('barCode: ' + barCode);
     console.log("productName: " + productName);
     console.log("categoryId: " + categoryId);
 

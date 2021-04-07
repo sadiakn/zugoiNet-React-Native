@@ -22,6 +22,7 @@ import SearchProductoScreen from './screens/SearchProductoScreen';
 import Ztestaxios from './screens/ztestaxios';
 import TestingScreenTEMP from './screens/TestingScreenTEMP';
 import TestingScreenTEMP2 from './screens/TestingScreenTEMP2';
+import TestingScreenTEMP3 from './screens/TestingScreenTEMP3';
 
 const scannerFlow = createStackNavigator({
     Scanner: ScannerScreen,
@@ -41,7 +42,7 @@ const switchNavigator =  createSwitchNavigator({
             RegProduct: RegisterProductScreen,
             RegSucursal: RegisterSucursalScreen,
             RegEstablishment: RegisterEstablishmentScreen,
-            Test: TestingScreenTEMP2
+            Test: TestingScreenTEMP3
         }),
         scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
         searchFlow: createStackNavigator({
