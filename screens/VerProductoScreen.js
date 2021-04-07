@@ -56,7 +56,7 @@ const VerProductoScreen = ({ navigation }) => {
                             }
                             <Button
                                 title="Agregar Precio"
-                                onPress={() => {navigation.navigate('RegPrice')}}
+                                onPress={() => {navigation.navigate('RegPrice'), { data: barCode }}}
                             />
 
                         </View>

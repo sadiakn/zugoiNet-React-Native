@@ -4,10 +4,10 @@ import { FlatList } from 'react-native-gesture-handler';
 
 import zugoi from '../api/zugoi';
 
-const RegisterPriceScreen = ({ navigation }) => {
+const RegisterPriceScreen = ({ navigation, data }) => {
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState(null);
-    const barCode = '7509552816334';
+    const [barCode, setBarCode] = useState(navigation.getParam('data'));
     // API POST
     const productApi = async () => {
         const response = await zugoi('/products/prices/branch-offices', {
