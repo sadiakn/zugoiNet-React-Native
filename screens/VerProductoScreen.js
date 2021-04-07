@@ -39,15 +39,15 @@ const VerProductoScreen = ({ navigation }) => {
                             <Text>!Producto Encontrado!</Text>
                             <Text>Image: {results.product.img}</Text>
                             <Text>Product Name: {results.product.productName}</Text>
-                            <Text>Product Image: {results.product.img}</Text>
                             {
                                 results.branchOfficesWithPrice.map((results, index) => {
-                                    const { id, Establishment, PricesProductsBranchOffices } = results;
+                                    const { id, Establishment, PricesProductsBranchOffices, Address } = results;
 
                                     return (
                                         <View key={id} style={{ borderColor: "black", borderWidth: 1, margin: 5 }}>
                                             <Text>id: {id}</Text>
                                             <Text>EstablishmentName: {Establishment.establishmentName}</Text>
+                                            <Text>city: {Address.city}</Text>
                                             <Text>PriceID: {PricesProductsBranchOffices[0].id}</Text>
                                             <Text>Price: {PricesProductsBranchOffices[0].price}</Text>
                                         </View>
@@ -55,12 +55,8 @@ const VerProductoScreen = ({ navigation }) => {
                                 })
                             }
                             <Button
-                                title="Agregar Precios"
-                                onPress={() => {
-                                    console.log("------------------");
-                                    console.log(results.branchOffices);
-                                    navigation.navigate('RegPrice', {branchOffices: results.branchOffices});
-                                }}
+                                title="Agregar Precio"
+                                onPress={() => {navigation.navigate('RegPrice')}}
                             />
 
                         </View>
