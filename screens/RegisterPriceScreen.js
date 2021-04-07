@@ -5,35 +5,15 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import LoadingEffect from '../components/loadingEffect';
 
-import zugoi from '../api/zugoi';
 
-const RegisterEstablishmentScreen = ({ navigation }) => {
+const RegisterPriceScreen = ({ navigation }) => {
     const [establishmentName, setEstablishmentName] = useState('');
-    const [typeOfEstablishmentId, setTypeOfEstablishmentId] = useState('');
+    // const [typeOfEstablishmentId, setTypeOfEstablishmentId] = useState('');
 
     const [loading, setLoading] = useState(false);
 
-    const [items, setItems] = useState([]);
-
-    //API GET
-    const establishmentsTypesApi = async () => {
-
-        const response = await zugoi
-            .get('/type-of-establishments')
-            .then((res) => {
-                setItems(res.data.map(({ typeOfEstablishmentName: label, id: value }) => ({ label, value })));
-                setLoading(true);
-                console.log('loaded');
-                error => {
-                    console.log(error);
-                }
-            });
-
-    };
-
-    useEffect(() => {
-        establishmentsTypesApi();
-    }, []);
+    // res.data.map(({ typeOfEstablishmentName: label, id: value }) => ({ label, value }))
+    const [items, setItems] = useState();
 
     console.log("------------------------------------");
     console.log("typeOfEstablishmentId: " + typeOfEstablishmentId);
@@ -46,7 +26,6 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                     <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
                     <View >
-
                         <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
                             <TextInput style={styles.textInput}
                                 placeholder="Nombre del Establecimiento"
@@ -56,26 +35,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                             />
                         </View>
                         <View style={[styles.mytextboxL, {}]} >
-
-                            {/* Dos opciones de dropdown */}
-                            {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker*/}
-                            {/* <DropDownPicker
-                                items={items}
-                                defaultValue={typeOfEstablishmentId}
-                                containerStyle={{ height: 40 }}
-                                style={{ backgroundColor: '#fafafa' }}
-                                itemStyle={{
-                                    justifyContent: 'flex-start'
-                                }}
-                                dropDownStyle={{ backgroundColor: '#fafafa' }} a
-                                onChangeItem={({ value }) => {
-                                    setTypeOfEstablishmentId(value)
-                                }}
-                            /> */}
-
-                            {/* https://www.npmjs.com/package/react-native-picker-select */}
-
-                            <RNPickerSelect
+                            {/* <RNPickerSelect
                                 placeholder={{
                                     label: 'Select a type of Establishment...',
                                     value: null,
@@ -84,7 +44,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                                 items={items}
                                 onValueChange={setTypeOfEstablishmentId}
                                 style={styles.dropSelect}
-                            />
+                            /> */}
 
 
                         </View>
@@ -95,13 +55,13 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
     )
 }
 
-RegisterEstablishmentScreen.navigationOptions = () => {
+RegisterPriceScreen.navigationOptions = () => {
     return {
         headerTitle: '',
     };
 };
 
-export default RegisterEstablishmentScreen;
+export default RegisterPriceScreen;
 
 const styles = StyleSheet.create({
     container: {

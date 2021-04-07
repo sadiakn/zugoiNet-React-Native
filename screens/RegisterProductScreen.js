@@ -29,14 +29,8 @@ const RegisterProductScreen = ({ navigation }) => {
                 setItems(res.data.map(({ categoryName: label, id: value }) => ({ label, value })));
                 setLoading(true);
                 console.log('loaded');
-            })
-            .catch((err) => {
-                if (err.response) {
-                    // client received an error response (5xx, 4xx)
-                } else if (err.request) {
-                    // client never received a response, or request never left 
-                } else {
-                    console.log(err);
+                error => {
+                    console.log(error);
                 }
             });
     };

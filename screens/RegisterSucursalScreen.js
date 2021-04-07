@@ -21,40 +21,36 @@ const RegisterSucursalScreen = ({ navigation }) => {
 
     //API GET
     const establishmentsApi = async () => {
-        try {
-            const response = await zugoi
-                .get('/establishments')
-                .then((res) => {
-                    setItems(res.data.map(({ establishmentName: label, id: value }) => ({ label, value })));
-                    setLoading(true);
-                    console.log('loaded 1');
-                });
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await zugoi
+            .get('/establishments')
+            .then((res) => {
+                setItems(res.data.map(({ establishmentName: label, id: value }) => ({ label, value })));
+                error => {
+                    console.log(error);
+                }
+            });
+
     };
 
     const provinceApi = async () => {
-        try {
-            const response = await zugoi
-                .get('/countries/1/provinces')
-                .then((res) => {
-                    setItems2(res.data.map(({ provinceName: label, id: value }) => ({ label, value })));
-                    setLoading(true);
-                    console.log('loaded 2');
-                });
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await zugoi
+            .get('/countries/1/provinces')
+            .then((res) => {
+                setItems2(res.data.map(({ provinceName: label, id: value }) => ({ label, value })));
+                error => {
+                    console.log(error);
+                }
+            });
     };
 
     const multiApi = async () => {
-        try {
-            const response = await Promise.all([establishmentsApi(), provinceApi()])
-            
-        } catch (error) {
-            console.log(error);
-        }
+        const response = await Promise.all([establishmentsApi(), provinceApi()])
+            .then(res => {
+                console.log('Loaded');
+                setLoading(true);
+            }, error => {
+                console.log(error)
+            });
     };
 
     useEffect(() => {

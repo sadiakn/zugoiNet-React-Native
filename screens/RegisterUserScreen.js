@@ -68,11 +68,7 @@ const RegisterUserScreen = ({ navigation }) => {
                         labelStyle={{ fontSize: 14, color: "black" }}
                     />
 
-
                 </View>
-
-
-
             </View>
             <TouchableOpacity
                 activeOpacity={0.8}

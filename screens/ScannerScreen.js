@@ -44,7 +44,7 @@ const ScannerScreen = ({ navigation }) => {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Scan again'} onPress={() => setScanned(false)}/>}
+      {/* {scanned && <Button title={'Scan again'} onPress={() => setScanned(false)}/>} */}
     </View>
   );
 }
