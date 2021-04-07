@@ -26,8 +26,8 @@ const RegisterSucursalScreen = ({ navigation }) => {
                 .get('/establishments')
                 .then((res) => {
                     setItems(res.data.map(({ establishmentName: label, id: value }) => ({ label, value })));
-                    // setLoading(true);
-                    // console.log('loaded 1');
+                    setLoading(true);
+                    console.log('loaded 1');
                 });
         } catch (error) {
             console.log(error);
@@ -40,8 +40,8 @@ const RegisterSucursalScreen = ({ navigation }) => {
                 .get('/countries/1/provinces')
                 .then((res) => {
                     setItems2(res.data.map(({ provinceName: label, id: value }) => ({ label, value })));
-                    // setLoading(true);
-                    // console.log('loaded 2');
+                    setLoading(true);
+                    console.log('loaded 2');
                 });
         } catch (error) {
             console.log(error);
@@ -51,7 +51,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
     const multiApi = async () => {
         try {
             const response = await Promise.all([establishmentsApi(), provinceApi()])
-            .then(() => {setLoading(true);console.log('loaded');})
+            
         } catch (error) {
             console.log(error);
         }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const frankToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMsImlhdCI6MTYxNzI1MDIyNCwiZXhwIjoxNjI1MDI2MjI0fQ.7o85X9u-O3MoZOa6z5_OvtuW8dtt_Qa053TD70fi6Ak';
+const frankToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMsImlhdCI6MTYxNzc3MDQzMywiZXhwIjoxNjI1NTQ2NDMzfQ.3qoLPwiwznqEih2ocg96Mn1j65UvQSyNVgaYGQNGJrs';
 
 export default axios.create ({
     baseURL: 'http://api.zugoi.net',
