@@ -70,7 +70,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
             err.push(' [Tipo]');
         }
         if (errors > 0) {
-            alert("Error! Rellenar los campos: " + err);
+            alert("Error! Rellenar: " + err);
             return;
         }
         // API CALL
@@ -137,10 +137,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                         <TouchableOpacity
                             activeOpacity={0.8}
                             style={styles.btn}
-                            onPress={() => {
-                                // navigation.navigate('Dashboard');
-                                onSubmit()
-                            }}>
+                            onPress={onSubmit}>
                             <Text style={styles.BTnText}>Registrar Establecimiento</Text>
                         </TouchableOpacity>
                     </View>

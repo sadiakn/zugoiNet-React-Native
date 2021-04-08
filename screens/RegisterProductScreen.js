@@ -59,7 +59,7 @@ const RegisterProductScreen = ({ navigation }) => {
             err.push(' [Categoria]');
         }
         if (errors > 0) {
-            alert("Error! Rellenar los campos: " + err);
+            alert("Error! Rellenar: " + err);
             return;
         }
         console.log('--------------');
@@ -127,10 +127,7 @@ const RegisterProductScreen = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={styles.btn}
-                        onPress={() => {
-                            // setModalVisible(true);
-                            onSubmit();
-                        }}>
+                        onPress={onSubmit}>
                         <Text style={styles.BTnText}>Registrar Producto</Text>
                     </TouchableOpacity>
                     {modalVisible === true ? (

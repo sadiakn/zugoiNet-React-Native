@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
@@ -9,11 +9,35 @@ var gender = [
 ];
 
 const RegisterUserScreen = ({ navigation }) => {
-
+    let errors = 0;
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
     const [sex, setSex] = useState('');
+
+    const onSubmit = () => {
+        let err = [];
+        if (name === '' || name === null) {
+            errors++;
+            err.push(' [Nombre]');
+        }
+        if (lastName === '' || lastName === null) {
+            errors++;
+            err.push(' [Apellido]');
+        }
+        if (sex === '' || sex === null) {
+            errors++;
+            err.push(' [Sexo]');
+        }
+        if (errors > 0) {
+            alert("Error! Rellenar: " + err);
+            return;
+        }
+        // console.log('********************');
+        // console.log('** Validation: OK **');
+        // console.log('********************');
+        navigation.navigate('RegUser2', { name, lastName, phone, sex });
+    }
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -29,7 +53,10 @@ const RegisterUserScreen = ({ navigation }) => {
                             placeholder="Nombre"
                             placeholderTextColor="#333"
                             value={name}
-                            onChangeText={setName}
+                            onChangeText={(name) => {
+                                setName(name);
+                                errors = 0;
+                            }}
                         />
                     </View>
                     <View style={[styles.mytextboxS, { backgroundColor: "yellow", }]}>
@@ -37,7 +64,10 @@ const RegisterUserScreen = ({ navigation }) => {
                             placeholder="Apellido"
                             placeholderTextColor="#333"
                             value={lastName}
-                            onChangeText={setLastName}
+                            onChangeText={(lastName) => {
+                                setLastName(lastName);
+                                errors = 0;
+                            }}
                         />
                     </View>
                 </View>
@@ -64,7 +94,10 @@ const RegisterUserScreen = ({ navigation }) => {
                         buttonColor={'#ee712e'}
                         selectedButtonColor={'#ee712e'}
                         animation={true}
-                        onPress={(value) => { setSex(value)}}
+                        onPress={(value) => {
+                            setSex(value);
+                            errors = 0;
+                        }}
                         labelStyle={{ fontSize: 14, color: "black" }}
                     />
 
@@ -73,14 +106,7 @@ const RegisterUserScreen = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={() => {
-                    console.log("------------------------------------");
-                    console.log("name: "+name);
-                    console.log("lastName: "+lastName);
-                    console.log("phone: "+phone);
-                    console.log("sex: "+sex);
-                    navigation.navigate('RegUser2', { name, lastName, phone, sex });
-                    }}>
+                onPress={onSubmit}>
                 <Text style={styles.BTnText}>Siguiente</Text>
             </TouchableOpacity>
         </View>

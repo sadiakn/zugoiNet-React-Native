@@ -6,9 +6,11 @@ import { color } from 'react-native-reanimated';
 import zugoi from '../api/zugoi';
 
 const VerProductoScreen = ({ navigation }) => {
-    const [loading, setLoading] = useState(false);
-    const [results, setResults] = useState(null);
     const barCode = '7509552816334';
+    const [results, setResults] = useState(null);
+
+    const [loading, setLoading] = useState(false);
+    const [posted, setPosted] = useState(false);
 
     // API POST
     const productApi = async () => {
@@ -17,20 +19,24 @@ const VerProductoScreen = ({ navigation }) => {
             data: {
                 barCode: barCode
             }
-        }).then((res) => {
-            setResults(res.data),
-                console.log(res.data),
-                setLoading(true),
-                error => { console.log(error) }
-        });
+        })
+            .then((res) => {
+                setResults(res.data);
+                setLoading(true);
+                setPosted(true);
+                console.log('************');
+                console.log('** Posted **');
+                console.log('************');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
-
 
     useEffect(() => {
         productApi();
     }, []);
-    console.log("------------------------------------");
-    console.log(results);
+    
     return (
         <FlatList
             ListHeaderComponent={
@@ -67,16 +73,16 @@ const VerProductoScreen = ({ navigation }) => {
                                         <View key={id} style={styles.PriceContainer}>
                                             <View style={styles.myrow}>
                                                 <View style={{ marginHorizontal: 50, }}>
-                                                <Text style={styles.ProductText}>{Establishment.establishmentName}</Text>
+                                                    <Text style={styles.ProductText}>{Establishment.establishmentName}</Text>
                                                 </View>
                                                 <View style={{ marginHorizontal: 50, }}>
-                                                <Text style={styles.ProductText}>Precio:  {PricesProductsBranchOffices[0].price}</Text>
+                                                    <Text style={styles.ProductText}>Precio:  {PricesProductsBranchOffices[0].price}</Text>
                                                 </View>
-                                                
-                                               
+
+
                                             </View>
                                             <Text style={styles.CityText}>            Ciudad: {Address.city}</Text>
-                                            
+
                                         </View>
                                     );
                                 })
@@ -184,7 +190,7 @@ const styles = StyleSheet.create({
     },
     CityText: {
         marginVertical: 5,
-        
+
         color: '#fff',
         fontSize: 16,
         color: 'gray',

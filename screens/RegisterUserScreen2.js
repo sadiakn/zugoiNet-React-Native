@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
+import zugoi from '../api/zugoi';
+
 const RegisterUserScreen2 = ({ navigation }) => {
+    let errors = 0;
     // Values from registerUserScreen1
     const name = navigation.getParam('name');
     const lastName = navigation.getParam('lastName');
@@ -18,6 +21,71 @@ const RegisterUserScreen2 = ({ navigation }) => {
     const provinceId = '1';
     const city = 'david';
 
+    const [posted, setPosted] = useState(false);
+
+    // API POST
+    const RegUserApi = async () => {
+        const response = await zugoi('/users', {
+            method: 'post',
+            data: {
+                name: name,
+                lastName: lastName,
+                email: email,
+                phone: phone,
+                sex: sex,
+                password: password,
+                countryId: countryId,
+                provinceId: provinceId,
+                city: city
+            }
+        })
+            .then(() => {
+                setPosted(true);
+                console.log('************');
+                console.log('** Posted **');
+                console.log('************');
+                navigation.navigate('Login');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const onSubmit = () => {
+        let err = [];
+        if (email === '' || email === null) {
+            errors++;
+            err.push(' [Email]');
+        }
+        if (password === '' || password === null) {
+            errors++;
+            err.push(' [Password]');
+        }
+        if (password2 === '' || password2 === null) {
+            errors++;
+            err.push(' [Validacion Password]');
+        }
+        if (errors > 0) {
+            alert("Error! Rellenar: " + err);
+            return;
+        }
+        if (password !== password2) {
+            alert("Error! El Password no es igual");
+            return;
+        }
+        if (password.length < 8) {
+            alert("Error! El Password no puede ser menor de 8 caracteres");
+            return;
+        }
+        // console.log('********************');
+        // console.log('** Validation: OK **');
+        // console.log('********************');
+
+        // API CALL
+        RegUserApi();
+        // navigation.navigate('Login');
+    }
+
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
             <Text style={styles.welcomeText}>Crear una Cuenta</Text>
@@ -32,7 +100,10 @@ const RegisterUserScreen2 = ({ navigation }) => {
                         placeholder="Correo electrónico"
                         placeholderTextColor="#333"
                         value={email}
-                        onChangeText={setEmail}
+                        onChangeText={(email) => {
+                            setEmail(email);
+                            errors = 0;
+                        }}
                     />
                 </View>
                 <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
@@ -56,20 +127,7 @@ const RegisterUserScreen2 = ({ navigation }) => {
             <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btn}
-                onPress={() => {
-                    console.log("------------------------------------");
-                    console.log("name: "+name);
-                    console.log("lastName: "+lastName);
-                    console.log("email: "+email);
-                    console.log("phone: "+phone);
-                    console.log("sex: "+sex);
-                    console.log("password: "+password);
-                    console.log("password2: "+password2);
-                    console.log("countryId: "+countryId);
-                    console.log("provinceId: "+provinceId);
-                    console.log("city: "+city);
-                    navigation.navigate('Login');}
-                    }>
+                onPress={onSubmit}>
                 <Text style={styles.BTnText}>Registrarse</Text>
             </TouchableOpacity>
             <Text style={styles.DisclaimerText}>Al hacer clic en “Registrarse”, aceptas los Términos y Condiciones de Uso de zugoiNet. </Text>

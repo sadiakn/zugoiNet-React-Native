@@ -1,13 +1,13 @@
-import React  from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity } from 'react-native';
 import {
     createAppContainer,
     createSwitchNavigator
-    
+
 } from 'react-navigation';
 
 import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator,tabBarIcon} from 'react-navigation-tabs';
+import { createBottomTabNavigator, tabBarIcon } from 'react-navigation-tabs';
 
 import LoginScreen from './screens/LoginScreen';
 import RegisterUserScreen from './screens/RegisterUserScreen';
@@ -52,12 +52,12 @@ const switchNavigator = createSwitchNavigator({
                 RegEstablishment: RegisterEstablishmentScreen,
                 Test: TestingScreenTEMP2
             }), navigationOptions: {
-                tabBarOptions: { showIcon: true,showLabel:false },
+                tabBarOptions: { showIcon: true, showLabel: false },
                 tabBarIcon: ({ focused }) => {
                     return (
                         <Image
                             source={HomeIcon}
-                            style={{height:25, width:25, alignSelf:'center', resizeMode:"contain", flex:1}}
+                            style={{ height: 25, width: 25, alignSelf: 'center', resizeMode: "contain", flex: 1 }}
                         />
                     )
                 },
@@ -65,19 +65,19 @@ const switchNavigator = createSwitchNavigator({
             }
         },
         scannerFlow: {
-            screen: scannerFlow, 
+            screen: scannerFlow,
             navigationOptions: {
-                tabBarOptions: { showIcon: true,showLabel:false },
+                tabBarOptions: { showIcon: true, showLabel: false },
                 tabBarIcon: ({ focused }) => {
                     return (
                         <Image
                             source={BarcodeIcon}
-                            style={{height:50, width:70, alignSelf:'center', resizeMode:"contain", flex:1}}
+                            style={{ height: 50, width: 70, alignSelf: 'center', resizeMode: "contain", flex: 1 }}
                         />
                     )
                 },
                 headerShown: false,
-               
+
             }
         },
         searchFlow: {
@@ -85,19 +85,19 @@ const switchNavigator = createSwitchNavigator({
                 SearchProducto: SearchProductoScreen,
                 VerProducto: VerProductoScreen
             }), navigationOptions: {
-                tabBarOptions: { showIcon: true,showLabel:false },
+                tabBarOptions: { showIcon: true, showLabel: false },
                 tabBarIcon: ({ focused }) => {
                     return (
                         <Image
                             source={LupaIcon}
-                            style={{height:25, width:25, alignSelf:'center', resizeMode:"contain", flex:1}}
+                            style={{ height: 25, width: 25, alignSelf: 'center', resizeMode: "contain", flex: 1 }}
                         />
                     )
                 },
                 headerShown: false,
             }
         }
-    }, { resetOnBlur: true,tabBarOptions:{showLabel:false}})
+    }, { resetOnBlur: true, tabBarOptions: { showLabel: false } })
 });
 
 export default createAppContainer(switchNavigator);

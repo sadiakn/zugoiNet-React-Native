@@ -3,8 +3,8 @@ import { Text, View, StyleSheet, Button, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 const ScannerScreen = ({ navigation }) => {
-  const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [hasPermission, setHasPermission] = useState(null);
 
   const mode = navigation.getParam('mode');
   
@@ -16,18 +16,14 @@ const ScannerScreen = ({ navigation }) => {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    // old alert
-    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    setScanned(true);
     console.log("------------------------------------");
     console.log('mode: ' + mode);
     console.log('barCode: ' + data);
     console.log("------------------------------------");
-    setScanned(true);
-    if (mode == 'Reg') {
-
+    if (mode === 'Reg') {
       navigation.navigate('RegProduct', { barCode: data });
     } else {
-      // alert(`Bar code: ${barCode} has been scanned!`);
       navigation.navigate('VerProducto', { barCode: data });
     }
   };
@@ -38,14 +34,14 @@ const ScannerScreen = ({ navigation }) => {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-
+  
   return (
     <View style={styles.container}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {/* {scanned && <Button title={'Scan again'} onPress={() => setScanned(false)}/>} */}
+      {(scanned && mode !== 'Reg') && <Button title={'Scan again'} onPress={() => setScanned(false)}/>}
     </View>
   );
 }
