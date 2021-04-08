@@ -1,7 +1,7 @@
-import  {
+import {
     createAppContainer,
-    createSwitchNavigator 
-} from  'react-navigation';
+    createSwitchNavigator
+} from 'react-navigation';
 
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -29,27 +29,31 @@ const scannerFlow = createStackNavigator({
     VerProducto: VerProductoScreen,
 });
 
-const switchNavigator =  createSwitchNavigator({
+const switchNavigator = createSwitchNavigator({
     loginFlow: createStackNavigator({
         Login: LoginScreen,
         RegUser: RegisterUserScreen,
         RegUser2: RegisterUserScreen2
     }),
     mainFlow: createBottomTabNavigator({
-        dashBoardFlow: createStackNavigator({
-            Dashboard: DashboardScreen,
-            scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
-            RegProduct: RegisterProductScreen,
-            RegSucursal: RegisterSucursalScreen,
-            RegEstablishment: RegisterEstablishmentScreen,
-            Test: TestingScreenTEMP2
-        }),
-        scannerFlow: {screen: scannerFlow, navigationOptions: { headerShown: false}},
-        searchFlow: createStackNavigator({
-            SearchProducto: SearchProductoScreen,
-            VerProducto: VerProductoScreen
-        })
-    },{resetOnBlur: true})
+        dashBoardFlow: {
+            screen: createStackNavigator({
+                Dashboard: DashboardScreen,
+                scannerFlow: { screen: scannerFlow, navigationOptions: { headerShown: false } },
+                RegProduct: RegisterProductScreen,
+                RegSucursal: RegisterSucursalScreen,
+                RegEstablishment: RegisterEstablishmentScreen,
+                Test: TestingScreenTEMP2
+            }), navigationOptions: {  }
+        },
+        scannerFlow: { screen: scannerFlow, navigationOptions: { headerShown: false } },
+        searchFlow: {
+            screen: createStackNavigator({
+                SearchProducto: SearchProductoScreen,
+                VerProducto: VerProductoScreen
+            }), navigationOptions: {  }
+        }
+    }, { resetOnBlur: true })
 });
 
-export default createAppContainer (switchNavigator);
+export default createAppContainer(switchNavigator);
