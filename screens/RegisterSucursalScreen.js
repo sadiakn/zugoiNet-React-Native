@@ -72,6 +72,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
         })
             .then(() => {
                 setPosted(true);
+                console.log('Posted');
                 navigation.navigate('Dashboard');
             })
             .catch((error) => {
@@ -102,12 +103,6 @@ const RegisterSucursalScreen = ({ navigation }) => {
         RegSucApi();
     }
 
-    console.log("------------------------------------");
-    console.log("countryId: " + countryId);
-    console.log("provinceId: " + provinceId);
-    console.log("city: " + city);
-    console.log("establishmentId: " + establishmentId);
-    console.log("zipCode: " + zipCode);
     return (
 
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>

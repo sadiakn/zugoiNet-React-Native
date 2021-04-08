@@ -47,6 +47,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
         })
             .then(() => {
                 setPosted(true);
+                console.log('Posted');
                 navigation.navigate('Dashboard');
             })
             .catch((error) => {
