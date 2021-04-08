@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
 
         marginTop: 20,
         paddingHorizontal: 10,
-        width: "40%",
+        width: "60%",
+        height: 0
     },
 
     container: {
@@ -107,18 +108,21 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 100,
         alignSelf: "center"
+        ,elevation:10,
     },
 
     logouBtnText: {
         color: '#fff',
         textAlign: "center",
         fontWeight: "bold"
+        
     },
 
     dashboardBTnText: {
         color: '#ee712e',
         textAlign: "center",
         fontWeight: "bold"
+        
     },
 
     buttonimage: {
@@ -129,12 +133,16 @@ const styles = StyleSheet.create({
     imgbtncontainer: {
         paddingHorizontal: 10,
         paddingVertical: 10,
+        alignItems:'center',
+        borderRadius:15
     },
 
     dashboardBTn: {
         backgroundColor: "#fff8f5",
         paddingVertical: 10,
         width: 150,
-        alignSelf: "center"
+        alignSelf: "center",
+        borderRadius:15,
+        elevation:10,
     }
 })
