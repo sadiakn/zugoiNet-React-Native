@@ -16,7 +16,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
 
     const [loading, setLoading] = useState(false);
     const [posted, setPosted] = useState(false);
-    
+
     const [items, setItems] = useState([]);
     const [items2, setItems2] = useState([]);
 
@@ -26,11 +26,10 @@ const RegisterSucursalScreen = ({ navigation }) => {
             .get('/establishments')
             .then((res) => {
                 setItems(res.data.map(({ establishmentName: label, id: value }) => ({ label, value })));
-                error => {
-                    console.log(error);
-                }
+            })
+            .catch((error) => {
+                console.log(error);
             });
-
     };
 
     const provinceApi = async () => {
@@ -38,19 +37,22 @@ const RegisterSucursalScreen = ({ navigation }) => {
             .get('/countries/1/provinces')
             .then((res) => {
                 setItems2(res.data.map(({ provinceName: label, id: value }) => ({ label, value })));
-                error => {
-                    console.log(error);
-                }
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
 
     const multiApi = async () => {
         const response = await Promise.all([establishmentsApi(), provinceApi()])
-            .then(res => {
-                console.log('Loaded');
+            .then(() => {
+                console.log('////////////');
+                console.log('// Loaded //');
+                console.log('////////////');
                 setLoading(true);
-            }, error => {
-                console.log(error)
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
 
@@ -72,7 +74,9 @@ const RegisterSucursalScreen = ({ navigation }) => {
         })
             .then(() => {
                 setPosted(true);
-                console.log('Posted');
+                console.log('************');
+                console.log('** Posted **');
+                console.log('************');
                 navigation.navigate('Dashboard');
             })
             .catch((error) => {
@@ -122,7 +126,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                         items={items}
                         onValueChange={(value) => {
                             setEstablishmentId(value);
-                            errors=0;
+                            errors = 0;
                         }}
                         style={styles.dropSelect}
                     />
@@ -139,7 +143,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                             items={items2}
                             onValueChange={(value) => {
                                 setProvinceId(value);
-                                errors=0;
+                                errors = 0;
                             }}
                             style={styles.dropSelect}
                         />
@@ -160,7 +164,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                                 value={city}
                                 onChangeText={(city) => {
                                     setCity(city);
-                                    errors=0;
+                                    errors = 0;
                                 }}
                             />
                         </View>

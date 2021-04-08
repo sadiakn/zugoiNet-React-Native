@@ -23,6 +23,9 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
             .get('/type-of-establishments')
             .then((res) => {
                 setItems(res.data.map(({ typeOfEstablishmentName: label, id: value }) => ({ label, value })));
+                console.log('////////////');
+                console.log('// Loaded //');
+                console.log('////////////');
                 setLoading(true);
             })
             .catch((error) => {
@@ -47,7 +50,9 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
         })
             .then(() => {
                 setPosted(true);
-                console.log('Posted');
+                console.log('************');
+                console.log('** Posted **');
+                console.log('************');
                 navigation.navigate('Dashboard');
             })
             .catch((error) => {
