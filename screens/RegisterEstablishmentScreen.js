@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ActivityIndicator } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
 import LoadingEffect from '../components/loadingEffect';
@@ -8,10 +7,12 @@ import LoadingEffect from '../components/loadingEffect';
 import zugoi from '../api/zugoi';
 
 const RegisterEstablishmentScreen = ({ navigation }) => {
+    let errors = 0;
     const [establishmentName, setEstablishmentName] = useState('');
     const [typeOfEstablishmentId, setTypeOfEstablishmentId] = useState('');
 
     const [loading, setLoading] = useState(false);
+    const [posted, setPosted] = useState(false);
 
     const [items, setItems] = useState([]);
 
@@ -23,11 +24,11 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
             .then((res) => {
                 setItems(res.data.map(({ typeOfEstablishmentName: label, id: value }) => ({ label, value })));
                 setLoading(true);
-                console.log('loaded');
-                error => {
-                    console.log(error);
-                }
+            })
+            .catch((error) => {
+                console.log(error);
             });
+        ;
 
     };
 
@@ -35,8 +36,42 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
         establishmentsTypesApi();
     }, []);
 
-    console.log("------------------------------------");
-    console.log("typeOfEstablishmentId: " + typeOfEstablishmentId);
+    // API POST
+    const RegEstApi = async () => {
+        const response = await zugoi('/establishments', {
+            method: 'post',
+            data: {
+                establishmentName: establishmentName,
+                typeOfEstablishmentId: typeOfEstablishmentId
+            }
+        })
+            .then(() => {
+                setPosted(true);
+                navigation.navigate('Dashboard');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const onSubmit = () => {
+        let err = [];
+        if (establishmentName === '' || establishmentName === null) {
+            errors++;
+            err.push(' [Establecimiento]');
+        }
+        if (typeOfEstablishmentId === '' || typeOfEstablishmentId === null) {
+            errors++;
+            err.push(' [Tipo]');
+        }
+        if (errors > 0) {
+            alert("Error! Rellenar los campos: " + err);
+            return;
+        }
+        // API CALL
+        RegEstApi();
+    }
+
     return (
         <View style={styles.container}>
             {loading ?
@@ -52,7 +87,10 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                                 placeholder="Nombre del Establecimiento"
                                 placeholderTextColor="#333"
                                 value={establishmentName}
-                                onChangeText={setEstablishmentName}
+                                onChangeText={(establishmentName) => {
+                                    setEstablishmentName(establishmentName);
+                                    errors = 0;
+                                }}
                             />
                         </View>
                         <View style={[styles.mytextboxL, {}]} >
@@ -82,12 +120,24 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                                     color: '#EE712E',
                                 }}
                                 items={items}
-                                onValueChange={setTypeOfEstablishmentId}
+                                onValueChange={(value) => {
+                                    setTypeOfEstablishmentId(value);
+                                    errors = 0;
+                                }}
                                 style={styles.dropSelect}
                             />
 
 
                         </View>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            style={styles.btn}
+                            onPress={() => {
+                                // navigation.navigate('Dashboard');
+                                onSubmit()
+                            }}>
+                            <Text style={styles.BTnText}>Registrar Establecimiento</Text>
+                        </TouchableOpacity>
                     </View>
                 </> : <LoadingEffect />}
         </View>
