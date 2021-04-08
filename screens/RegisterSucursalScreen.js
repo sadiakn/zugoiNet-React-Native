@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
-import Loading from '../components/loadingEffect';
-
-import zugoi from '../api/zugoi';
 import LoadingEffect from '../components/loadingEffect';
 
+import zugoi from '../api/zugoi';
+
 const RegisterSucursalScreen = ({ navigation }) => {
+    let errors = 0;
     const [establishmentId, setEstablishmentId] = useState('');
     const [provinceId, setProvinceId] = useState('');
     const [zipCode, setZipCode] = useState('');
@@ -15,7 +15,8 @@ const RegisterSucursalScreen = ({ navigation }) => {
     const countryId = '1';
 
     const [loading, setLoading] = useState(false);
-
+    const [posted, setPosted] = useState(false);
+    
     const [items, setItems] = useState([]);
     const [items2, setItems2] = useState([]);
 
@@ -57,6 +58,50 @@ const RegisterSucursalScreen = ({ navigation }) => {
         multiApi();
     }, []);
 
+    // API POST
+    const RegSucApi = async () => {
+        const response = await zugoi('/branch-offices', {
+            method: 'post',
+            data: {
+                countryId: countryId,
+                provinceId: provinceId,
+                city: city,
+                establishmentId: establishmentId,
+                zipCode: zipCode
+            }
+        })
+            .then(() => {
+                setPosted(true);
+                navigation.navigate('Dashboard');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const onSubmit = () => {
+        let err = [];
+        if (establishmentId === '' || establishmentId === null) {
+            errors++;
+            err.push(' [Establecimiento]');
+        }
+        if (provinceId === '' || provinceId === null) {
+            errors++;
+            err.push(' [Provincia]');
+        }
+        if (city === '' || city === null) {
+            errors++;
+            err.push(' [Ciudad]');
+        }
+        if (errors > 0) {
+            alert("Error! Rellenar los campos: " + err);
+            return;
+        }
+
+        // API CALL
+        RegSucApi();
+    }
+
     console.log("------------------------------------");
     console.log("countryId: " + countryId);
     console.log("provinceId: " + provinceId);
@@ -80,7 +125,10 @@ const RegisterSucursalScreen = ({ navigation }) => {
                             color: '#EE712E',
                         }}
                         items={items}
-                        onValueChange={setEstablishmentId}
+                        onValueChange={(value) => {
+                            setEstablishmentId(value);
+                            errors=0;
+                        }}
                         style={styles.dropSelect}
                     />
 
@@ -94,7 +142,10 @@ const RegisterSucursalScreen = ({ navigation }) => {
                                 color: '#EE712E',
                             }}
                             items={items2}
-                            onValueChange={setProvinceId}
+                            onValueChange={(value) => {
+                                setProvinceId(value);
+                                errors=0;
+                            }}
                             style={styles.dropSelect}
                         />
 
@@ -112,7 +163,10 @@ const RegisterSucursalScreen = ({ navigation }) => {
                                 placeholder="Ciudad"
                                 placeholderTextColor="#333"
                                 value={city}
-                                onChangeText={setCity}
+                                onChangeText={(city) => {
+                                    setCity(city);
+                                    errors=0;
+                                }}
                             />
                         </View>
 
@@ -122,13 +176,8 @@ const RegisterSucursalScreen = ({ navigation }) => {
                         activeOpacity={0.8}
                         style={styles.btn}
                         onPress={() => {
-                            navigation.navigate('Dashboard');
-                            console.log("------------------------------------");
-                            console.log("countryId: " + countryId);
-                            console.log("provinceId: " + provinceId);
-                            console.log("city: " + city);
-                            console.log("establishmentId: " + establishmentId);
-                            console.log("zipCode: " + zipCode);
+                            // navigation.navigate('Dashboard');
+                            onSubmit();
                         }}>
                         <Text style={styles.BTnText}>Registrar Sucursal</Text>
                     </TouchableOpacity>
