@@ -8,9 +8,29 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 
 const LoginScreen = ({ navigation }) => {
-
+    let errors = 0;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const onSubmit = () => {
+        let err = [];
+        if (email === '' || email === null) {
+            errors++;
+            err.push(' [Email]');
+        }
+        if (password === '' || password === null) {
+            errors++;
+            err.push(' [Password]');
+        }
+        if (errors > 0) {
+            alert("Error! Rellenar: " + err);
+            return;
+        }
+        // console.log('********************');
+        // console.log('** Validation: OK **');
+        // console.log('********************');
+        navigation.navigate('mainFlow');
+    }
 
     return (
         <View style={styles.container}>
@@ -23,7 +43,10 @@ const LoginScreen = ({ navigation }) => {
                         placeholder="Correo Electrónico"
                         placeholderTextColor="#333"
                         value={email}
-                        onChangeText={setEmail}
+                        onChangeText={(email) => {
+                            setEmail(email);
+                            errors = 0;
+                        }}
                     />
                 </View>
                 <View></View>
@@ -33,7 +56,10 @@ const LoginScreen = ({ navigation }) => {
                         placeholderTextColor="#333"
                         secureTextEntry={true}
                         value={password}
-                        onChangeText={setPassword}
+                        onChangeText={(password) => {
+                            setPassword(password);
+                            errors = 0;
+                        }}
                     />
                 </View>
                 <View></View>
@@ -42,10 +68,8 @@ const LoginScreen = ({ navigation }) => {
                         activeOpacity={0.8}
                         style={styles.SignInBtn}
                         onPress={() => {
-                            console.log("------------------------------------");
-                            console.log("email: "+email);
-                            console.log("password: "+password);
                             navigation.navigate('mainFlow');
+                            // onSubmit();
                         }}
                         >
                         <Text style={styles.signinText}>

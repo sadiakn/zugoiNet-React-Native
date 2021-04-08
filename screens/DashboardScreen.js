@@ -27,7 +27,7 @@ const DashboardScreen = ({ navigation }) => {
 
             <View style={{ flexDirection: "row" }}>
                 <View style={styles.imgbtncontainer}>
-                    <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('VerProducto')}>
+                    <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('Scanner')}>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={barcodeimg} style={styles.buttonimage} /></View>
                         <Text style={styles.dashboardBTnText}>Barcode</Text>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>

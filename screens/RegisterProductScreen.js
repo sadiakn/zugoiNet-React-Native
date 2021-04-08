@@ -13,7 +13,9 @@ const scanimg = require('../assets/scan.png')
 
 const RegisterProductScreen = ({ navigation }) => {
     let errors = 0;
+
     const barCode = navigation.getParam('barCode');
+
     const [productName, setProductName] = useState('');
     const [categoryId, setCategoryId] = useState('');
 
@@ -30,9 +32,9 @@ const RegisterProductScreen = ({ navigation }) => {
             .get('/categories')
             .then((res) => {
                 setItems(res.data.map(({ categoryName: label, id: value }) => ({ label, value })));
-                console.log('////////////');
-                console.log('// Loaded //');
-                console.log('////////////');
+                // console.log('////////////');
+                // console.log('// Loaded //');
+                // console.log('////////////');
                 setLoading(true);
             })
             .catch((error) => {
@@ -147,10 +149,21 @@ const RegisterProductScreen = ({ navigation }) => {
     );
 };
 
-RegisterProductScreen.navigationOptions = () => {
-    return {
-        headerTitle: '',
-    };
+RegisterProductScreen.navigationOptions = ({navigation}) => {
+    let mode = navigation.getParam('mode');
+    if(mode === 'Regi'){
+        return {
+            headerTitle: '',
+            headerLeft : () => {},
+
+        };
+    }else{
+        return {
+            headerTitle: '',
+            
+        };
+    }
+    
 };
 
 export default RegisterProductScreen;

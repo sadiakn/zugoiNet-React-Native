@@ -6,14 +6,15 @@ import { color } from 'react-native-reanimated';
 import zugoi from '../api/zugoi';
 
 const VerProductoScreen = ({ navigation }) => {
-    const barCode = '7509552816334';
+    
     const [results, setResults] = useState(null);
 
     const [loading, setLoading] = useState(false);
     const [posted, setPosted] = useState(false);
 
     // API POST
-    const productApi = async () => {
+    const productApi = async (barCode, { navigation }) => {
+        console.log(barCode);
         const response = await zugoi('/products/prices/branch-offices', {
             method: 'post',
             data: {
@@ -29,89 +30,105 @@ const VerProductoScreen = ({ navigation }) => {
                 console.log('************');
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response.status === 404) {
+                    alert("Producto no Encontrado");
+                    console.log("Producto no Encontrado");
+                    navigation.navigate('RegProduct', { barCode: barCode, mode:'Regi' });
+                }
+                else {
+                    console.log(error);
+                }
+
             });
     };
 
     useEffect(() => {
-        productApi();
+        let barCode = navigation.getParam('barCode');
+        // let barCode = '7509552816334';
+
+        productApi(barCode, { navigation });
     }, []);
-    
+
     return (
-        <FlatList
-            ListHeaderComponent={
-                <>
-                    <View style={{ marginVertical: 25 }}>
-                        <Text style={styles.BigText}>¡Producto encontrado!</Text>
-                        <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
-                    </View>
-                    {loading ? (
-                        <View style={{}}>
-                            <View style={styles.ImgContainer}>
-                                <Image
-                                    style={styles.ProductImage}
-                                    source={{ uri: `${results.product.img}` }}
-                                />
-                                <Text style={styles.ProductText}>{results.product.productName}</Text>
+        <>
+            {loading ? (
+                <FlatList
+                    ListHeaderComponent={
+                        <>
+                            <View style={{ marginVertical: 25 }}>
+                                <Text style={styles.BigText}>¡Producto encontrado!</Text>
+                                <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
                             </View>
-                            <View style={styles.myrow}>
-                                <View style={{ marginHorizontal: 5, }}>
-                                    <Text style={styles.BigText}>Comparaciones</Text>
+                            <View style={{}}>
+                                <View style={styles.ImgContainer}>
+                                    <Image
+                                        style={styles.ProductImage}
+                                        source={{ uri: `${results.product.img}` }}
+                                    />
+                                    <Text style={styles.ProductText}>{results.product.productName}</Text>
                                 </View>
-                                <View style={{ marginHorizontal: 5, justifyContent: "center", alignItems: 'center' }}>
-                                    <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                                <View style={styles.myrow}>
+                                    <View style={{ marginHorizontal: 5, }}>
+                                        <Text style={styles.BigText}>Comparaciones</Text>
+                                    </View>
+                                    <View style={{ marginHorizontal: 5, justifyContent: "center", alignItems: 'center' }}>
+                                        <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                                    </View>
+
+
                                 </View>
 
+                                {
+                                    results.branchOfficesWithPrice.map((results, index) => {
+                                        const { id, Establishment, PricesProductsBranchOffices, Address } = results;
 
-                            </View>
+                                        return (
+                                            <View key={id} style={styles.PriceContainer}>
+                                                <View style={styles.myrow}>
+                                                    <View style={{ marginHorizontal: 50, }}>
+                                                        <Text style={styles.ProductText}>{Establishment.establishmentName}</Text>
+                                                    </View>
+                                                    <View style={{ marginHorizontal: 50, }}>
+                                                        <Text style={styles.ProductText}>Precio:  {PricesProductsBranchOffices[0].price}</Text>
+                                                    </View>
 
-                            {
-                                results.branchOfficesWithPrice.map((results, index) => {
-                                    const { id, Establishment, PricesProductsBranchOffices, Address } = results;
 
-                                    return (
-                                        <View key={id} style={styles.PriceContainer}>
-                                            <View style={styles.myrow}>
-                                                <View style={{ marginHorizontal: 50, }}>
-                                                    <Text style={styles.ProductText}>{Establishment.establishmentName}</Text>
                                                 </View>
-                                                <View style={{ marginHorizontal: 50, }}>
-                                                    <Text style={styles.ProductText}>Precio:  {PricesProductsBranchOffices[0].price}</Text>
-                                                </View>
-
+                                                <Text style={styles.CityText}>            Ciudad: {Address.city}</Text>
 
                                             </View>
-                                            <Text style={styles.CityText}>            Ciudad: {Address.city}</Text>
+                                        );
+                                    })
+                                }
+                                <Text> ---------------------------------- </Text>
+                                <Text> Agregar Precio vvvvv </Text>
+                                <Text> ---------------------------------- </Text>
+                                {
+                                    results.branchOffices.map((results, index) => {
+                                        const { id, Establishment, PricesProductsBranchOffices, Address } = results;
 
-                                        </View>
-                                    );
-                                })
-                            }
-                            <Text> ---------------------------------- </Text>
-                            <Text> Agregar Precio vvvvv </Text>
-                            <Text> ---------------------------------- </Text>
-                            {
-                                results.branchOffices.map((results, index) => {
-                                    const { id, Establishment, PricesProductsBranchOffices, Address } = results;
+                                        return (
+                                            <TouchableOpacity key={id} style={{ borderColor: "black", borderWidth: 1, margin: 5 }}>
+                                                <Text>id: {id}</Text>
+                                                <Text>EstablishmentName: {Establishment.establishmentName}</Text>
+                                                <Text>city: {Address.city}</Text>
+                                            </TouchableOpacity>
+                                        );
+                                    })
+                                }
 
-                                    return (
-                                        <TouchableOpacity key={id} style={{ borderColor: "black", borderWidth: 1, margin: 5 }}>
-                                            <Text>id: {id}</Text>
-                                            <Text>EstablishmentName: {Establishment.establishmentName}</Text>
-                                            <Text>city: {Address.city}</Text>
-                                        </TouchableOpacity>
-                                    );
-                                })
-                            }
+                            </View>
+                        </>
+                    }
+                />
+            )
+                : (
+                    <View style={styles.container2}>
+                        <ActivityIndicator size="large" color="#EE712E" />
+                    </View>
+                )}
+        </>
 
-                        </View>
-                    )
-                        : (
-                            <ActivityIndicator size="large" color="#EE712E" />
-                        )}
-                </>
-            }
-        />
     );
 };
 
@@ -131,6 +148,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         flex: 1,
         paddingTop: 40
+    },
+    container2: {
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
     },
     PriceContainer: {
         paddingHorizontal: 10,
