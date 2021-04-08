@@ -1,42 +1,39 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 
-import RegSuccess from '../components/regSuccess';
-import RegNoProduct from '../components/regNoProduct';
-import RegError from '../components/regError';
+import RegPrice from '../components/regPrice';
 
-import Ztestaxios from '../screens/ztestaxios';
 import { FlatList } from 'react-native-gesture-handler';
 
 const ScannerScreenTEMP = ({ navigation }) => {
+    const [modalVisible, setModalVisible] = useState(false);
+
     return (
         <FlatList
-        ListHeaderComponent={
-            <View style={styles.container}>
-                <Text>TESTING SCREEN</Text>
-                <RegSuccess
-                name="Sucursal"
-                />
+            ListHeaderComponent={
+                <View style={styles.container}>
+                    <Text>TESTING SCREEN</Text>
 
-                <RegSuccess
-                name="Establecimiento"
-                />
-
-                <RegSuccess
-                name="Producto"
-                />
-                
-                <RegError
-                name="Error"
-                />
-
-                < RegNoProduct
-                name="Producto NO Registrado"
-                />
-
-                <Ztestaxios />
-            </View>
-        }
+                    <TouchableOpacity
+                        style={{ borderColor: "black", borderWidth: 1, margin: 5 }}
+                        onPress={() => setModalVisible(true)}
+                    >
+                        <Text>id: 1</Text>
+                        <Text>EstablishmentName: Test</Text>
+                        <Text>city: David</Text>
+                    </TouchableOpacity>
+                    
+                        <RegPrice
+                            navigation={navigation}
+                            Visible={modalVisible}
+                            onPress={setModalVisible}
+                            EstablishmentName={'Super Xtra'}
+                            city={'David'}
+                            productId={'1'}
+                            branchOfficeId={'1'}
+                        />
+                </View>
+            }
         />
     );
 };
@@ -56,5 +53,19 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         flex: 1,
         paddingTop: 40
+    },
+    Btn: {
+        backgroundColor: "#ee712e",
+        paddingVertical: 10,
+        borderRadius: 20,
+        width: 100,
+        alignSelf: "center"
+        , elevation: 10,
+    },
+    BtnText: {
+        color: '#fff',
+        textAlign: "center",
+        fontWeight: "bold"
+
     },
 })

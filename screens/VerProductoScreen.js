@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity, Modal } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { color } from 'react-native-reanimated';
 
+import RegPrice from '../components/regPrice';
 import zugoi from '../api/zugoi';
 
 const VerProductoScreen = ({ navigation }) => {
-    
+
     const [results, setResults] = useState(null);
+    const [productid, setProductid] = useState('');
+    const [productName, setProductName] = useState('');
+    const [img, setImg] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [posted, setPosted] = useState(false);
 
+    const [modalVisible, setModalVisible] = useState(false);
+
     // API POST
     const productApi = async (barCode, { navigation }) => {
-        console.log(barCode);
+        // console.log(barCode);
         const response = await zugoi('/products/prices/branch-offices', {
             method: 'post',
             data: {
@@ -23,6 +29,9 @@ const VerProductoScreen = ({ navigation }) => {
         })
             .then((res) => {
                 setResults(res.data);
+                setProductid(res.data.product.id);
+                setProductName(res.data.product.productName);
+                setImg(res.data.product.img);
                 setLoading(true);
                 setPosted(true);
                 console.log('************');
@@ -33,7 +42,7 @@ const VerProductoScreen = ({ navigation }) => {
                 if (error.response.status === 404) {
                     alert("Producto no Encontrado");
                     console.log("Producto no Encontrado");
-                    navigation.navigate('RegProduct', { barCode: barCode, mode:'Regi' });
+                    navigation.navigate('RegProduct', { barCode: barCode, mode: 'Regi' });
                 }
                 else {
                     console.log(error);
@@ -91,32 +100,61 @@ const VerProductoScreen = ({ navigation }) => {
                                                     <View style={{ marginHorizontal: 50, }}>
                                                         <Text style={styles.ProductText}>Precio:  {PricesProductsBranchOffices[0].price}</Text>
                                                     </View>
-
-
                                                 </View>
                                                 <Text style={styles.CityText}>            Ciudad: {Address.city}</Text>
-
                                             </View>
                                         );
                                     })
                                 }
-                                <Text> ---------------------------------- </Text>
-                                <Text> Agregar Precio vvvvv </Text>
-                                <Text> ---------------------------------- </Text>
-                                {
-                                    results.branchOffices.map((results, index) => {
-                                        const { id, Establishment, PricesProductsBranchOffices, Address } = results;
+                                <TouchableOpacity style={styles.Btn} onPress={() => setModalVisible(true)}>
+                                    <Text style={styles.BtnText}>+ Precios</Text>
+                                </TouchableOpacity>
+                                <Modal
+                                    animationType="slide"
+                                    transparent={true}
+                                    visible={modalVisible}
+                                    onRequestClose={() => {
+                                        setModalVisible(!modalVisible);
+                                    }}
+                                >
+                                    <FlatList
+                                        ListHeaderComponent={
+                                            <View style={styles.centeredView}>
+                                                <View style={styles.modalView}>
+                                                    {
+                                                        results.branchOffices.map((re, index) => {
+                                                            const { id, Establishment, Address } = re;
 
-                                        return (
-                                            <TouchableOpacity key={id} style={{ borderColor: "black", borderWidth: 1, margin: 5 }}>
-                                                <Text>id: {id}</Text>
-                                                <Text>EstablishmentName: {Establishment.establishmentName}</Text>
-                                                <Text>city: {Address.city}</Text>
-                                            </TouchableOpacity>
-                                        );
-                                    })
-                                }
-
+                                                            return (
+                                                                <View key={id}>
+                                                                    <TouchableOpacity
+                                                                        key={id}
+                                                                        style={{ borderColor: "black", borderWidth: 1, margin: 5 }}
+                                                                        onPress={() => {
+                                                                            setModalVisible(!modalVisible);
+                                                                            navigation.navigate('Price', {
+                                                                                establishmentName: `${Establishment.establishmentName}`,
+                                                                                city: `${Address.city}`,
+                                                                                productId: `${productid}`,
+                                                                                branchOfficeId: `${id}`,
+                                                                                productName: `${results.product.productName}`,
+                                                                                img:`${results.product.img}`
+                                                                            });
+                                                                        }}
+                                                                    >
+                                                                        <Text>id: {id}</Text>
+                                                                        <Text>EstablishmentName: {Establishment.establishmentName}</Text>
+                                                                        <Text>city: {Address.city}</Text>
+                                                                    </TouchableOpacity>
+                                                                </View>
+                                                            );
+                                                        })
+                                                    }
+                                                </View>
+                                            </View>
+                                        }
+                                    />
+                                </Modal>
                             </View>
                         </>
                     }
@@ -158,7 +196,29 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 10,
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 20,
+        paddingBottom: 150
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
 
+        elevation: 24,
+    },
     myrow: {
 
         flexDirection: "row",
@@ -216,6 +276,20 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         color: 'gray',
+
+    },
+    Btn: {
+        backgroundColor: "#ee712e",
+        paddingVertical: 10,
+        borderRadius: 20,
+        width: 100,
+        alignSelf: "center"
+        , elevation: 10,
+    },
+    BtnText: {
+        color: '#fff',
+        textAlign: "center",
+        fontWeight: "bold"
 
     },
 })

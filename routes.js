@@ -27,6 +27,8 @@ import TestingScreenTEMP from './screens/TestingScreenTEMP';
 import TestingScreenTEMP2 from './screens/TestingScreenTEMP2';
 import TestingScreenTEMP3 from './screens/TestingScreenTEMP3';
 
+import RegPriceScreen from './screens/RegPriceScreen';
+
 import BarcodeIcon from './assets/barcodeTabIcon.png';
 import HomeIcon from './assets/HomeIcon.png'
 import LupaIcon from './assets/LupaIcon.png'
@@ -34,6 +36,7 @@ import LupaIcon from './assets/LupaIcon.png'
 const scannerFlow = createStackNavigator({
     Scanner: ScannerScreen,
     VerProducto: VerProductoScreen,
+    Price: RegPriceScreen,
 });
 
 const switchNavigator = createSwitchNavigator({
@@ -50,7 +53,7 @@ const switchNavigator = createSwitchNavigator({
                 RegProduct: RegisterProductScreen,
                 RegSucursal: RegisterSucursalScreen,
                 RegEstablishment: RegisterEstablishmentScreen,
-                Test: TestingScreenTEMP2
+                Test: TestingScreenTEMP
             }), navigationOptions: {
                 tabBarOptions: { showIcon: true, showLabel: false },
                 tabBarIcon: ({ focused }) => {
