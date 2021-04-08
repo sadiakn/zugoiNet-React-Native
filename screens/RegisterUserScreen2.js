@@ -79,7 +79,7 @@ const RegisterUserScreen2 = ({ navigation }) => {
 
 RegisterUserScreen2.navigationOptions = () => {
     return {
-        headerTitle: 'Registrar Usuario',
+        headerTitle: '',
     };
 };
 

@@ -21,6 +21,7 @@ const ScannerScreen = ({ navigation }) => {
     console.log("------------------------------------");
     console.log('mode: ' + mode);
     console.log('barCode: ' + data);
+    console.log("------------------------------------");
     setScanned(true);
     if (mode == 'Reg') {
 

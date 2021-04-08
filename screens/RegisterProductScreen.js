@@ -12,11 +12,14 @@ const camaraimg = require('../assets/Camara.png')
 const scanimg = require('../assets/scan.png')
 
 const RegisterProductScreen = ({ navigation }) => {
+    let errors = 0;
     const barCode = navigation.getParam('barCode');
     const [productName, setProductName] = useState('');
     const [categoryId, setCategoryId] = useState('');
 
     const [loading, setLoading] = useState(false);
+    const [posted, setPosted] = useState(false);
+
     const [modalVisible, setModalVisible] = useState(false);
 
     const [items, setItems] = useState([]);
@@ -27,17 +30,44 @@ const RegisterProductScreen = ({ navigation }) => {
             .get('/categories')
             .then((res) => {
                 setItems(res.data.map(({ categoryName: label, id: value }) => ({ label, value })));
+                console.log('////////////');
+                console.log('// Loaded //');
+                console.log('////////////');
                 setLoading(true);
-                console.log('loaded');
-                error => {
-                    console.log(error);
-                }
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
 
     useEffect(() => {
         categoryTypesApi();
     }, []);
+
+    const onSubmit = () => {
+        let err = [];
+        if (barCode === '' || barCode === null || barCode === undefined) {
+            errors++;
+            err.push(' [Codigo]');
+        }
+        if (productName === '' || productName === null) {
+            errors++;
+            err.push(' [Producto]');
+        }
+        if (categoryId === '' || categoryId === null) {
+            errors++;
+            err.push(' [Categoria]');
+        }
+        if (errors > 0) {
+            alert("Error! Rellenar los campos: " + err);
+            return;
+        }
+        console.log('--------------');
+        console.log('--  PASSED  --');
+        console.log('--------------');
+        // API CALL
+        // RegEstApi();
+    }
 
     return (
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
@@ -98,11 +128,8 @@ const RegisterProductScreen = ({ navigation }) => {
                         activeOpacity={0.8}
                         style={styles.btn}
                         onPress={() => {
-                            setModalVisible(true);
-                            console.log("------------------------------------");
-                            console.log("codigo_barra: " + barCode);
-                            console.log("nombre: " + productName);
-                            console.log("categoriaid: " + categoryId);
+                            // setModalVisible(true);
+                            onSubmit();
                         }}>
                         <Text style={styles.BTnText}>Registrar Producto</Text>
                     </TouchableOpacity>

@@ -18,7 +18,6 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
 
     //API GET
     const establishmentsTypesApi = async () => {
-
         const response = await zugoi
             .get('/type-of-establishments')
             .then((res) => {
