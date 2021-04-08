@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { color } from 'react-native-reanimated';
 
 import zugoi from '../api/zugoi';
 
@@ -33,24 +34,49 @@ const VerProductoScreen = ({ navigation }) => {
     return (
         <FlatList
             ListHeaderComponent={
-                <View style={styles.container}>
-                    <Text>PRODUCTO</Text>
+                <>
+                    <View style={{ marginVertical: 25 }}>
+                        <Text style={styles.BigText}>¡Producto encontrado!</Text>
+                        <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                    </View>
                     {loading ? (
-                        <View>
-                            <Text>!Producto Encontrado!</Text>
-                            <Text>Image: {results.product.img}</Text>
-                            <Text>Product Name: {results.product.productName}</Text>
+                        <View style={{}}>
+                            <View style={styles.ImgContainer}>
+                                <Image
+                                    style={styles.ProductImage}
+                                    source={{ uri: `${results.product.img}` }}
+                                />
+                                <Text style={styles.ProductText}>{results.product.productName}</Text>
+                            </View>
+                            <View style={styles.myrow}>
+                                <View style={{ marginHorizontal: 5, }}>
+                                    <Text style={styles.BigText}>Comparaciones</Text>
+                                </View>
+                                <View style={{ marginHorizontal: 5, justifyContent: "center", alignItems: 'center' }}>
+                                    <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                                </View>
+
+
+                            </View>
+
                             {
                                 results.branchOfficesWithPrice.map((results, index) => {
                                     const { id, Establishment, PricesProductsBranchOffices, Address } = results;
 
                                     return (
-                                        <View key={id} style={{ borderColor: "black", borderWidth: 1, margin: 5 }}>
-                                            <Text>id: {id}</Text>
-                                            <Text>EstablishmentName: {Establishment.establishmentName}</Text>
-                                            <Text>city: {Address.city}</Text>
-                                            <Text>PriceID: {PricesProductsBranchOffices[0].id}</Text>
-                                            <Text>Price: {PricesProductsBranchOffices[0].price}</Text>
+                                        <View key={id} style={styles.PriceContainer}>
+                                            <View style={styles.myrow}>
+                                                <View style={{ marginHorizontal: 50, }}>
+                                                <Text style={styles.ProductText}>{Establishment.establishmentName}</Text>
+                                                </View>
+                                                <View style={{ marginHorizontal: 50, }}>
+                                                <Text style={styles.ProductText}>Precio:  {PricesProductsBranchOffices[0].price}</Text>
+                                                </View>
+                                                
+                                               
+                                            </View>
+                                            <Text style={styles.CityText}>            Ciudad: {Address.city}</Text>
+                                            
                                         </View>
                                     );
                                 })
@@ -77,7 +103,7 @@ const VerProductoScreen = ({ navigation }) => {
                         : (
                             <ActivityIndicator size="large" color="#EE712E" />
                         )}
-                </View>
+                </>
             }
         />
     );
@@ -94,9 +120,74 @@ export default VerProductoScreen;
 const styles = StyleSheet.create({
     container: {
         height: "100%",
+        width: '100%',
         alignItems: "center",
         justifyContent: "center",
         flex: 1,
         paddingTop: 40
+    },
+    PriceContainer: {
+        paddingHorizontal: 10,
+        marginVertical: 10,
+    },
+
+    myrow: {
+
+        flexDirection: "row",
+        marginVertical: 20,
+
+    },
+
+    ProductImage: {
+        height: 200, width: 200, alignSelf: 'center', resizeMode: "contain",
+    },
+    ImgContainer: {
+        marginVertical: 20,
+    },
+    borderLine: {
+        borderWidth: 0.4,
+        borderColor: "#EE712E",
+
+        marginTop: 5,
+        paddingHorizontal: 10,
+        width: 145,
+        height: 0
+    },
+    borderLine: {
+        borderWidth: 0.4,
+        borderColor: "#EE712E",
+
+        marginTop: 5,
+        paddingHorizontal: 10,
+        width: 200,
+        height: 0
+    },
+    BigText: {
+        textAlign: "center",
+        color: '#fff',
+        fontSize: 24,
+        color: 'black',
+
+    },
+    SmallText: {
+        textAlign: "center",
+        color: '#fff',
+        fontSize: 18,
+    },
+    ProductText: {
+        marginVertical: 5,
+        textAlign: "center",
+        color: '#fff',
+        fontSize: 16,
+        color: 'gray',
+
+    },
+    CityText: {
+        marginVertical: 5,
+        
+        color: '#fff',
+        fontSize: 16,
+        color: 'gray',
+
     },
 })
