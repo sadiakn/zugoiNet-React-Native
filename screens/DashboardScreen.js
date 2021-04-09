@@ -13,23 +13,23 @@ const DashboardScreen = ({ navigation }) => {
 
                 <View>
                     <Text style={styles.userText}> Welcome user</Text>
-                    <View style={{ flexDirection: "row" }}>
+                    <View >
                         <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('loginFlow')}>
                             <Text style={styles.logouBtnText}>Logout</Text>
                         </TouchableOpacity>
 
                         {/* Temp button for TESTING stuff*/}
-                        <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('Test')}>
+                        {/* <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('Test')}>
                             <Text style={styles.logouBtnText}>TEST</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
             </View>
 
             <View style={{ flexDirection: "row" }}>
                 <View style={styles.imgbtncontainer}>
-                    {/* <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('VerProducto')}> */}
-                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('Scanner')}>
+                    <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('VerProducto')}>
+                        {/* <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('Scanner')}> */}
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={barcodeimg} style={styles.buttonimage} /></View>
                         <Text style={styles.dashboardBTnText}>Barcode</Text>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>

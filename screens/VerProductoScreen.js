@@ -38,9 +38,9 @@ const VerProductoScreen = ({ navigation }) => {
                 setLoading(true);
                 setPosted(true);
                 setBarCode(barCode);
-                console.log('************');
-                console.log('** Posted **');
-                console.log('************');
+                // console.log('************');
+                // console.log('** Posted **');
+                // console.log('************');
             })
             .catch((error) => {
                 if (error.response.status === 404) {
@@ -56,8 +56,8 @@ const VerProductoScreen = ({ navigation }) => {
     };
 
     useEffect(() => {
-        let barCode = navigation.getParam('barCode');
-        // let barCode = '7509552816334';
+        // let barCode = navigation.getParam('barCode');
+        let barCode = '7509552816334';
         productApi(barCode, { navigation });
     }, []);
 
