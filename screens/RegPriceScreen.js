@@ -147,6 +147,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     marginBottom: 20,
+    width:150,
+
   },
   centeredView: {
     flex: 1,
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 20,
+    padding: 60,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {

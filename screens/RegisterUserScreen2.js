@@ -120,7 +120,7 @@ const RegisterUserScreen2 = ({ navigation }) => {
 
                 <View >
 
-                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                    <View style={[styles.mytextboxL]} >
                         <TextInput style={styles.textInput}
                             placeholder="Correo electrónico"
                             placeholderTextColor="#333"
@@ -131,18 +131,20 @@ const RegisterUserScreen2 = ({ navigation }) => {
                             }}
                         />
                     </View>
-                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                    <View style={[styles.mytextboxL]} >
                         <TextInput style={styles.textInput}
                             placeholder="Contraseña"
                             placeholderTextColor="#333"
+                            secureTextEntry={true}
                             value={password}
                             onChangeText={setPassword}
                         />
                     </View>
-                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                    <View style={[styles.mytextboxL]} >
                         <TextInput style={styles.textInput}
                             placeholder="Vuelve a introducir la contraseña"
                             placeholderTextColor="#333"
+                            secureTextEntry={true}
                             value={password2}
                             onChangeText={setPassword2}
                         />

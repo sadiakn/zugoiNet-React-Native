@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
+import DropDownPicker from 'react-native-dropdown-picker';
 import LoadingEffect from '../components/loadingEffect';
 
 import zugoi from '../api/zugoi';
@@ -145,37 +145,61 @@ const RegisterSucursalScreen = ({ navigation }) => {
 
                     {/* Linea horizontal */}
                     <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                    <View style={[styles.mytextboxL, {}]} >
 
-                    <RNPickerSelect
-                        placeholder={{
-                            label: 'Select Establishment...',
-                            value: null,
-                            color: '#EE712E',
-                        }}
-                        items={items}
-                        onValueChange={(value) => {
-                            setEstablishmentId(value);
-                            errors = 0;
-                        }}
-                        style={styles.dropSelect}
-                    />
+                        {/* Dos opciones de dropdown */}
+                        {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker */}
+                        <DropDownPicker
+                            items={items}
+                            defaultValue={establishmentId}
+                            placeholder={"Seleccione el Establecimiento"}
+                            placeholderStyle={{
+                                color: 'gray',
+                            }}
+                            style={{ backgroundColor: '#fafafa', borderColor: 'black', }}
+                            itemStyle={{
+                                justifyContent: 'flex-start'
+                            }}
+                            containerStyle={{
+                                width: "100%",
+                                height: 50,
+                            }}
+                            dropDownStyle={{ backgroundColor: '#fafafa' }} a
+                            onChangeItem={({ value }) => {
+                                setEstablishmentId(value)
+                            }}
+                        />
+                    </View>
+
 
                     <Text>Direccion</Text>
                     <View style={[{ backgroundColor: "white", }]} >
+                        <View style={[styles.mytextboxL, {}]} >
 
-                        <RNPickerSelect
-                            placeholder={{
-                                label: 'Select Province...',
-                                value: null,
-                                color: '#EE712E',
-                            }}
-                            items={items2}
-                            onValueChange={(value) => {
-                                setProvinceId(value);
-                                errors = 0;
-                            }}
-                            style={styles.dropSelect}
-                        />
+                            {/* Dos opciones de dropdown */}
+                            {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker */}
+                            <DropDownPicker
+                                items={items}
+                                defaultValue={provinceId}
+                                placeholder={"Seleccione la Provincia"}
+                                placeholderStyle={{
+                                    color: 'gray',
+                                }}
+                                style={{ backgroundColor: '#fafafa', borderColor: 'black', }}
+                                itemStyle={{
+                                    justifyContent: 'flex-start'
+                                }}
+                                containerStyle={{
+                                    width: "100%",
+                                    height: 50,
+                                }}
+                                dropDownStyle={{ backgroundColor: '#fafafa' }} a
+                                onChangeItem={({ value }) => {
+                                    setProvinceId(value)
+                                }}
+                            />
+                        </View>
+                   
 
                         <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
                             <TextInput style={styles.textInput}

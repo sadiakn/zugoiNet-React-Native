@@ -7,7 +7,7 @@ import { withNavigation } from 'react-navigation';
 import RegPrice from '../components/regPrice';
 import zugoi from '../api/zugoi';
 import BackIcon from '../assets/Salir.png';
-
+import RefreshIcon from '../assets/refresh.png'
 const VerProductoScreen = ({ navigation }) => {
 
     const [results, setResults] = useState(null);
@@ -20,7 +20,7 @@ const VerProductoScreen = ({ navigation }) => {
     const [posted, setPosted] = useState(false);
 
     const [modalVisible, setModalVisible] = useState(false);
-    
+
     // API POST
     const productApi = async (barCode, { navigation }) => {
         // console.log(barCode);
@@ -63,7 +63,7 @@ const VerProductoScreen = ({ navigation }) => {
 
     const onButtonClick = () => {
         productApi(barCode, { navigation });
-      };
+    };
 
     return (
         <>
@@ -71,7 +71,7 @@ const VerProductoScreen = ({ navigation }) => {
                 <FlatList
                     ListHeaderComponent={
                         <>
-                            <TouchableOpacity onPress={onButtonClick}><Text>Refresh</Text></TouchableOpacity>
+
                             <View style={{ marginVertical: 25 }}>
                                 <Text style={styles.BigText}>¡Producto encontrado!</Text>
                                 <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
@@ -89,8 +89,13 @@ const VerProductoScreen = ({ navigation }) => {
                                         <View style={{ marginHorizontal: 5, }}>
                                             <Text style={styles.BigText}>Comparaciones</Text>
                                         </View>
+                                        <TouchableOpacity onPress={onButtonClick}>
+                                            <Image source={RefreshIcon}
+                                                style={{ marginHorizontal:5,height: 15, width: 15, alignSelf: 'center', resizeMode: "contain", flex: 1 }}
+                                            />
+                                        </TouchableOpacity>
                                         <View style={{ marginHorizontal: 5, justifyContent: "center", alignItems: 'center' }}>
-                                            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                                            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLineS}></View></View>
                                         </View>
 
 
@@ -133,11 +138,11 @@ const VerProductoScreen = ({ navigation }) => {
 
                                             <View style={styles.centeredView}>
                                                 <View style={styles.modalView}>
-                                                    <TouchableOpacity style={{marginVertical:20,}} onPress={() => {
+                                                    <TouchableOpacity style={{ marginVertical: 20, }} onPress={() => {
                                                         setModalVisible(!modalVisible);
                                                     }}>
                                                         <Image
-                                                            style={{height: 25, width: 25, resizeMode: "contain"} }
+                                                            style={{ height: 25, width: 25, resizeMode: "contain" }}
                                                             source={BackIcon}
                                                         />
                                                     </TouchableOpacity>
@@ -259,13 +264,13 @@ const styles = StyleSheet.create({
     ImgContainer: {
         marginVertical: 20,
     },
-    borderLine: {
+    borderLineS: {
         borderWidth: 0.4,
         borderColor: "#EE712E",
 
         marginTop: 5,
         paddingHorizontal: 10,
-        width: 145,
+        width: 150,
         height: 0
     },
     borderLine: {
