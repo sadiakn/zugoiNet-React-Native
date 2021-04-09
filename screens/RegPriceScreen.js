@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Alert, Modal, StyleSheet, Text, TextInput, Pressable, View, TouchableOpacity, Image } from "react-native";
 
+import zugoi from '../api/zugoi';
+
 const RegPriceScreen = ({ navigation }) => {
   let errors = 0;
 
@@ -11,7 +13,11 @@ const RegPriceScreen = ({ navigation }) => {
   const productName = navigation.getParam('productName');
   const img = navigation.getParam('img');
 
+  const barCode = navigation.getParam('barCode');
+
   const [price, setPrice] = useState('');
+
+  const [posted, setPosted] = useState(false);
 
   // API POST
   const RegPrecApi = async () => {
@@ -28,7 +34,7 @@ const RegPriceScreen = ({ navigation }) => {
         console.log('************');
         console.log('** Posted **');
         console.log('************');
-        // navigation.navigate('Test');
+        navigation.navigate('VerProducto', { barCode: barCode });
       })
       .catch((error) => {
         console.log(error);
@@ -47,11 +53,10 @@ const RegPriceScreen = ({ navigation }) => {
     }
     console.log('********************');
     console.log('productId: ' + productId);
-    console.log('establishmentName: ' + establishmentName);
-    console.log('city: ' + city);
     console.log('branchOfficeId: ' + branchOfficeId);
-    console.log('productId: ' + productId);
-    console.log('img: ' + img);
+    console.log('price: ' + price);
+    console.log('barCode: ' + barCode);
+    console.log('********************');
 
     // console.log('********************');
     // console.log('** Validation: OK **');
@@ -59,7 +64,7 @@ const RegPriceScreen = ({ navigation }) => {
     // navigation.navigate('Test');
 
     // API CALL
-    // RegPrecApi();
+    RegPrecApi();
   }
 
   return (

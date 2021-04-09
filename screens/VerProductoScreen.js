@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity, Modal } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { color } from 'react-native-reanimated';
+import { withNavigation } from 'react-navigation';
 
 import RegPrice from '../components/regPrice';
 import zugoi from '../api/zugoi';
@@ -12,12 +13,13 @@ const VerProductoScreen = ({ navigation }) => {
     const [productid, setProductid] = useState('');
     const [productName, setProductName] = useState('');
     const [img, setImg] = useState('');
+    const [barCode, setBarCode] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [posted, setPosted] = useState(false);
 
     const [modalVisible, setModalVisible] = useState(false);
-
+    
     // API POST
     const productApi = async (barCode, { navigation }) => {
         // console.log(barCode);
@@ -34,6 +36,7 @@ const VerProductoScreen = ({ navigation }) => {
                 setImg(res.data.product.img);
                 setLoading(true);
                 setPosted(true);
+                setBarCode(barCode);
                 console.log('************');
                 console.log('** Posted **');
                 console.log('************');
@@ -52,9 +55,8 @@ const VerProductoScreen = ({ navigation }) => {
     };
 
     useEffect(() => {
-        // let barCode = navigation.getParam('barCode');
-        let barCode = '7509552816334';
-
+        let barCode = navigation.getParam('barCode');
+        // let barCode = '7509552816334';
         productApi(barCode, { navigation });
     }, []);
 
@@ -138,7 +140,8 @@ const VerProductoScreen = ({ navigation }) => {
                                                                                 productId: `${productid}`,
                                                                                 branchOfficeId: `${id}`,
                                                                                 productName: `${results.product.productName}`,
-                                                                                img:`${results.product.img}`
+                                                                                img: `${results.product.img}`,
+                                                                                barCode: `${barCode}`,
                                                                             });
                                                                         }}
                                                                     >

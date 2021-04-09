@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -6,6 +6,7 @@ const barcodeimg = require('../assets/barcode.png')
 const editimg = require('../assets/edit.png')
 
 const DashboardScreen = ({ navigation }) => {
+
     return (
         <View style={styles.container}>
             <View style={styles.topuser}>
@@ -27,7 +28,7 @@ const DashboardScreen = ({ navigation }) => {
 
             <View style={{ flexDirection: "row" }}>
                 <View style={styles.imgbtncontainer}>
-                    <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('VerProducto')}>
+                    <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('Scanner')}>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={barcodeimg} style={styles.buttonimage} /></View>
                         <Text style={styles.dashboardBTnText}>Barcode</Text>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
