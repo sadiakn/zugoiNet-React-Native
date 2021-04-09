@@ -113,24 +113,42 @@ const RegisterProductScreen = ({ navigation }) => {
                                 onChangeText={setProductName}
                             />
                         </View>
+                        <View style={{ elevation:1,
+                        }}>
+                            <DropDownPicker
+                                items={items}
+                                defaultValue={categoryId}
+                                placeholder={"Selecciona la categoria"}
 
-                        <RNPickerSelect
-                            placeholder={{
-                                label: 'Select a Category...',
-                                value: null,
-                                color: '#EE712E',
-                            }}
-                            items={items}
-                            onValueChange={setCategoryId}
-                            style={styles.dropSelect}
-                        />
+                                placeholderStyle={{
+                                    color: 'gray',
+                                }}
+                                style={{ backgroundColor: '#fafafa', borderColor: 'black', }}
+                                itemStyle={{
+                                    justifyContent: 'flex-start'
+                                    
+                                }}
+                                containerStyle={{
+                                    width: "100%",
+                                    height: 50,
+                                }}
+                                dropDownStyle={{ backgroundColor: '#fafafa' }} a
+                                onChangeItem={({ value }) => {
+                                    setCategoryId(value)
+                                }}
+                            />
+
+                        </View>
+
+
+
 
                     </View>
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={styles.btn}
                         onPress={onSubmit}>
-                        <Text style={styles.BTnText}>Registrar Producto</Text>
+                        <Text style={styles.BTnText}>Registrar</Text>
                     </TouchableOpacity>
                     {modalVisible === true ? (
                         <ModalMessage
@@ -149,21 +167,21 @@ const RegisterProductScreen = ({ navigation }) => {
     );
 };
 
-RegisterProductScreen.navigationOptions = ({navigation}) => {
+RegisterProductScreen.navigationOptions = ({ navigation }) => {
     let mode = navigation.getParam('mode');
-    if(mode === 'Regi'){
+    if (mode === 'Regi') {
         return {
             headerTitle: '',
-            headerLeft : () => {},
+            headerLeft: () => { },
 
         };
-    }else{
+    } else {
         return {
             headerTitle: '',
-            
+
         };
     }
-    
+
 };
 
 export default RegisterProductScreen;
@@ -177,6 +195,9 @@ const styles = StyleSheet.create({
     },
     myform: {
 
+
+    },
+    pickercontainer: {
 
     },
     mytextboxS: {
@@ -198,8 +219,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         paddingHorizontal: 10,
         paddingVertical: 8,
-        borderWidth: 0.5,
-        borderColor: 'purple',
+        borderWidth: 1,
+        borderColor: 'black',
         borderRadius: 8,
         color: 'black',
         paddingRight: 30
@@ -221,8 +242,8 @@ const styles = StyleSheet.create({
         marginTop: 30,
         paddingVertical: 10,
         borderRadius: 20,
-        height: "6%",
         width: "60%",
+        height: 40,
         backgroundColor: "#EE712E",
         alignSelf: "center"
     },

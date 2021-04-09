@@ -143,6 +143,6 @@ const styles = StyleSheet.create({
         width: 150,
         alignSelf: "center",
         borderRadius:15,
-        elevation:10,
+        elevation:5,
     }
 })

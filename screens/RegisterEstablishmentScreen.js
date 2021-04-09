@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-
+import DropDownPicker from 'react-native-dropdown-picker';
 import LoadingEffect from '../components/loadingEffect';
 
 import zugoi from '../api/zugoi';
+import { color } from 'react-native-reanimated';
 
 const RegisterEstablishmentScreen = ({ navigation }) => {
     let errors = 0;
@@ -101,36 +102,30 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                         <View style={[styles.mytextboxL, {}]} >
 
                             {/* Dos opciones de dropdown */}
-                            {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker*/}
-                            {/* <DropDownPicker
+                            {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker */}
+                            <DropDownPicker
                                 items={items}
                                 defaultValue={typeOfEstablishmentId}
-                                containerStyle={{ height: 40 }}
-                                style={{ backgroundColor: '#fafafa' }}
+                                placeholder={"Tipo de establecimiento"}
+                                placeholderStyle={{
+                                    color:'gray',
+                                }}
+                                style={{backgroundColor: '#fafafa',borderColor: 'black',}}
                                 itemStyle={{
                                     justifyContent: 'flex-start'
+                                }}
+                                containerStyle={{
+                                    width:"100%",
+                                    height:50,
                                 }}
                                 dropDownStyle={{ backgroundColor: '#fafafa' }} a
                                 onChangeItem={({ value }) => {
                                     setTypeOfEstablishmentId(value)
                                 }}
-                            /> */}
-
-                            {/* https://www.npmjs.com/package/react-native-picker-select */}
-
-                            <RNPickerSelect
-                                placeholder={{
-                                    label: 'Select a type of Establishment...',
-                                    value: null,
-                                    color: '#EE712E',
-                                }}
-                                items={items}
-                                onValueChange={(value) => {
-                                    setTypeOfEstablishmentId(value);
-                                    errors = 0;
-                                }}
-                                style={styles.dropSelect}
                             />
+
+                        
+                            
 
 
                         </View>
@@ -138,7 +133,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                             activeOpacity={0.8}
                             style={styles.btn}
                             onPress={onSubmit}>
-                            <Text style={styles.BTnText}>Registrar Establecimiento</Text>
+                            <Text style={styles.BTnText}>Registrar</Text>
                         </TouchableOpacity>
                     </View>
                 </> : <LoadingEffect />}
@@ -167,6 +162,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
+    
     dropSelect: {
         fontSize: 16,
         paddingHorizontal: 10,
@@ -218,6 +214,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 20,
         width: "60%",
+        height:40,
         backgroundColor: "#EE712E",
         alignSelf: "center"
     },
