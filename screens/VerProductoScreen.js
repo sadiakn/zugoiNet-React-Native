@@ -7,6 +7,7 @@ import { withNavigation } from 'react-navigation';
 import RegPrice from '../components/regPrice';
 import zugoi from '../api/zugoi';
 import BackIcon from '../assets/Salir.png';
+
 const VerProductoScreen = ({ navigation }) => {
 
     const [results, setResults] = useState(null);
@@ -60,12 +61,17 @@ const VerProductoScreen = ({ navigation }) => {
         productApi(barCode, { navigation });
     }, []);
 
+    const onButtonClick = () => {
+        productApi(barCode, { navigation });
+      };
+
     return (
         <>
             {loading ? (
                 <FlatList
                     ListHeaderComponent={
                         <>
+                            <TouchableOpacity onPress={onButtonClick}><Text>Refresh</Text></TouchableOpacity>
                             <View style={{ marginVertical: 25 }}>
                                 <Text style={styles.BigText}>¡Producto encontrado!</Text>
                                 <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>

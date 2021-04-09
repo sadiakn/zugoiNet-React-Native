@@ -17,10 +17,12 @@ const ScannerScreen = ({ navigation }) => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    console.log("------------------------------------");
-    console.log('mode: ' + mode);
-    console.log('barCode: ' + data);
-    console.log("------------------------------------");
+    
+    // console.log("------------------------------------");
+    // console.log('mode: ' + mode);
+    // console.log('barCode: ' + data);
+    // console.log("------------------------------------");
+
     if (mode === 'Reg') {
       navigation.navigate('RegProduct', { barCode: data });
     } else {

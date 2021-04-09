@@ -11,7 +11,6 @@ const regSuccess = ({ navigation, Type, Title, Message, Button, Visible, onPress
                 animationType="slide"
                 transparent={true}
                 visible={Visible}
-                onRequestClose={() => (onPress(!Visible))}
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
@@ -20,37 +19,26 @@ const regSuccess = ({ navigation, Type, Title, Message, Button, Visible, onPress
                         <Text style={styles.modalText2}>{Message}</Text>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
                         <>
-                            {Button === 'Ok' ?
+                            {Button === 'Ok' ? (
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() => {
                                         onPress(!Visible);
                                         navigation.navigate(`${Nav}`);
-                                        }}
+                                    }}
                                 >
                                     <Text style={styles.textStyle}>Ok</Text>
                                 </Pressable>
-                                : <>
-                                    <View style={styles.container}>
-                                        <View style={{ paddingHorizontal: 10, }}>
-                                            <Pressable
-                                                style={[styles.button, styles.buttonClose]}
-                                                onPress={() => (onPress(!Visible))}
-                                            >
-                                                <Text style={styles.textStyle}>Cancelar</Text>
-                                            </Pressable>
-                                        </View>
-                                        <View />
-                                        <View style={{ paddingHorizontal: 10, }}>
-                                            <Pressable
-                                                style={[styles.button, styles.buttonClose]}
-                                                onPress={() => (navigation.navigate(Nav))}
-                                            >
-                                                <Text style={styles.textStyle}>Registrar</Text>
-                                            </Pressable>
-                                        </View>
-                                    </View>
-                                </>}
+                            ) : (
+                                <Pressable
+                                    style={[styles.button, styles.buttonClose]}
+                                    onPress={() => {
+                                        onPress(!Visible);
+                                    }}
+                                >
+                                    <Text style={styles.textStyle}>Ok</Text>
+                                </Pressable>
+                            )}
                         </>
                     </View>
                 </View>

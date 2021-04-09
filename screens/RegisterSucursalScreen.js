@@ -6,7 +6,12 @@ import LoadingEffect from '../components/loadingEffect';
 
 import zugoi from '../api/zugoi';
 
+import ModalMessage from '../components/modalMessage';
+
 const RegisterSucursalScreen = ({ navigation }) => {
+    const [posted, setPosted] = useState(false);
+    const [errorModal, setErrorModal] = useState(false);
+
     let errors = 0;
     const [establishmentId, setEstablishmentId] = useState('');
     const [provinceId, setProvinceId] = useState('');
@@ -15,7 +20,6 @@ const RegisterSucursalScreen = ({ navigation }) => {
     const countryId = '1';
 
     const [loading, setLoading] = useState(false);
-    const [posted, setPosted] = useState(false);
 
     const [items, setItems] = useState([]);
     const [items2, setItems2] = useState([]);
@@ -46,9 +50,9 @@ const RegisterSucursalScreen = ({ navigation }) => {
     const multiApi = async () => {
         const response = await Promise.all([establishmentsApi(), provinceApi()])
             .then(() => {
-                console.log('////////////');
-                console.log('// Loaded //');
-                console.log('////////////');
+                // console.log('////////////');
+                // console.log('// Loaded //');
+                // console.log('////////////');
                 setLoading(true);
             })
             .catch((error) => {
@@ -77,10 +81,13 @@ const RegisterSucursalScreen = ({ navigation }) => {
                 console.log('************');
                 console.log('** Posted **');
                 console.log('************');
-                navigation.navigate('Dashboard');
+
+                setPosted(true);
             })
             .catch((error) => {
                 console.log(error);
+
+                setErrorModal(true);
             });
     };
 
@@ -112,6 +119,28 @@ const RegisterSucursalScreen = ({ navigation }) => {
         <View style={[styles.mycontent, { backgroundColor: "white", }]}>
             {loading ?
                 <>
+                    {posted ? (
+                        <ModalMessage
+                            Type='Checked'
+                            Title='¡Sucurdal Registrada!'
+                            Message='¡La Sucurdal ha sido registrada!'
+                            Button='Ok'
+                            Visible={posted}
+                            onPress={setPosted}
+                            navigation={navigation}
+                            Nav='Dashboard'
+                        />
+                    ) : null}
+                    {errorModal ? (
+                        <ModalMessage
+                            Title='¡Error!'
+                            Message='¡Algo salio mal!'
+                            Button='Fail'
+                            Visible={errorModal}
+                            onPress={setErrorModal}
+                            navigation={navigation}
+                        />
+                    ) : null}
                     <Text style={styles.welcomeText}>Registrar Sucursal</Text>
 
                     {/* Linea horizontal */}
@@ -174,7 +203,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={0.8}
                         style={styles.btn}
-                        onPress={ onSubmit}>
+                        onPress={onSubmit}>
                         <Text style={styles.BTnText}>Registrar Sucursal</Text>
                     </TouchableOpacity>
                 </>

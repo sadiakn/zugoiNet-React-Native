@@ -4,14 +4,14 @@ import { Alert, Modal, StyleSheet, Text, Pressable, Image, View } from "react-na
 const checked = require('../assets/checked1.png');
 const cancel = require('../assets/cancel.png');
 
-const regSuccess = ({Visible, onPress}) => {
+const regSuccess = ({visible, setVisible}) => {
   return (
     <>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={Visible}
-        onRequestClose={() => (onPress(!Visible))}
+        visible={visible}
+        onRequestClose={setVisible(false)}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -22,7 +22,7 @@ const regSuccess = ({Visible, onPress}) => {
 
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => {onPress(!Visible);}}
+              onPress={setVisible(false)}
             >
               <Text style={styles.textStyle}>Ok</Text>
             </Pressable>

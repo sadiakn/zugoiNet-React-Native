@@ -14,21 +14,22 @@ const DashboardScreen = ({ navigation }) => {
                 <View>
                     <Text style={styles.userText}> Welcome user</Text>
                     <View style={{ flexDirection: "row" }}>
-                    <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('loginFlow')}>
-                        <Text style={styles.logouBtnText}>Logout</Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('loginFlow')}>
+                            <Text style={styles.logouBtnText}>Logout</Text>
+                        </TouchableOpacity>
 
-                    {/* Temp button for TESTING stuff*/}
-                    <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('Test')}>
-                        <Text style={styles.logouBtnText}>TEST</Text>
-                    </TouchableOpacity>
+                        {/* Temp button for TESTING stuff*/}
+                        <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('Test')}>
+                            <Text style={styles.logouBtnText}>TEST</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
 
             <View style={{ flexDirection: "row" }}>
                 <View style={styles.imgbtncontainer}>
-                    <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('Scanner')}>
+                    {/* <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('VerProducto')}> */}
+                        <TouchableOpacity style={styles.dashboardBTn} title="barcode" onPress={() => navigation.navigate('Scanner')}>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><Image source={barcodeimg} style={styles.buttonimage} /></View>
                         <Text style={styles.dashboardBTnText}>Barcode</Text>
                         <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
@@ -109,21 +110,21 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: 100,
         alignSelf: "center"
-        ,elevation:10,
+        , elevation: 10,
     },
 
     logouBtnText: {
         color: '#fff',
         textAlign: "center",
         fontWeight: "bold"
-        
+
     },
 
     dashboardBTnText: {
         color: '#ee712e',
         textAlign: "center",
         fontWeight: "bold"
-        
+
     },
 
     buttonimage: {
@@ -134,8 +135,8 @@ const styles = StyleSheet.create({
     imgbtncontainer: {
         paddingHorizontal: 10,
         paddingVertical: 10,
-        alignItems:'center',
-        borderRadius:15
+        alignItems: 'center',
+        borderRadius: 15
     },
 
     dashboardBTn: {
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         width: 150,
         alignSelf: "center",
-        borderRadius:15,
-        elevation:5,
+        borderRadius: 15,
+        elevation: 5,
     }
 })

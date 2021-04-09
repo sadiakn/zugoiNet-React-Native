@@ -3,7 +3,12 @@ import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'rea
 
 import zugoi from '../api/zugoi';
 
+import ModalMessage from '../components/modalMessage';
+
 const RegisterUserScreen2 = ({ navigation }) => {
+    const [posted, setPosted] = useState(false);
+    const [errorModal, setErrorModal] = useState(false);
+
     let errors = 0;
     // Values from registerUserScreen1
     const name = navigation.getParam('name');
@@ -20,8 +25,6 @@ const RegisterUserScreen2 = ({ navigation }) => {
     const countryId = '1';
     const provinceId = '1';
     const city = 'david';
-
-    const [posted, setPosted] = useState(false);
 
     // API POST
     const RegUserApi = async () => {
@@ -44,10 +47,13 @@ const RegisterUserScreen2 = ({ navigation }) => {
                 console.log('************');
                 console.log('** Posted **');
                 console.log('************');
-                navigation.navigate('Login');
+
+                setPosted(true);
             })
             .catch((error) => {
                 console.log(error);
+
+                setErrorModal(true);
             });
     };
 
@@ -77,61 +83,81 @@ const RegisterUserScreen2 = ({ navigation }) => {
             alert("Error! El Password no puede ser menor de 8 caracteres");
             return;
         }
-        // console.log('********************');
-        // console.log('** Validation: OK **');
-        // console.log('********************');
 
         // API CALL
         RegUserApi();
-        // navigation.navigate('Login');
     }
 
     return (
-        <View style={[styles.mycontent, { backgroundColor: "white", }]}>
-            <Text style={styles.welcomeText}>Crear una Cuenta</Text>
+        <>
+            {posted ? (
+                <ModalMessage
+                    Type='Checked'
+                    Title='¡Cuenta Registrada!'
+                    Message='¡Ahora ya puedes iniciar sesion!'
+                    Button='Ok'
+                    Visible={posted}
+                    onPress={setPosted}
+                    navigation={navigation}
+                    Nav='Login'
+                />
+            ) : null}
+            {errorModal ? (
+                <ModalMessage
+                    Title='¡Error!'
+                    Message='¡Algo salio mal!'
+                    Button='Fail'
+                    Visible={errorModal}
+                    onPress={setErrorModal}
+                    navigation={navigation}
+                />
+            ) : null}
+            <View style={[styles.mycontent, { backgroundColor: "white", }]}>
+                <Text style={styles.welcomeText}>Crear una Cuenta</Text>
 
-            {/* Linea horizontal */}
-            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                {/* Linea horizontal */}
+                <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-            <View >
+                <View >
 
-                <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                    <TextInput style={styles.textInput}
-                        placeholder="Correo electrónico"
-                        placeholderTextColor="#333"
-                        value={email}
-                        onChangeText={(email) => {
-                            setEmail(email);
-                            errors = 0;
-                        }}
-                    />
+                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                        <TextInput style={styles.textInput}
+                            placeholder="Correo electrónico"
+                            placeholderTextColor="#333"
+                            value={email}
+                            onChangeText={(email) => {
+                                setEmail(email);
+                                errors = 0;
+                            }}
+                        />
+                    </View>
+                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                        <TextInput style={styles.textInput}
+                            placeholder="Contraseña"
+                            placeholderTextColor="#333"
+                            value={password}
+                            onChangeText={setPassword}
+                        />
+                    </View>
+                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                        <TextInput style={styles.textInput}
+                            placeholder="Vuelve a introducir la contraseña"
+                            placeholderTextColor="#333"
+                            value={password2}
+                            onChangeText={setPassword2}
+                        />
+                    </View>
+
                 </View>
-                <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                    <TextInput style={styles.textInput}
-                        placeholder="Contraseña"
-                        placeholderTextColor="#333"
-                        value={password}
-                        onChangeText={setPassword}
-                    />
-                </View>
-                <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                    <TextInput style={styles.textInput}
-                        placeholder="Vuelve a introducir la contraseña"
-                        placeholderTextColor="#333"
-                        value={password2}
-                        onChangeText={setPassword2}
-                    />
-                </View>
-
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.btn}
+                    onPress={onSubmit}>
+                    <Text style={styles.BTnText}>Registrarse</Text>
+                </TouchableOpacity>
+                <Text style={styles.DisclaimerText}>Al hacer clic en “Registrarse”, aceptas los Términos y Condiciones de Uso de zugoiNet. </Text>
             </View>
-            <TouchableOpacity
-                activeOpacity={0.8}
-                style={styles.btn}
-                onPress={onSubmit}>
-                <Text style={styles.BTnText}>Registrarse</Text>
-            </TouchableOpacity>
-            <Text style={styles.DisclaimerText}>Al hacer clic en “Registrarse”, aceptas los Términos y Condiciones de Uso de zugoiNet. </Text>
-        </View>
+        </>
     );
 };
 

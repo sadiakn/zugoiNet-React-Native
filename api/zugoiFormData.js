@@ -7,7 +7,8 @@ const url2 = 'https://zugoinet.herokuapp.com';
 export default axios.create({
     baseURL: `${url}`,
     headers: {
-        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
         'z-token': `${frankToken}`
     }
 });

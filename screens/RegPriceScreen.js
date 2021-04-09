@@ -3,9 +3,13 @@ import { Alert, Modal, StyleSheet, Text, TextInput, Pressable, View, TouchableOp
 
 import zugoi from '../api/zugoi';
 
-const RegPriceScreen = ({ navigation }) => {
-  let errors = 0;
+import ModalMessage from '../components/modalMessage';
 
+const RegPriceScreen = ({ navigation }) => {
+  const [posted, setPosted] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+
+  let errors = 0;
   const establishmentName = navigation.getParam('establishmentName');
   const city = navigation.getParam('city');
   const productId = navigation.getParam('productId');
@@ -16,8 +20,6 @@ const RegPriceScreen = ({ navigation }) => {
   const barCode = navigation.getParam('barCode');
 
   const [price, setPrice] = useState('');
-
-  const [posted, setPosted] = useState(false);
 
   // API POST
   const RegPrecApi = async () => {
@@ -30,14 +32,16 @@ const RegPriceScreen = ({ navigation }) => {
       }
     })
       .then(() => {
-        setPosted(true);
         console.log('************');
         console.log('** Posted **');
         console.log('************');
-        navigation.navigate('VerProducto', { barCode: barCode });
+
+        setPosted(true);
       })
       .catch((error) => {
         console.log(error);
+
+        setErrorModal(true);
       });
   };
 
@@ -58,17 +62,34 @@ const RegPriceScreen = ({ navigation }) => {
     console.log('barCode: ' + barCode);
     console.log('********************');
 
-    // console.log('********************');
-    // console.log('** Validation: OK **');
-    // console.log('********************');
-    // navigation.navigate('Test');
-
     // API CALL
     RegPrecApi();
   }
 
   return (
     <>
+      {posted ? (
+        <ModalMessage
+          Type='Checked'
+          Title='¡Precio agregado!'
+          Message='¡El Precio ha sido agregado!'
+          Button='Ok'
+          Visible={posted}
+          onPress={setPosted}
+          navigation={navigation}
+          Nav='VerProducto'
+        />
+      ) : null}
+      {errorModal ? (
+        <ModalMessage
+          Title='¡Error!'
+          Message='¡Algo salio mal!'
+          Button='Fail'
+          Visible={errorModal}
+          onPress={setErrorModal}
+          navigation={navigation}
+        />
+      ) : null}
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}>Agregar Precio</Text>
@@ -221,5 +242,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'gray',
 
-},
+  },
 });

@@ -7,13 +7,17 @@ import LoadingEffect from '../components/loadingEffect';
 import zugoi from '../api/zugoi';
 import { color } from 'react-native-reanimated';
 
+import ModalMessage from '../components/modalMessage';
+
 const RegisterEstablishmentScreen = ({ navigation }) => {
+    const [posted, setPosted] = useState(false);
+    const [errorModal, setErrorModal] = useState(false);
+
     let errors = 0;
     const [establishmentName, setEstablishmentName] = useState('');
     const [typeOfEstablishmentId, setTypeOfEstablishmentId] = useState('');
 
     const [loading, setLoading] = useState(false);
-    const [posted, setPosted] = useState(false);
 
     const [items, setItems] = useState([]);
 
@@ -23,9 +27,9 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
             .get('/type-of-establishments')
             .then((res) => {
                 setItems(res.data.map(({ typeOfEstablishmentName: label, id: value }) => ({ label, value })));
-                console.log('////////////');
-                console.log('// Loaded //');
-                console.log('////////////');
+                // console.log('////////////');
+                // console.log('// Loaded //');
+                // console.log('////////////');
                 setLoading(true);
             })
             .catch((error) => {
@@ -48,15 +52,18 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                 typeOfEstablishmentId: typeOfEstablishmentId
             }
         })
-            .then(() => {
-                setPosted(true);
+            .then((res) => {
+                console.log(res);
                 console.log('************');
                 console.log('** Posted **');
                 console.log('************');
-                navigation.navigate('Dashboard');
+
+                setPosted(true);
             })
             .catch((error) => {
                 console.log(error);
+                
+                setErrorModal(true);
             });
     };
 
@@ -74,6 +81,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
             alert("Error! Rellenar: " + err);
             return;
         }
+        
         // API CALL
         RegEstApi();
     }
@@ -82,6 +90,28 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
         <View style={styles.container}>
             {loading ?
                 <>
+                    {posted ? (
+                        <ModalMessage
+                            Type='Checked'
+                            Title='¡Establecimiento Registrado!'
+                            Message='¡El Establecimiento ha sido registrado!'
+                            Button='Ok'
+                            Visible={posted}
+                            onPress={setPosted}
+                            navigation={navigation}
+                            Nav='Dashboard'
+                        />
+                    ) : null}
+                    {errorModal ? (
+                        <ModalMessage
+                            Title='¡Error!'
+                            Message='¡Algo salio mal!'
+                            Button='Fail'
+                            Visible={errorModal}
+                            onPress={setErrorModal}
+                            navigation={navigation}
+                        />
+                    ) : null}
                     <Text style={styles.welcomeText}>Registro de Establecimiento</Text>
                     {/* Linea horizontal */}
                     <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
@@ -108,26 +138,21 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                                 defaultValue={typeOfEstablishmentId}
                                 placeholder={"Tipo de establecimiento"}
                                 placeholderStyle={{
-                                    color:'gray',
+                                    color: 'gray',
                                 }}
-                                style={{backgroundColor: '#fafafa',borderColor: 'black',}}
+                                style={{ backgroundColor: '#fafafa', borderColor: 'black', }}
                                 itemStyle={{
                                     justifyContent: 'flex-start'
                                 }}
                                 containerStyle={{
-                                    width:"100%",
-                                    height:50,
+                                    width: "100%",
+                                    height: 50,
                                 }}
                                 dropDownStyle={{ backgroundColor: '#fafafa' }} a
                                 onChangeItem={({ value }) => {
                                     setTypeOfEstablishmentId(value)
                                 }}
                             />
-
-                        
-                            
-
-
                         </View>
                         <TouchableOpacity
                             activeOpacity={0.8}
@@ -162,7 +187,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    
+
     dropSelect: {
         fontSize: 16,
         paddingHorizontal: 10,
@@ -195,18 +220,13 @@ const styles = StyleSheet.create({
     },
     mytextboxL: {
         marginVertical: 10,
-
-
         alignItems: "center",
         justifyContent: "center",
-
     },
     myrow: {
-
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-
     },
 
     btn: {
@@ -214,7 +234,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 20,
         width: "60%",
-        height:40,
+        height: 40,
         backgroundColor: "#EE712E",
         alignSelf: "center"
     },
