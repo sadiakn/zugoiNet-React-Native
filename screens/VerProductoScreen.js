@@ -6,7 +6,7 @@ import { withNavigation } from 'react-navigation';
 
 import RegPrice from '../components/regPrice';
 import zugoi from '../api/zugoi';
-
+import BackIcon from '../assets/Salir.png';
 const VerProductoScreen = ({ navigation }) => {
 
     const [results, setResults] = useState(null);
@@ -76,38 +76,41 @@ const VerProductoScreen = ({ navigation }) => {
                                         style={styles.ProductImage}
                                         source={{ uri: `${results.product.img}` }}
                                     />
-                                    <Text style={styles.ProductText}>{results.product.productName}</Text>
+                                    <Text style={styles.ProductText, { textAlign: "center" }}>{results.product.productName}</Text>
                                 </View>
-                                <View style={styles.myrow}>
-                                    <View style={{ marginHorizontal: 5, }}>
-                                        <Text style={styles.BigText}>Comparaciones</Text>
+                                <View style={{ paddingHorizontal: 20 }}>
+                                    <View style={styles.myrow}>
+                                        <View style={{ marginHorizontal: 5, }}>
+                                            <Text style={styles.BigText}>Comparaciones</Text>
+                                        </View>
+                                        <View style={{ marginHorizontal: 5, justifyContent: "center", alignItems: 'center' }}>
+                                            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                                        </View>
+
+
                                     </View>
-                                    <View style={{ marginHorizontal: 5, justifyContent: "center", alignItems: 'center' }}>
-                                        <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
-                                    </View>
 
+                                    {
+                                        results.branchOfficesWithPrice.map((results, index) => {
+                                            const { id, Establishment, PricesProductsBranchOffices, Address } = results;
 
-                                </View>
-
-                                {
-                                    results.branchOfficesWithPrice.map((results, index) => {
-                                        const { id, Establishment, PricesProductsBranchOffices, Address } = results;
-
-                                        return (
-                                            <View key={id} style={styles.PriceContainer}>
-                                                <View style={styles.myrow}>
-                                                    <View style={{ marginHorizontal: 50, }}>
-                                                        <Text style={styles.ProductText}>{Establishment.establishmentName}</Text>
+                                            return (
+                                                <View key={id} style={styles.PriceContainer}>
+                                                    <View style={styles.myrow}>
+                                                        <View style={{ marginHorizontal: 50, }}>
+                                                            <Text style={styles.ProductText, { textAlign: "center" }}>{Establishment.establishmentName}</Text>
+                                                        </View>
+                                                        <View style={{ marginHorizontal: 50, }}>
+                                                            <Text style={styles.ProductText, { textAlign: "center" }}>Precio:{PricesProductsBranchOffices[0].price}</Text>
+                                                        </View>
                                                     </View>
-                                                    <View style={{ marginHorizontal: 50, }}>
-                                                        <Text style={styles.ProductText}>Precio:  {PricesProductsBranchOffices[0].price}</Text>
-                                                    </View>
+                                                    <Text style={styles.CityText}>            Ciudad: {Address.city}</Text>
                                                 </View>
-                                                <Text style={styles.CityText}>            Ciudad: {Address.city}</Text>
-                                            </View>
-                                        );
-                                    })
-                                }
+                                            );
+                                        })
+                                    }
+                                </View>
+
                                 <TouchableOpacity style={styles.Btn} onPress={() => setModalVisible(true)}>
                                     <Text style={styles.BtnText}>+ Precios</Text>
                                 </TouchableOpacity>
@@ -121,17 +124,27 @@ const VerProductoScreen = ({ navigation }) => {
                                 >
                                     <FlatList
                                         ListHeaderComponent={
+
                                             <View style={styles.centeredView}>
                                                 <View style={styles.modalView}>
+                                                    <TouchableOpacity style={{marginVertical:20,}} onPress={() => {
+                                                        setModalVisible(!modalVisible);
+                                                    }}>
+                                                        <Image
+                                                            style={{height: 25, width: 25, resizeMode: "contain"} }
+                                                            source={BackIcon}
+                                                        />
+                                                    </TouchableOpacity>
                                                     {
+
                                                         results.branchOffices.map((re, index) => {
                                                             const { id, Establishment, Address } = re;
 
                                                             return (
-                                                                <View key={id}>
+                                                                <View style={{ flex: 1, }} key={id}>
                                                                     <TouchableOpacity
                                                                         key={id}
-                                                                        style={{ borderColor: "black", borderWidth: 1, margin: 5 }}
+                                                                        style={styles.PriceContainer}
                                                                         onPress={() => {
                                                                             setModalVisible(!modalVisible);
                                                                             navigation.navigate('Price', {
@@ -145,9 +158,9 @@ const VerProductoScreen = ({ navigation }) => {
                                                                             });
                                                                         }}
                                                                     >
-                                                                        <Text>id: {id}</Text>
-                                                                        <Text>EstablishmentName: {Establishment.establishmentName}</Text>
-                                                                        <Text>city: {Address.city}</Text>
+
+                                                                        <Text>Establecimiento: {Establishment.establishmentName}</Text>
+                                                                        <Text>Ciudad: {Address.city}</Text>
                                                                     </TouchableOpacity>
                                                                 </View>
                                                             );
@@ -196,8 +209,12 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     PriceContainer: {
-        paddingHorizontal: 10,
-        marginVertical: 10,
+
+        paddingHorizontal: 20,
+        marginVertical: 5,
+        backgroundColor: "#FFF8F5",
+        elevation: 5,
+
     },
     centeredView: {
         flex: 1,
@@ -207,11 +224,12 @@ const styles = StyleSheet.create({
         paddingBottom: 150
     },
     modalView: {
+        flex: 1,
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 20,
-        alignItems: "center",
+        padding: 10,
+        paddingHorizontal: 40,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -267,7 +285,7 @@ const styles = StyleSheet.create({
     },
     ProductText: {
         marginVertical: 5,
-        textAlign: "center",
+
         color: '#fff',
         fontSize: 16,
         color: 'gray',
@@ -284,6 +302,7 @@ const styles = StyleSheet.create({
     Btn: {
         backgroundColor: "#ee712e",
         paddingVertical: 10,
+        marginVertical: 20,
         borderRadius: 20,
         width: 100,
         alignSelf: "center"
