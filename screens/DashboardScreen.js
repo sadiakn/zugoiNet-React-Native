@@ -7,6 +7,15 @@ const editimg = require('../assets/edit.png')
 
 const DashboardScreen = ({ navigation }) => {
 
+    const logOUT = () => {
+        AsyncStorage.removeItem("token")
+            .then(
+                res => {
+                    navigation.navigate('loginFlow')
+                }
+            )
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.topuser}>
@@ -14,14 +23,9 @@ const DashboardScreen = ({ navigation }) => {
                 <View>
                     <Text style={styles.userText}> Welcome user</Text>
                     <View >
-                        <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('loginFlow')}>
+                        <TouchableOpacity style={styles.logouBtn} onPress={logOUT}>
                             <Text style={styles.logouBtnText}>Logout</Text>
                         </TouchableOpacity>
-
-                        {/* Temp button for TESTING stuff*/}
-                        {/* <TouchableOpacity style={styles.logouBtn} onPress={() => navigation.navigate('Test')}>
-                            <Text style={styles.logouBtnText}>TEST</Text>
-                        </TouchableOpacity> */}
                     </View>
                 </View>
             </View>
