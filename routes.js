@@ -22,16 +22,13 @@ import RegisterEstablishmentScreen from './screens/RegisterEstablishmentScreen';
 import VerProductoScreen from './screens/VerProductoScreen';
 import SearchProductoScreen from './screens/SearchProductoScreen';
 
-import Ztestaxios from './screens/ztestaxios';
-import TestingScreenTEMP from './screens/TestingScreenTEMP';
-import TestingScreenTEMP2 from './screens/TestingScreenTEMP2';
-import TestingScreenTEMP3 from './screens/TestingScreenTEMP3';
-
 import RegPriceScreen from './screens/RegPriceScreen';
 
 import BarcodeIcon from './assets/barcodeTabIcon.png';
 import HomeIcon from './assets/HomeIcon.png'
 import LupaIcon from './assets/LupaIcon.png'
+
+import AuthLoadingScreen from './screens/authLoadingScreen';
 
 const scannerFlow = createStackNavigator({
     Scanner: ScannerScreen,
@@ -52,8 +49,7 @@ const switchNavigator = createSwitchNavigator({
                 scannerFlow: { screen: scannerFlow, navigationOptions: { headerShown: false } },
                 RegProduct: RegisterProductScreen,
                 RegSucursal: RegisterSucursalScreen,
-                RegEstablishment: RegisterEstablishmentScreen,
-                Test: TestingScreenTEMP
+                RegEstablishment: RegisterEstablishmentScreen
             }), navigationOptions: {
                 tabBarOptions: { showIcon: true, showLabel: false },
                 tabBarIcon: ({ focused }) => {
@@ -100,7 +96,8 @@ const switchNavigator = createSwitchNavigator({
                 headerShown: false,
             }
         }
-    }, { resetOnBlur: true, tabBarOptions: { showLabel: false } })
-});
+    }, { resetOnBlur: true, tabBarOptions: { showLabel: false } }),
+    AuthLoadingScreen: AuthLoadingScreen
+},{initialRouteName: "AuthLoadingScreen"});
 
 export default createAppContainer(switchNavigator);

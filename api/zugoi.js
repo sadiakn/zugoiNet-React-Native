@@ -1,13 +1,12 @@
 import axios from 'axios';
 
-const frankToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMsImlhdCI6MTYxNzc3MDQzMywiZXhwIjoxNjI1NTQ2NDMzfQ.3qoLPwiwznqEih2ocg96Mn1j65UvQSyNVgaYGQNGJrs';
+const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjgsImlhdCI6MTYxODAyODc3NSwiZXhwIjoxNjI1ODA0Nzc1fQ.o4X1ttayxnED20gnR3tGi5diAPooPLe5YRlf0gr04q4';
 const url = 'https://api.zugoi.net';
-const url2 = 'https://zugoinet.herokuapp.com';
 
 export default axios.create({
     baseURL: `${url}`,
     headers: {
         'Content-Type': 'application/json',
-        'z-token': `${frankToken}`
+        'z-token': `${userToken}`
     }
 });

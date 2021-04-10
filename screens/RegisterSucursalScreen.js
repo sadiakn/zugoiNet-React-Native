@@ -179,7 +179,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                             {/* Dos opciones de dropdown */}
                             {/* de esta pagina??? https://www.npmjs.com/package/react-native-dropdown-picker */}
                             <DropDownPicker
-                                items={items}
+                                items={items2}
                                 defaultValue={provinceId}
                                 placeholder={"Seleccione la Provincia"}
                                 placeholderStyle={{

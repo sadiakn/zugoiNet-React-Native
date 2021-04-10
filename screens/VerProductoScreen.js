@@ -56,8 +56,8 @@ const VerProductoScreen = ({ navigation }) => {
     };
 
     useEffect(() => {
-        // let barCode = navigation.getParam('barCode');
-        let barCode = '7509552816334';
+        let barCode = navigation.getParam('barCode');
+        // let barCode = '7509552816334';
         productApi(barCode, { navigation });
     }, []);
 
