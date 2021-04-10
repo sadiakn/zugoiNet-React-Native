@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const AuthLoadingScreen = ({navigation}) => {
     const checkToken = async () => {
         const token = await AsyncStorage.getItem("token");
-        console.log('-- AUTH --');
-        console.log(token);
+        // console.log('-- AUTH --');
+        // console.log(token);
         if (token) {
             navigation.navigate("Dashboard");
         }
@@ -35,7 +35,4 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-
-
-
 })

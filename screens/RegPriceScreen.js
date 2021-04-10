@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, TextInput, Pressable, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from "react-native";
 
 import zugoi from '../api/zugoi';
 
@@ -32,14 +32,14 @@ const RegPriceScreen = ({ navigation }) => {
       }
     })
       .then(() => {
-        console.log('************');
-        console.log('** Posted **');
-        console.log('************');
+        // console.log('************');
+        // console.log('** Posted **');
+        // console.log('************');
 
         setPosted(true);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
 
         setErrorModal(true);
       });

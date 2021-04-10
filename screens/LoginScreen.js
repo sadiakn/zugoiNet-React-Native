@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
-
-import { Text, Input, Button } from 'react-native-elements';
+import { StyleSheet, TextInput, View, TouchableOpacity, Text } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -21,8 +19,8 @@ const LoginScreen = ({ navigation }) => {
     const storeToken = async (value) => {
         try {
             await AsyncStorage.setItem('token', value)
-            console.log('-- LOGIN --');
-            console.log(value);
+            // console.log('-- LOGIN --');
+            // console.log(value);
         } catch (e) {
             // saving error
         }
@@ -51,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
                     setErrorLogin(true);
                 }
                 else {
-                    console.log(error);
+                    // console.log(error);
                     setErrorModal(true);
                 }
             });
@@ -197,8 +195,6 @@ const styles = StyleSheet.create({
     welcomeText: {
         textAlign: 'center',
         fontSize: 24,
-
-
     },
     SignInBtn: {
         marginTop: 30,
@@ -206,7 +202,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: "60%",
         backgroundColor: "#EE712E",
-
     },
     signinText: {
         textAlign: "center",
@@ -221,6 +216,5 @@ const styles = StyleSheet.create({
         marginTop: 20,
         paddingHorizontal: 10,
         width: "50%",
-
     }
 })

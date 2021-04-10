@@ -32,7 +32,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                 setItems(res.data.map(({ establishmentName: label, id: value }) => ({ label, value })));
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
     };
 
@@ -43,7 +43,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                 setItems2(res.data.map(({ provinceName: label, id: value }) => ({ label, value })));
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
     };
 
@@ -56,7 +56,7 @@ const RegisterSucursalScreen = ({ navigation }) => {
                 setLoading(true);
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
     };
 
@@ -78,14 +78,12 @@ const RegisterSucursalScreen = ({ navigation }) => {
         })
             .then(() => {
                 setPosted(true);
-                console.log('************');
-                console.log('** Posted **');
-                console.log('************');
-
-                setPosted(true);
+                // console.log('************');
+                // console.log('** Posted **');
+                // console.log('************');
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
 
                 setErrorModal(true);
             });
@@ -298,8 +296,6 @@ const styles = StyleSheet.create({
     welcomeText: {
         textAlign: 'center',
         fontSize: 20,
-
-
     },
     btn: {
         marginTop: 30,

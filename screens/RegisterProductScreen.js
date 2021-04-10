@@ -4,7 +4,6 @@ import { FlatList } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
 
 import DropDownPicker from 'react-native-dropdown-picker';
-import RNPickerSelect from 'react-native-picker-select';
 
 import LoadingEffect from '../components/loadingEffect';
 
@@ -40,7 +39,7 @@ const RegisterProductScreen = ({ navigation }) => {
         }
 
         let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        console.log(pickerResult);
+        // console.log(pickerResult);
 
         if (pickerResult.cancelled === true) {
             return;
@@ -85,10 +84,10 @@ const RegisterProductScreen = ({ navigation }) => {
             data: formData
         })
             .then((res) => {
-                console.log(res);
-                console.log('************');
-                console.log('** Posted **');
-                console.log('************');
+                // console.log(res);
+                // console.log('************');
+                // console.log('** Posted **');
+                // console.log('************');
 
                 setPosted(true);
             })
@@ -96,7 +95,7 @@ const RegisterProductScreen = ({ navigation }) => {
                 if (error.response.status === 400) {
                     console.log(error.response.data);
                 }
-                console.log(error);
+                // console.log(error);
                 
                 setErrorModal(true);
             });

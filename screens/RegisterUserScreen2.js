@@ -44,14 +44,13 @@ const RegisterUserScreen2 = ({ navigation }) => {
         })
             .then(() => {
                 setPosted(true);
-                console.log('************');
-                console.log('** Posted **');
-                console.log('************');
-
-                setPosted(true);
+                
+                // console.log('************');
+                // console.log('** Posted **');
+                // console.log('************');
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
 
                 setErrorModal(true);
             });

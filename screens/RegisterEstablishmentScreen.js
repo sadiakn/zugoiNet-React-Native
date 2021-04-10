@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 import LoadingEffect from '../components/loadingEffect';
 
 import zugoi from '../api/zugoi';
-import { color } from 'react-native-reanimated';
 
 import ModalMessage from '../components/modalMessage';
 
@@ -33,7 +32,7 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
                 setLoading(true);
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
         ;
 
@@ -53,15 +52,15 @@ const RegisterEstablishmentScreen = ({ navigation }) => {
             }
         })
             .then((res) => {
-                console.log(res);
-                console.log('************');
-                console.log('** Posted **');
-                console.log('************');
+                // console.log(res);
+                // console.log('************');
+                // console.log('** Posted **');
+                // console.log('************');
 
                 setPosted(true);
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
                 
                 setErrorModal(true);
             });

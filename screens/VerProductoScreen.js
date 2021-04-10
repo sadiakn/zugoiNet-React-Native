@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, View, Image, ActivityIndicator, TouchableOpacity, Modal } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { color } from 'react-native-reanimated';
-import { withNavigation } from 'react-navigation';
 
-import RegPrice from '../components/regPrice';
 import zugoi from '../api/zugoi';
 import BackIcon from '../assets/Salir.png';
 import RefreshIcon from '../assets/refresh.png'
+
 const VerProductoScreen = ({ navigation }) => {
 
     const [results, setResults] = useState(null);
@@ -45,11 +43,11 @@ const VerProductoScreen = ({ navigation }) => {
             .catch((error) => {
                 if (error.response.status === 404) {
                     alert("Producto no Encontrado");
-                    console.log("Producto no Encontrado");
+                    // console.log("Producto no Encontrado");
                     navigation.navigate('RegProduct', { barCode: barCode, mode: 'Regi' });
                 }
                 else {
-                    console.log(error);
+                    // console.log(error);
                 }
 
             });
