@@ -1,34 +1,103 @@
-import  {createAppContainer} from  'react-navigation';
-import  {createStackNavigator} from 'react-navigation-stack';
-import LoginScreen from './screens/loginScreen';
-import DashboardScreen from './screens/dashboardScreen';
+import React from 'react';
+import { StyleSheet, Text, View, Image, ActivityIndicator, Button, TouchableOpacity } from 'react-native';
+import {
+    createAppContainer,
+    createSwitchNavigator
+
+} from 'react-navigation';
+
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator, tabBarIcon } from 'react-navigation-tabs';
+
+import LoginScreen from './screens/LoginScreen';
+import RegisterUserScreen from './screens/RegisterUserScreen';
+import RegisterUserScreen2 from './screens/RegisterUserScreen2';
+
+import DashboardScreen from './screens/DashboardScreen';
+import ScannerScreen from './screens/ScannerScreen';
+import RegisterProductScreen from './screens/RegisterProductScreen';
+import RegisterSucursalScreen from './screens/RegisterSucursalScreen';
+import RegisterEstablishmentScreen from './screens/RegisterEstablishmentScreen';
+
+import VerProductoScreen from './screens/VerProductoScreen';
+import SearchProductoScreen from './screens/SearchProductoScreen';
+
+import RegPriceScreen from './screens/RegPriceScreen';
+
+import BarcodeIcon from './assets/barcodeTabIcon.png';
+import HomeIcon from './assets/HomeIcon.png'
+import LupaIcon from './assets/LupaIcon.png'
+
 import AuthLoadingScreen from './screens/authLoadingScreen';
 
-const BeforeSignin =  createStackNavigator({
-    Login:{
-    screen: LoginScreen
-    }
-}, {
-    headerMode: "none",
-    initialRouteName: "Login"
-})
+const scannerFlow = createStackNavigator({
+    Scanner: ScannerScreen,
+    VerProducto: VerProductoScreen,
+    Price: RegPriceScreen,
+});
 
-const AfterSignin =  createStackNavigator({
-    Dashboard:{
-        screen: DashboardScreen
-    }
-}, {
-    headerMode:"none",
-    initialRouteName:"Dashboard"
-})
+const switchNavigator = createSwitchNavigator({
+    loginFlow: createStackNavigator({
+        Login: LoginScreen,
+        RegUser: RegisterUserScreen,
+        RegUser2: RegisterUserScreen2
+    }),
+    mainFlow: createBottomTabNavigator({
+        dashBoardFlow: {
+            screen: createStackNavigator({
+                Dashboard: DashboardScreen,
+                scannerFlow: { screen: scannerFlow, navigationOptions: { headerShown: false } },
+                RegProduct: RegisterProductScreen,
+                RegSucursal: RegisterSucursalScreen,
+                RegEstablishment: RegisterEstablishmentScreen
+            }), navigationOptions: {
+                tabBarOptions: { showIcon: true, showLabel: false },
+                tabBarIcon: ({ focused }) => {
+                    return (
+                        <Image
+                            source={HomeIcon}
+                            style={{ height: 25, width: 25, alignSelf: 'center', resizeMode: "contain", flex: 1 }}
+                        />
+                    )
+                },
+                headerShown: false,
+            }
+        },
+        scannerFlow: {
+            screen: scannerFlow,
+            navigationOptions: {
+                tabBarOptions: { showIcon: true, showLabel: false },
+                tabBarIcon: ({ focused }) => {
+                    return (
+                        <Image
+                            source={BarcodeIcon}
+                            style={{ height: 50, width: 70, alignSelf: 'center', resizeMode: "contain", flex: 1 }}
+                        />
+                    )
+                },
+                headerShown: false,
 
-const AppNavigator =  createStackNavigator({
-    Auth: BeforeSignin,
-    App: AfterSignin,
+            }
+        },
+        searchFlow: {
+            screen: createStackNavigator({
+                SearchProducto: SearchProductoScreen,
+                VerProducto: VerProductoScreen
+            }), navigationOptions: {
+                tabBarOptions: { showIcon: true, showLabel: false },
+                tabBarIcon: ({ focused }) => {
+                    return (
+                        <Image
+                            source={LupaIcon}
+                            style={{ height: 25, width: 25, alignSelf: 'center', resizeMode: "contain", flex: 1 }}
+                        />
+                    )
+                },
+                headerShown: false,
+            }
+        }
+    }, { resetOnBlur: true, tabBarOptions: { showLabel: false } }),
     AuthLoadingScreen: AuthLoadingScreen
-},  {
-        headerMode: "none",
-        initialRouteName: "AuthLoadingScreen"
-})
+},{initialRouteName: "AuthLoadingScreen"});
 
-export default createAppContainer (AppNavigator);
+export default createAppContainer(switchNavigator);

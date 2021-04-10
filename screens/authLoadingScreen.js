@@ -1,40 +1,38 @@
-import React from 'react';
-import { View, StyleSheet, ActivityIndicator} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'; 
+import React, { useEffect } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-class  AuthLoadingScreen extends React.Component{
-    constructor(){
-        super();
-        this.checkToken();
-    }
-    checkToken = async() => {
+const AuthLoadingScreen = ({navigation}) => {
+    const checkToken = async () => {
         const token = await AsyncStorage.getItem("token");
-        if(token) {
-            this.props.navigation.navigate("App");
+        // console.log('-- AUTH --');
+        // console.log(token);
+        if (token) {
+            navigation.navigate("Dashboard");
         }
-        else{
-            this.props.navigation.navigate("Auth");
+        else {
+            navigation.navigate("loginFlow");
         }
     }
-    
-    render(){
-        return(
+
+    useEffect(() => {
+        checkToken();
+    }, []);
+
+    return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" color="#0000ff"/>
+            <ActivityIndicator size="large" color="#EE712E" />
         </View>
-        )
-    }
+    )
 }
+
 
 export default AuthLoadingScreen;
 
 const styles = StyleSheet.create({
-    container:{
-        height:"100%",
-        alignItems:"center",
-        justifyContent:"center"
+    container: {
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center"
     },
-  
-    
-    
 })
