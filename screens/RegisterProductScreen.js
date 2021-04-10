@@ -96,7 +96,7 @@ const RegisterProductScreen = ({ navigation }) => {
                     console.log(error.response.data);
                 }
                 // console.log(error);
-                
+
                 setErrorModal(true);
             });
     };
@@ -126,18 +126,16 @@ const RegisterProductScreen = ({ navigation }) => {
             alert("Error! Rellenar: " + err);
             return;
         }
-        
+
         // API CALL
         RegProdApi();
     }
 
     return (
-        <FlatList
-            style={[styles.mycontent, { backgroundColor: "white", }]}
-            ListHeaderComponent={
-                <>
-                    {posted ? (
-                        <ModalMessage
+        <View style={[styles.mycontent, { backgroundColor: "white", }]}>
+            <>
+                {posted ? (
+                    <ModalMessage
                         Type='Checked'
                         Title='¡Producto Registrado!'
                         Message='¡El producto ha sido registrado!'
@@ -147,107 +145,106 @@ const RegisterProductScreen = ({ navigation }) => {
                         navigation={navigation}
                         Nav='Dashboard'
                     />
-                    ) : null}
-                    {errorModal ? (
-                        <ModalMessage
-                            Title='¡Error!'
-                            Message='¡Algo salio mal!'
-                            Button='Fail'
-                            Visible={errorModal}
-                            onPress={setErrorModal}
-                            navigation={navigation}
-                        />
-                    ) : null}
-                    {/* {modalError ? <RegError visible={modalError} setVisible={setModalError} /> : null} */}
-                    <View style={[styles.mycontent, { backgroundColor: "white", }]}>
-                        {loading ?
-                            <>
-                                <Text style={styles.welcomeText}>Registrar Producto</Text>
+                ) : null}
+                {errorModal ? (
+                    <ModalMessage
+                        Title='¡Error!'
+                        Message='¡Algo salio mal!'
+                        Button='Fail'
+                        Visible={errorModal}
+                        onPress={setErrorModal}
+                        navigation={navigation}
+                    />
+                ) : null}
+                {/* {modalError ? <RegError visible={modalError} setVisible={setModalError} /> : null} */}
+                <View style={[styles.mycontent, { backgroundColor: "white", }]}>
+                    {loading ?
+                        <>
+                            <Text style={styles.welcomeText}>Registrar Producto</Text>
 
-                                {/* Linea horizontal */}
-                                <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
+                            {/* Linea horizontal */}
+                            <View style={{ justifyContent: "center", alignItems: 'center' }}><View style={styles.borderLine}></View></View>
 
-                                <View style={[{ backgroundColor: "white", }]} >
-                                    <View style={styles.myrow}>
 
-                                        <View style={[styles.mytextboxS, { marginRight: 20 }]}>
-                                            <TextInput style={styles.textInputSmall}
-                                                placeholder="Codigo de Barra"
-                                                placeholderTextColor="#333"
-                                                value={barCode}
-                                                editable={false}
+                            <View style={styles.myrow}>
+
+                                <View style={[styles.mytextboxS, { marginRight: 20 }]}>
+                                    <TextInput style={styles.textInputSmall}
+                                        placeholder="Codigo de Barra"
+                                        placeholderTextColor="#333"
+                                        value={barCode}
+                                        editable={false}
+                                    />
+                                </View>
+
+                                <TouchableOpacity style={styles.scanBTn} title="scan" onPress={() => navigation.navigate('Scanner', { mode: 'Reg' })}>
+                                    <View ><Image source={scanimg} style={styles.buttonimage} /></View>
+                                </TouchableOpacity>
+
+                            </View>
+
+                            <View>
+                                <TouchableOpacity style={styles.camaraBTn} title="camara" onPress={openImagePickerAsync}>
+                                    {(selectedImage !== null) ? (
+                                        <View>
+                                            <Image
+                                                source={{ uri: selectedImage.localUri }}
+                                                style={styles.thumbnail}
                                             />
                                         </View>
+                                    ) : (
+                                        <View>
+                                            <View style={styles.thumbnail}><Image source={camaraimg} /></View>
+                                        </View>
+                                    )}
 
-                                        <TouchableOpacity style={styles.scanBTn} title="scan" onPress={() => navigation.navigate('Scanner', { mode: 'Reg' })}>
-                                            <View ><Image source={scanimg} style={styles.buttonimage} /></View>
-                                        </TouchableOpacity>
+                                </TouchableOpacity>
+                                <Text style={styles.camaraBTnText}>{(selectedImage !== null) ? ('Imagen Seleccionada') : ('Tomar Imagen del Producto')}</Text>
+                            </View>
 
-                                    </View>
+                            <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
+                                <TextInput style={styles.textInput}
+                                    placeholder="Nombre del Producto"
+                                    placeholderTextColor="#333"
+                                    value={productName}
+                                    onChangeText={setProductName}
+                                />
+                            </View>
+                            <View style={[styles.mytextboxL, {}]}>
+                                <DropDownPicker
+                                    items={items}
+                                    defaultValue={categoryId}
+                                    placeholder={"Selecciona la categoria"}
 
-                                    <View>
-                                        <TouchableOpacity style={styles.camaraBTn} title="camara" onPress={openImagePickerAsync}>
-                                            {(selectedImage !== null) ? (
-                                                <View>
-                                                    <Image
-                                                        source={{ uri: selectedImage.localUri }}
-                                                        style={styles.thumbnail}
-                                                    />
-                                                </View>
-                                            ) : (
-                                                <View>
-                                                    <View style={styles.thumbnail}><Image source={camaraimg} /></View>
-                                                </View>
-                                            )}
+                                    placeholderStyle={{
+                                        color: 'gray',
+                                    }}
+                                    style={{ backgroundColor: '#fafafa', borderColor: 'black', }}
+                                    itemStyle={{
+                                        justifyContent: 'flex-start'
 
-                                        </TouchableOpacity>
-                                        <Text style={styles.camaraBTnText}>{(selectedImage !== null) ? ('Imagen Seleccionada') : ('Tomar Imagen del Producto')}</Text>
-                                    </View>
+                                    }}
+                                    containerStyle={{
+                                        width: "100%",
+                                        height: 50,
+                                    }}
+                                    dropDownStyle={{ backgroundColor: '#fafafa' }} a
+                                    onChangeItem={({ value }) => {
+                                        setCategoryId(value)
+                                    }}
+                                />
 
-                                    <View style={[styles.mytextboxL, { backgroundColor: "green", }]} >
-                                        <TextInput style={styles.textInput}
-                                            placeholder="Nombre del Producto"
-                                            placeholderTextColor="#333"
-                                            value={productName}
-                                            onChangeText={setProductName}
-                                        />
-                                    </View>
-                                    <View style={[styles.mytextboxL, {}]}>
-                                        <DropDownPicker
-                                            items={items}
-                                            defaultValue={categoryId}
-                                            placeholder={"Selecciona la categoria"}
-
-                                            placeholderStyle={{
-                                                color: 'gray',
-                                            }}
-                                            style={{ backgroundColor: '#fafafa', borderColor: 'black', }}
-                                            itemStyle={{
-                                                justifyContent: 'flex-start'
-
-                                            }}
-                                            containerStyle={{
-                                                width: "100%",
-                                                height: 50,
-                                            }}
-                                            dropDownStyle={{ backgroundColor: '#fafafa' }} a
-                                            onChangeItem={({ value }) => {
-                                                setCategoryId(value)
-                                            }}
-                                        />
-                                    </View>
-                                    <TouchableOpacity
-                                        activeOpacity={0.8}
-                                        style={styles.btn}
-                                        onPress={onSubmit}>
-                                        <Text style={styles.BTnText}>Registrar</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </> : <LoadingEffect />}
-                    </View>
-                </>
-            }
-        />
+                            </View>
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                style={styles.btn}
+                                onPress={onSubmit}>
+                                <Text style={styles.BTnText}>Registrar</Text>
+                            </TouchableOpacity>
+                        </> : <LoadingEffect />}
+                </View>
+            </>
+        </View>
     );
 };
 
